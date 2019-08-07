@@ -1,0 +1,34 @@
+body {
+    background: white;
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    font-family: 'Roboto', 'sans-serif';
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    background: white;
+
+    .inner {
+        background: black;
+        color: white;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+
+        h1 {
+            font-size: 10rem;
+        }
+
+        p {
+            font-size: 2rem;
+        }
+    }
+}
