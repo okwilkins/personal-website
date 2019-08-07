@@ -1,6 +1,6 @@
 IndexIgnore *.md
 
-<Files .htaccess>
+<Files index.html>
 order allow,deny
 deny from all
 </Files>
