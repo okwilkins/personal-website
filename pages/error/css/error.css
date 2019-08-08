@@ -2,6 +2,7 @@ body {
   background: white;
   margin: 0;
   height: 100vh;
+  width: 100vw;
   font-family: 'Roboto', 'sans-serif';
 }
 
