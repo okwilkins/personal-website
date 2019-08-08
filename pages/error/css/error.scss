@@ -2,33 +2,56 @@ body {
     background: white;
     margin: 0;
     height: 100vh;
-    display: grid;
-    justify-items: center;
-    align-items: center;
     font-family: 'Roboto', 'sans-serif';
 }
 
 .container {
+    background: black;
+    color: white;
     height: 100%;
     width: 100%;
-    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
 
-    .inner {
-        background: black;
-        color: white;
-        height: 100%;
-        width: 100%;
+    .text {
         display: flex;
         justify-content: center;
         justify-items: center;
         align-items: center;
+        width: 90%;
+        padding: 2rem;
 
         h1 {
             font-size: 10rem;
+            margin: 0;
         }
 
         p {
             font-size: 2rem;
+            margin: 0;
+        }
+    }
+
+    .btn {
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        background-color: black;
+        border-style: solid;
+        border-width: 1px;
+        color: inherit;
+        width: 10rem;
+        padding: 0.75rem 0rem;
+        text-decoration: none;
+        opacity: 0.5;
+        transition: opacity 0.3s ease-in;
+
+        &:hover {
+            opacity: 1;
         }
     }
 }
