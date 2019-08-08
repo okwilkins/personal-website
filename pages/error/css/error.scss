@@ -1,14 +1,14 @@
+html,
 body {
-    background: white;
     margin: 0;
-    height: 100vh;
-    width: 100vw;
+    width: 100%;
+    height: 100%;
     font-family: 'Roboto', 'sans-serif';
 }
 
 .container {
     background: black;
-    color: white;
+    color: rgb(204, 191, 191);
     height: 100%;
     width: 100%;
     display: flex;
