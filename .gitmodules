@@ -1,0 +1,4 @@
+[submodule "okwilkins.dev/public"]
+	path = okwilkins.dev/public
+	url = https://github.com/okwilkins/okwilkins.github.io
+	branch = main

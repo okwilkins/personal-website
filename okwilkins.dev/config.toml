@@ -1,0 +1,5 @@
+baseURL = 'https://www.okwilkins.dev/'
+languageCode = 'en-uk'
+title = 'Oli Wilkins'
+
+theme='hugo-theme-terminal'
