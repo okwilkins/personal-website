@@ -2,6 +2,7 @@ baseURL = 'https://www.okwilkins.dev/'
 languageCode = 'en-uk'
 title = 'Oli Wilkins'
 theme = 'terminal'
+enableGitInfo = true
 
 [params]
   # dir name of your main content (default is `content/posts`).
@@ -12,7 +13,7 @@ theme = 'terminal'
   themeColor = "blue"
 
   # if you set this to 0, only submenu trigger will be visible
-  showMenuItems = 2
+  showMenuItems = 5
 
   # show selector to switch language
   showLanguageSelector = false
@@ -21,7 +22,7 @@ theme = 'terminal'
   fullWidthTheme = false
 
   # center theme with default width
-  centerTheme = false
+  centerTheme = true
 
   # if your resource directory contains an image called `cover.(jpg|png|webp)`,
   # then the file will be used as a cover automatically.
@@ -30,7 +31,7 @@ theme = 'terminal'
 
   # set post to show the last updated
   # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated
-  showLastUpdated = false
+  showLastUpdated = true
 
   # set a custom favicon (default is a `themeColor` square)
   # favicon = "favicon.ico"
@@ -42,7 +43,7 @@ theme = 'terminal'
   # oneHeadingSize = true # default
 
   # whether to show a page's estimated reading time
-  # readingTime = false # default
+  # readingTime = true # default
 
   # whether to show a table of contents
   # can be overridden in a page's front-matter
@@ -51,3 +52,33 @@ theme = 'terminal'
   # set title for the table of contents
   # can be overridden in a page's front-matter
   # TocTitle = "Table of Contents" # default
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "Oli Wilkins"
+    subtitle = ""
+    owner = ""
+    keywords = ""
+    copyright = ""
+    menuMore = "Show more"
+    readMore = "Read more"
+    readOtherPosts = "Read other posts"
+    newerPosts = "Newer posts"
+    olderPosts = "Older posts"
+    missingContentMessage = "Page not found..."
+    missingBackButtonLabel = "Back to home page"
+
+    [languages.en.params.logo]
+      logoText = "Oli Wilkins"
+      logoHomeLink = "/"
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about"
+      [[languages.en.menu.main]]
+        identifier = "posts"
+        name = "Posts"
+        url = "/posts"
