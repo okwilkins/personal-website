@@ -12,11 +12,11 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
+      - name: Checkout Submodules
       - uses: actions/checkout@v3
-
-      - name: Git Sumbodule Update
-        run: |
-          git pull --recurse-submodules
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: recursive
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
