@@ -10,6 +10,8 @@ jobs:
   deploy:
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v3
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
@@ -32,8 +34,7 @@ jobs:
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git_hash=$(git rev-parse --short "$GITHUB_SHA")
           cd ./public
           git add .
-          git commit -m "Ref: $(git_hash)"
+          git commit -m "Synced from personal-website: $(date +%Y-%m-%d)"
           git push
