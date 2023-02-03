@@ -13,6 +13,12 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Git Sumbodule Update
+        run: |
+          git pull --recurse-submodules
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -27,7 +33,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          cd ./public
-          git add .
+          git add --all
           git commit -m "Synced from personal-website: $(date +%Y-%m-%d)"
           git push
