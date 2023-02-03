@@ -1,7 +1,3 @@
-[submodule "public"]
-	path = public
-	url = https://github.com/okwilkins/okwilkins.github.io.git
-	branch = main
 [submodule "themes/terminal"]
 	path = themes/terminal
 	url = https://github.com/panr/hugo-theme-terminal.git
