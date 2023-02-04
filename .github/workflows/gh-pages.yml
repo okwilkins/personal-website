@@ -12,11 +12,13 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - name: Checkout Submodules
+      - name: Access Github
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GENERAL_PAT }}
-          submodules: true
+      
+      - name: Pull Public Website Repository
+        run: git submodule update --recursive --remote public 
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
