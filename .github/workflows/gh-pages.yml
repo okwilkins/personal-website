@@ -12,13 +12,11 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - name: Access Github
+      - name: Checkout Submodules
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GENERAL_PAT }}
-      
-      - name: Pull Public Website Repository
-        run: git submodule update --recursive --remote public 
+          submodules: public
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -36,4 +34,4 @@ jobs:
           git config user.email github-actions@github.com
           git add --all
           git commit -m "Synced from personal-website: $(date +%Y-%m-%d)"
-          git push origin HEAD:main
+          git push origin -f HEAD:main
