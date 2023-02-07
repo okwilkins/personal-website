@@ -1,4 +1,4 @@
-name: obsidian export
+name: Obsidian Export
 
 on:
   schedule:
