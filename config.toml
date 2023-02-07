@@ -82,3 +82,7 @@ enableGitInfo = true
         identifier = "posts"
         name = "Posts"
         url = "/posts"
+      [[languages.en.menu.main]]
+        identifier = "knowledge-system"
+        name = "Knowledge System"
+        url = "/knowledge-system"
