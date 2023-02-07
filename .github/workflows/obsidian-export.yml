@@ -1,0 +1,36 @@
+name: obsidian export
+
+on:
+  schedule:
+      - cron: '*/5 * * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - name: Setup Github Credentials
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GENERAL_PAT }}
+
+      - name: Setup Obsidian Export
+        run: |
+          wget https://github.com/zoni/obsidian-export/releases/download/v22.11.0/obsidian-export_Linux-x86_64.bin -O obsidian-export
+          chmod +x obsidian-export
+          mv obsidian-export /usr/bin/obsidian-export
+      
+      - name: Clone Knowledge Base
+        run: |
+          git clone https://github.com/okwilkins/knowledge-system
+      
+      - name: Run Obsidian Export
+        run: |
+          mkdir -p ./content/knowledge-system
+          obsidian-export ./knowledge-system ./content/knowledge-system
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ./content/knowledge-system/.
+          git commit -m "Synced from knowledge-system: $(date +%Y-%m-%d)"
+          git push origin -f HEAD:main
