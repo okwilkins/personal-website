@@ -19,7 +19,7 @@ jobs:
         run: |
           wget https://github.com/zoni/obsidian-export/releases/download/v22.11.0/obsidian-export_Linux-x86_64.bin -O obsidian-export
           chmod +x obsidian-export
-          mv obsidian-export /usr/bin/obsidian-export
+          sudo mv obsidian-export /usr/bin/obsidian-export
       
       - name: Clone Knowledge Base
         run: |
