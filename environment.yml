@@ -1,0 +1,7 @@
+name: personal-website
+
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - .
