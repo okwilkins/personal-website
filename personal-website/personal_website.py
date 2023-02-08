@@ -45,16 +45,16 @@ def dict_from_file(
 
 
 def main() -> None:
-    print(
-        gen_header_string(
-            dict_from_file(
-                '../content/knowledge-system/slip-box/Definite Article.md',
-                header_end_char='-',
-                min_num_header_end_chars=2
-            ),
-            convert_key_to_camel_case=True
-        )
-    )
+    # print(
+    #     gen_header_string(
+    #         dict_from_file(
+    #             '../content/knowledge-system/slip-box/Definite Article.md',
+    #             header_end_char='-',
+    #             min_num_header_end_chars=2
+    #         ),
+    #         convert_key_to_camel_case=True
+    #     )
+    # )
 
     t = TerminalThemeMetaDataZettle(
         title="20230129211820",
@@ -62,7 +62,7 @@ def main() -> None:
         author="",
         author_twitter="",
         cover="",
-        tags=[],
+        tags=['[Language](Language.md)', '[Bulgarian](Bulgarian.md)', '[Verb](Verb.md)'],
         keywords=[],
         description="",
         show_full_content=False,
@@ -71,6 +71,9 @@ def main() -> None:
         zettle_id="20230129211820",
         zettle_tags=["Language", "Bulgarian", "Article", "Definite Article", "Indefinite Article"],
     )
+
+    t.convert_tag_links_to_text()
+    print(t.tags)
 
 
 if __name__ == '__main__':
