@@ -69,8 +69,10 @@ def case_to_camel_case(string: str, sep: str = ' ') -> str:
 
 def zettle_id_to_datetime(zettle_id: str) -> str:
     '''
-        Converts a Zettlecasten ID into a date time that will work with Hugo.
-        Example: 20230129211820 -> 2023-01-29T21:18:20
+    Converts a Zettlecasten ID into a date time that will work with Hugo.
+
+    Example:
+        20230129211820 -> 2023-01-29T21:18:20
     '''
     return (
         datetime.strptime(zettle_id, '%Y%m%d%H%M%S')
@@ -84,8 +86,8 @@ def text_is_attr_in_class(input: str) -> bool:
 
 def str_to_hugo_list(string: str, sep: str) -> str:
     '''
-        Converts a string seperated by a sep to a list that is compatible with Hugo.
-        If the seperator is not found in the string, the original string is returned.
+    Converts a string seperated by a sep to a list that is compatible with Hugo.
+    If the seperator is not found in the string, the original string is returned.
     '''
     if sep not in string:
         return string
@@ -96,12 +98,12 @@ def str_to_hugo_list(string: str, sep: str) -> str:
 
 def str_to_list(string: str, sep: str) -> list[str]:
     '''
-        Whilst ast.literal_eval exists, it cannot handle a string like:
-        [Language](Language.md), [Bulgarian](Bulgarian.md)
-        This is because there are no quotes around each element.
+    Whilst ast.literal_eval exists, it cannot handle a string like:
+    [Language](Language.md), [Bulgarian](Bulgarian.md)
+    This is because there are no quotes around each element.
 
-        If the seperator is not in the string the this wil return the orginal
-        string.
+    If the seperator is not in the string the this wil return the orginal
+    string.
     '''
     if sep not in string:
         return string
@@ -151,15 +153,15 @@ def dict_from_file(
     replace_line_end_char: bool = True
 ) -> dict[str, Optional[str]]:
     '''
-        Generate a dictionary of values from a header string at the top of
-        markdown files.
+    Generate a dictionary of values from a header string at the top of
+    markdown files.
 
-        Params:
-            path: The file path to the markdown file.
-            header_end_char: The charcter that indicates the end of a header.
-            min_num_header_end_chars: The minimum number of times the
-            header_end_char appears to indicate the end of a header.
-            replaceLine_end_char: Replace the \n char with nothing?
+    Params:
+        path: The file path to the markdown file.
+        header_end_char: The charcter that indicates the end of a header.
+        min_num_header_end_chars: The minimum number of times the
+        header_end_char appears to indicate the end of a header.
+        replaceLine_end_char: Replace the \n char with nothing?
     '''
     output_dict = {}
 
