@@ -17,8 +17,7 @@ def str_to_hugo_list(string: str, sep: str) -> str:
 
 def str_to_key_value_pair(
     string: str,
-    sep: str,
-    list_sep: Optional[str] = None
+    sep: str
 ) -> Optional[tuple[str, Optional[str]]]:
     '''
     Converts a string to a key-value pair. The key must be a string and contain no
@@ -28,11 +27,9 @@ def str_to_key_value_pair(
     Params:
         string: The input string to be converted.
         sep: The string that seperates the key-value pair.
-        list_sep: (Optional) The seperator that seperates each value if a list is
-        being supplied.
 
     Example:
-        string = Zettelcasten Index: 20230129211820, serpator = :\s
+        string = Zettelcasten Index: 20230129211820, serpator = :\\s
         returns: ('Zettelcasten Index', '20230129211820')
     '''
     if sep not in string:
@@ -43,9 +40,6 @@ def str_to_key_value_pair(
     value = split_text[1].strip()
 
     value = None if value == '' else value
-
-    if (list_sep is not None) and (list_sep in value):
-        value = value.split(list_sep)
 
     return key, value
 
@@ -60,9 +54,20 @@ def str_to_list(string: str, sep: str) -> list[str]:
     string.
     '''
     if sep not in string:
-        return string
+        return [string]
 
     return [*string.split(sep)]
+
+
+def remove_empty_strs(strings: list[str]) -> list[str]:
+    '''Removes any elements that contain empty '' strings from a list.'''
+    new_strings = []
+
+    for string in strings:
+        if string != '':
+            new_strings.append(string)
+    
+    return new_strings
 
 
 def zettle_id_to_datetime(zettle_id: str) -> str:
@@ -131,3 +136,8 @@ def link_text_from_markdown(string: str) -> list[str]:
     '''Find all links in a markdown string and extracts the link text.'''
     RE_EXPRESSION = r'^\[([A-Za-z0-9]+)\]\([^\(\)]*\)$'
     return re.findall(RE_EXPRESSION, string)
+
+
+def snake_case_str(string: str, sep: str) -> str:
+    '''Converts a string into snake_case.'''
+    return string.lower().replace(sep, '_')
