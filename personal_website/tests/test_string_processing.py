@@ -41,6 +41,10 @@ class TestStringProcessing(unittest.TestCase):
             str_to_key_value_pair('Zettelcasten Index:  ', ': '),
             ('Zettelcasten Index', None)
         )
+        self.assertEqual(
+            str_to_key_value_pair('Zettelcasten Index: 20230129211820', ''),
+            None
+        )
     
     def test_str_to_list(self) -> None:
         self.assertEqual(
@@ -59,16 +63,72 @@ class TestStringProcessing(unittest.TestCase):
             str_to_list('[[Language]], [[Noun]]', ' - '),
             ['[[Language]], [[Noun]]']
         )
-        self.assertEqual('', [''])
+        self.assertEqual(str_to_list('', ', '), [''])
+        self.assertEqual(
+            str_to_list('[[Language]], [[Noun]]', ''),
+            ["[[Language]], [[Noun]]"]
+        )
 
     def test_remove_empty_strs(self) -> None:
-        ...
+        self.assertEqual(
+            remove_empty_strs(['']),
+            []
+        )
+        self.assertEqual(
+            remove_empty_strs(['[[Language]]', '[[Noun]]']),
+            ['[[Language]]', '[[Noun]]']
+        )
+        self.assertEqual(
+            remove_empty_strs(['[[Language]]', '[[Noun]]', '']),
+            ['[[Language]]', '[[Noun]]']
+        )
+        self.assertEqual(
+            remove_empty_strs(['[[Language]]', '', '']),
+            ['[[Language]]']
+        )
 
     def test_zettle_id_to_datetime(self) -> None:
-        ...
+        self.assertEqual(
+            zettle_id_to_datetime('20230129211820'),
+            '2023-01-29T21:18:20'
+        )
+        self.assertEqual(
+            zettle_id_to_datetime('19970201211820'),
+            '1997-02-01T21:18:20'
+        )
+        self.assertEqual(
+            zettle_id_to_datetime('19600201211820'),
+            '1960-02-01T21:18:20'
+        )
+        self.assertEqual(
+            zettle_id_to_datetime('2023012921182'),
+            '2023-01-29T21:18:02'
+        )
+        with self.assertRaises(ValueError):
+            zettle_id_to_datetime('')
+        with self.assertRaises(ValueError):
+            zettle_id_to_datetime('202301292118201')
+        with self.assertRaises(ValueError):
+            zettle_id_to_datetime('202300292118201')
+
 
     def test_case_to_camel_case(self) -> None:
-        ...
+        self.assertEqual(
+            case_to_camel_case('snake_case', '_'),
+            'snakeCase'
+        )
+        self.assertEqual(
+            case_to_camel_case('snake_case', ' '),
+            'snake_case'
+        )
+        self.assertEqual(
+            case_to_camel_case('snake_case', ''),
+            'snake_case'
+        )
+        self.assertEqual(
+            case_to_camel_case('""', '_'),
+            '""'
+        )
 
     def test_gen_header_line(self) -> None:
         ...

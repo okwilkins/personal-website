@@ -32,7 +32,7 @@ def str_to_key_value_pair(
         string = Zettelcasten Index: 20230129211820, serpator = :\\s
         returns: ('Zettelcasten Index', '20230129211820')
     '''
-    if sep not in string:
+    if sep not in string or sep == '':
         return None
 
     split_text = string.split(sep, 1)
@@ -53,7 +53,7 @@ def str_to_list(string: str, sep: str) -> list[str]:
     If the seperator is not in the string the this wil return the orginal
     string.
     '''
-    if sep not in string:
+    if sep not in string or sep == '':
         return [string]
 
     return [*string.split(sep)]
@@ -85,6 +85,9 @@ def zettle_id_to_datetime(zettle_id: str) -> str:
 
 def case_to_camel_case(string: str, sep: str = ' ') -> str:
     '''Converts text into camelCase.'''
+    if sep == '':
+        return string
+
     first, *others = string.split(sep)
     return ''.join([first.lower(), *map(str.title, others)])
 
