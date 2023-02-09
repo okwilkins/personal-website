@@ -1,5 +1,6 @@
 from typing import Optional
 from datetime import datetime
+import re
 
 
 def str_to_hugo_list(string: str, sep: str) -> str:
@@ -111,3 +112,9 @@ def gen_header_string(
 
     header_lines.append('+++')
     return '\n'.join(header_lines)
+
+
+def link_text_from_markdown(string: str) -> list[str]:
+    '''Find all links in a markdown string and extracts the link text.'''
+    RE_EXPRESSION = r'^\[([A-Za-z0-9]+)\]\([^\(\)]*\)$'
+    return re.findall(RE_EXPRESSION, string)

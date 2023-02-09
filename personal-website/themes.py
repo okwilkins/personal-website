@@ -1,6 +1,5 @@
 from dataclasses import dataclass, fields
-from string_processing import case_to_camel_case
-import re
+from string_processing import case_to_camel_case, link_text_from_markdown
 
 
 @dataclass
@@ -24,11 +23,8 @@ class TerminalThemeMetaData:
     
     def convert_tag_links_to_text(self) -> None:
         '''Convert markdown based links into the link text.'''
-        # Match onto the text instead of square brakets found in markdown links
-        RE_EXPRESSION = r'^\[([A-Za-z0-9]+)\]\([^\(\)]*\)$'
-
         for i, tag in enumerate(self.tags):
-            match re.findall(RE_EXPRESSION, tag):
+            match link_text_from_markdown(tag):
                 case [str(match), *_]:
                     self.tags[i] = match
 
