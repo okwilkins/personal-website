@@ -84,6 +84,32 @@ def case_to_camel_case(string: str, sep: str = ' ') -> str:
     return ''.join([first.lower(), *map(str.title, others)])
 
 
+def gen_header_line(key: str, value: any) -> str:
+    '''
+    Takes in a key value pair and generates a line for the header of Hugo
+    markdown files.
+    '''
+    output_line = ''
+
+    # If the string does not represent a list, the original string is returned
+    match value:
+        case str():
+            value = str_to_list(str(value), ', ')
+
+    match value:
+        case str() | int() | float():
+            output_line = f'{key} = "{value}"'
+        case bool():
+            output_line = f'{key} = {str(value).lower()}'
+        case list():
+            value = [f'"{v}"' for v in value]
+            output_line = f'{key} = [{", ".join(value)}]'
+        case _:
+            raise NotImplementedError
+    
+    return output_line
+
+
 def gen_header_string(
     header_args: dict[str, any],
     convert_key_to_camel_case: bool = False
@@ -95,20 +121,7 @@ def gen_header_string(
         if convert_key_to_camel_case:
             key = case_to_camel_case(key, ' ')
         
-        match value:
-            case str():
-                value = str_to_list(str(value), ', ')
-
-        match value:
-            case str() | int() | float():
-                header_lines.append(f'{key} = "{value}"')
-            case bool():
-                header_lines.append(f'{key} = {str(value).lower()}')
-            case list():
-                value = [f'"{v}"' for v in value]
-                header_lines.append(f'{key} = [{", ".join(value)}]')
-            case _:
-                raise NotImplementedError
+        header_lines.append(gen_header_line(key=key, value=value))
 
     header_lines.append('+++')
     return '\n'.join(header_lines)

@@ -45,16 +45,16 @@ def dict_from_file(
 
 
 def main() -> None:
-    # print(
-    #     gen_header_string(
-    #         dict_from_file(
-    #             '../content/knowledge-system/slip-box/Definite Article.md',
-    #             header_end_char='-',
-    #             min_num_header_end_chars=2
-    #         ),
-    #         convert_key_to_camel_case=True
-    #     )
-    # )
+    print(
+        gen_header_string(
+            dict_from_file(
+                '../content/knowledge-system/slip-box/Noun.md',
+                header_end_char='-',
+                min_num_header_end_chars=2
+            ),
+            convert_key_to_camel_case=True
+        )
+    )
 
     t = TerminalThemeMetaDataZettle(
         title="20230129211820",
