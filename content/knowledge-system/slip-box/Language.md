@@ -1,2 +1,4 @@
 Status: #MOC 
-Tags:
+Zettelcasten Tags:
+
+---

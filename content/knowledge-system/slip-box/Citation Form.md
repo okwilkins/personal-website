@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230129220329
 Sequence:
 Status: #idea
-Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), [Verb](Verb.md)
+Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), [Verb](Verb.md)
 
 ---
 

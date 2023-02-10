@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230129210906
 Sequence:
 Status: #idea
-Tags: [Language](Language.md), *Article*
+Zettelcasten Tags: [Language](Language.md), *Article*
 
 ---
 
