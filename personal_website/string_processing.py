@@ -47,7 +47,7 @@ def str_to_key_value_pair(
 def str_to_list(string: str, sep: str) -> list[str]:
     '''
     Whilst ast.literal_eval exists, it cannot handle a string like:
-    \[Language\](Language.md), \[Bulgarian\](Bulgarian.md)
+    \\[Language\\](Language.md), \\[Bulgarian\\](Bulgarian.md)
     This is because there are no quotes around each element.
 
     If the seperator is not in the string the this wil return the orginal
@@ -66,7 +66,7 @@ def remove_empty_strs(strings: list[str]) -> list[str]:
     for string in strings:
         if string != '':
             new_strings.append(string)
-    
+
     return new_strings
 
 
@@ -77,7 +77,7 @@ def zettle_id_to_datetime(zettle_id: str) -> str:
     Example:
         20230129211820 -> 2023-01-29T21:18:20
     '''
-    if len (zettle_id) > 14:
+    if len(zettle_id) > 14:
         # Helps with ids like: 20230129213905-a1
         zettle_id = zettle_id[:14]
     return (
@@ -113,7 +113,7 @@ def gen_header_line(key: str, value: any) -> str:
             output_line = f'{key} = [{", ".join(value)}]'
         case _:
             raise NotImplementedError
-    
+
     return output_line
 
 
