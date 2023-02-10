@@ -80,14 +80,14 @@ def format_file(path: str) -> None:
     with open(path, 'r') as f:
         file_lines = f.readlines()
 
-    header=HeaderFactory.get_section(
+    header = HeaderFactory.get_section(
         lines=file_lines,
         header_start_str=None,
         header_end_str='---',
         key_value_sep=':'
     )
 
-    body=BodyFactory.get_section(
+    body = BodyFactory.get_section(
         lines=file_lines,
         body_start_str='---'
     )
@@ -101,5 +101,6 @@ def format_file(path: str) -> None:
 
 
 if __name__ == '__main__':
+    # TODO: Maek a CLI interface for all this and fix cohesion issues with main
     for file in glob('./content/knowledge-system/slip-box/*.md'):
         format_file(file)
