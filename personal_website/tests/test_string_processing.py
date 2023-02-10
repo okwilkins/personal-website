@@ -104,10 +104,16 @@ class TestStringProcessing(unittest.TestCase):
             zettle_id_to_datetime('2023012921182'),
             '2023-01-29T21:18:02'
         )
+        self.assertEqual(
+            zettle_id_to_datetime('20230129213905-a1'),
+            '2023-01-29T21:39:05'
+        )
+        self.assertEqual(
+            zettle_id_to_datetime('202301292118201'),
+            '2023-01-29T21:18:20'
+        )
         with self.assertRaises(ValueError):
             zettle_id_to_datetime('')
-        with self.assertRaises(ValueError):
-            zettle_id_to_datetime('202301292118201')
         with self.assertRaises(ValueError):
             zettle_id_to_datetime('202300292118201')
 

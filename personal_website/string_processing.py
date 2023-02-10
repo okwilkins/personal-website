@@ -77,6 +77,9 @@ def zettle_id_to_datetime(zettle_id: str) -> str:
     Example:
         20230129211820 -> 2023-01-29T21:18:20
     '''
+    if len (zettle_id) > 14:
+        # Helps with ids like: 20230129213905-a1
+        zettle_id = zettle_id[:14]
     return (
         datetime.strptime(zettle_id, '%Y%m%d%H%M%S')
         .strftime('%Y-%m-%dT%H:%M:%S')
