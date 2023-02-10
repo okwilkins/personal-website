@@ -11,12 +11,32 @@ jobs:
     runs-on: ubuntu-22.04
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
+    strategy:
+      matrix:
+        python-version: ["3.11"]
     steps:
       - name: Checkout Submodules
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GENERAL_PAT }}
           submodules: true
+      
+      - name: Setup Miniconda using Python ${{ matrix.python-version }}
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: test
+          environment-file: environment.yml
+          python-version: ${{ matrix.python-version }}
+          auto-activate-base: false
+
+      - name: Install dependencies
+        shell: bash -l {0}
+        run: |
+          conda env update --file environment.yml
+      
+      - name: Format Obsidian Markdown to Hugo Markdown
+        run: |
+          python ./personal_website/personal_website.py
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2

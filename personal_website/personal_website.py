@@ -101,5 +101,5 @@ def format_file(path: str) -> None:
 
 
 if __name__ == '__main__':
-    for file in glob('../content/knowledge-system/slip-box/*.md'):
+    for file in glob('./content/knowledge-system/slip-box/*.md'):
         format_file(file)
