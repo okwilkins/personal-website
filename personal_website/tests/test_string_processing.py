@@ -1,5 +1,16 @@
 import unittest
-from personal_website.string_processing import *
+from personal_website.string_processing import (
+    link_text_from_markdown,
+    case_to_camel_case,
+    gen_header_line,
+    gen_header_string,
+    remove_empty_strs,
+    snake_case_str,
+    str_to_hugo_list,
+    str_to_list,
+    str_to_key_value_pair,
+    zettle_id_to_datetime
+)
 
 
 class TestStringProcessing(unittest.TestCase):
