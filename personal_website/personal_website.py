@@ -21,12 +21,7 @@ def main(file: HeaderFile) -> HeaderFile:
     BOOL_FIELDS = [str(field) for field in TerminalThemeZettleField.get_bool_fields()]
 
     file_header_data = file.header.get_data()
-    # Filter data
-    file_header_data = {
-        key: value
-        for key, value in file_header_data.items()
-        if key in FIELDS
-    }
+
     # Convert keys to snake_case
     file_header_data = {
         snake_case_str(key, ' '): value
