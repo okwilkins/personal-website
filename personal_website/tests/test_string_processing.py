@@ -131,16 +131,114 @@ class TestStringProcessing(unittest.TestCase):
         )
 
     def test_gen_header_line(self) -> None:
-        ...
+        self.assertEqual(
+            gen_header_line('title', 'Noun'),
+            'title = "Noun"'
+        )
+        self.assertEqual(
+            gen_header_line('title', ''),
+            'title = ""'
+        )
+        self.assertEqual(
+            gen_header_line('title', 1),
+            'title = "1"'
+        )
+        self.assertEqual(
+            gen_header_line('title', 1.2),
+            'title = "1.2"'
+        )
+        self.assertEqual(
+            gen_header_line('showComments', True),
+            'showComments = true'
+        )
+        self.assertEqual(
+            gen_header_line('showComments', False),
+            'showComments = false'
+        )
+        self.assertEqual(
+            gen_header_line('showComments', ['Language', 'Noun']),
+            'showComments = ["Language", "Noun"]'
+        )
+        self.assertEqual(
+            gen_header_line('showComments', []),
+            'showComments = []'
+        )
+        with self.assertRaises(NotImplementedError):
+            self.assertEqual(gen_header_line('title', (1, 2, 3)))
 
     def test_gen_header_string(self) -> None:
-        ...
+        self.assertEqual(
+            gen_header_string([
+                'showComments = ["Language", "Noun"]',
+                'title = "Noun"'
+            ]),
+            (
+                '+++\n'
+                'showComments = ["Language", "Noun"]\n'
+                'title = "Noun"\n'
+                '+++'
+            )
+        )
+        self.assertEqual(
+            gen_header_string([]),
+            (
+                '+++\n'
+                '+++'
+            )
+        )
+        self.assertEqual(
+            gen_header_string(['']),
+            (
+                '+++\n'
+                '\n'
+                '+++'
+            )
+        )
+
 
     def test_link_text_from_markdown(self) -> None:
-        ...
+        self.assertEqual(
+            link_text_from_markdown('[Language](Language.md)'),
+            ['Language']
+        )
+        self.assertEqual(
+            link_text_from_markdown('[Language](Language.md) [Noun](Noun.md)'),
+            ['Language', 'Noun']
+        )
+        self.assertEqual(
+            link_text_from_markdown('Hello world!'),
+            []
+        )
+        self.assertEqual(
+            link_text_from_markdown(''),
+            []
+        )
 
     def test_snake_case_str(self) -> None:
-        ...
+        self.assertEqual(
+            snake_case_str('Show Comments', ' '),
+            'show_comments'
+        )
+        self.assertEqual(
+            snake_case_str('Show-Comments', '-'),
+            'show_comments'
+        )
+        self.assertEqual(
+            snake_case_str('test', ' '),
+            'test'
+        )
+        self.assertEqual(
+            snake_case_str('test', ''),
+            'test'
+        )
+        self.assertEqual(
+            snake_case_str('""', ' '),
+            '""'
+        )
+        self.assertEqual(
+            snake_case_str('', ' '),
+            ''
+        )
 
 
 if __name__ == '__main__':

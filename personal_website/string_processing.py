@@ -99,16 +99,12 @@ def gen_header_line(key: str, value: any) -> str:
     '''
     output_line = ''
 
-    # If the string does not represent a list, the original string is returned
     match value:
-        case str():
-            value = str_to_list(str(value), ', ')
-
-    match value:
-        case str() | int() | float():
-            output_line = f'{key} = "{value}"'
+        # Bool first as bool is a subset of int! It should be first!
         case bool():
             output_line = f'{key} = {str(value).lower()}'
+        case str() | int() | float():
+            output_line = f'{key} = "{value}"'
         case list():
             value = [f'"{v}"' for v in value]
             output_line = f'{key} = [{", ".join(value)}]'
@@ -118,29 +114,28 @@ def gen_header_line(key: str, value: any) -> str:
     return output_line
 
 
-def gen_header_string(
-    header_args: dict[str, any],
-    convert_key_to_camel_case: bool = False
-) -> str:
+def gen_header_string(header_lines: list[str]) -> str:
     '''Generates the header to Hugo markdown files.'''
-    header_lines = ['+++']
+    header = ['+++']
 
-    for key, value in header_args.items():
-        if convert_key_to_camel_case:
-            key = case_to_camel_case(key, ' ')
-        
-        header_lines.append(gen_header_line(key=key, value=value))
+    for line in header_lines:
+        header.append(line)
 
-    header_lines.append('+++')
-    return '\n'.join(header_lines)
+    header.append('+++')
+    return '\n'.join(header)
 
 
 def link_text_from_markdown(string: str) -> list[str]:
     '''Find all links in a markdown string and extracts the link text.'''
-    RE_EXPRESSION = r'^\[([A-Za-z0-9]+)\]\([^\(\)]*\)$'
+    RE_EXPRESSION = r'\[([A-Za-z0-9]+)\]\([^\(\)]*\)'
     return re.findall(RE_EXPRESSION, string)
 
 
 def snake_case_str(string: str, sep: str) -> str:
     '''Converts a string into snake_case.'''
-    return string.lower().replace(sep, '_')
+    string = string.lower()
+
+    if sep == '':
+        return string
+
+    return string.replace(sep, '_')
