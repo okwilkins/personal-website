@@ -10,10 +10,11 @@ from string_processing import (
 from themes import TerminalThemeZettleField
 from files import HeaderFile
 from file_section_factories import HeaderFactory, BodyFactory
-from file_sections import Header
+from file_sections import Header, Body
+from glob import glob
 
 
-def main(file: HeaderFile) -> None:
+def main(file: HeaderFile) -> HeaderFile:
     FIELDS = [str(field) for field in TerminalThemeZettleField]
     STR_FIELDS = [str(field) for field in TerminalThemeZettleField.get_str_fields()]
     LIST_FIELDS = [str(field) for field in TerminalThemeZettleField.get_list_fields()]
@@ -75,13 +76,13 @@ def main(file: HeaderFile) -> None:
         key_value_sep=': '
     )
 
-    new_file = HeaderFile(body=body, header=new_header)
-    print(new_file.sections_to_str())
+    new_file = HeaderFile(body=file.body, header=new_header)
+    return new_file
 
 
-if __name__ == '__main__':
+def format_file(path: str) -> None:
     # Read in file
-    with open('../content/knowledge-system/slip-box/Adverb.md', 'r') as f:
+    with open(path, 'r') as f:
         file_lines = f.readlines()
 
     header=HeaderFactory.get_section(
@@ -95,4 +96,15 @@ if __name__ == '__main__':
         lines=file_lines,
         body_start_str='---'
     )
-    main(file=HeaderFile(header=header, body=body))
+    new_file = main(file=HeaderFile(header=header, body=body))
+
+    if new_file.body.lines == []:
+        new_file = HeaderFile(Body(lines=[]), Body(lines=file_lines))
+
+    with open(path, 'w') as f:
+        f.writelines(new_file.sections_to_str())
+
+
+if __name__ == '__main__':
+    for file in glob('../content/knowledge-system/slip-box/*.md'):
+        format_file(file)
