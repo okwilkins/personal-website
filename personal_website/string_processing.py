@@ -47,7 +47,7 @@ def str_to_key_value_pair(
 def str_to_list(string: str, sep: str) -> list[str]:
     '''
     Whilst ast.literal_eval exists, it cannot handle a string like:
-    [Language](Language.md), [Bulgarian](Bulgarian.md)
+    \[Language\](Language.md), \[Bulgarian\](Bulgarian.md)
     This is because there are no quotes around each element.
 
     If the seperator is not in the string the this wil return the orginal
