@@ -10,28 +10,19 @@ from string_processing import (
 )
 from themes import TerminalThemeMetaDataZettle
 from dataclasses import fields
-from files import HeaderFileFactory
+from files import HeaderFile
+from file_section_factories import HeaderFactory, BodyFactory
 
 
-def main() -> None:
+def main(file: HeaderFile) -> None:
     FIELDS = [_field.name for _field in fields(TerminalThemeMetaDataZettle)]
-    
-    # Read in file
-    with open('../content/knowledge-system/slip-box/Adverb.md', 'r') as f:
-        file_lines = f.readlines()
 
-    file = HeaderFileFactory.get_file(
-        lines=file_lines,
-        header_end_string='---',
-        key_value_pair_sep=':'
+    file_header_data = file.header.get_formatted_data(
+        func=snake_case_str,
+        sep=' ',
+        mask=FIELDS
     )
 
-    file_header_data = {
-        snake_case_str(key, ' '): value
-        for key, value in file.header.get_data().items()
-        if snake_case_str(key, ' ') in FIELDS
-    }
-    
     for key in ['tags', 'keywords', 'zettelcasten_tags', 'sequence']:
         if key in file_header_data:
             file_header_data[key] = str_to_list(file_header_data[key], ', ')
@@ -50,8 +41,23 @@ def main() -> None:
         new_header_lines.append(gen_header_line(key, value))
 
     header = gen_header_string(header_lines=new_header_lines)
-    print(header + ''.join(file.body))
+    print(file.sections_to_str())
 
 
 if __name__ == '__main__':
-    main()
+    # Read in file
+    with open('../content/knowledge-system/slip-box/Adverb.md', 'r') as f:
+        file_lines = f.readlines()
+
+    header=HeaderFactory.get_section(
+        lines=file_lines,
+        header_start_str=None,
+        header_end_str='---',
+        key_value_sep=':'
+    )
+
+    body=BodyFactory.get_section(
+        lines=file_lines,
+        body_start_str='---'
+    )
+    main(file=HeaderFile(header=header, body=body))

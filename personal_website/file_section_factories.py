@@ -10,32 +10,39 @@ class FileSectionFactory(ABC):
     @abstractmethod
     def _extract_section() -> FileSection:
         ...
+    
 
 
 class HeaderFactory(FileSectionFactory):
     @staticmethod
-    def get_section(lines: list[str], header_end_string: str, key_value_pair_sep: str) -> Header:
-        header_lines = HeaderFactory._extract_section(lines, header_end_string)
+    def get_section(
+        lines: list[str],
+        header_start_str: str,
+        header_end_str: str,
+        key_value_sep: str
+    ) -> Header:
+        header_lines = HeaderFactory._extract_section(lines, header_end_str)
 
         return Header(
             lines=header_lines,
-            end_string=header_end_string,
-            key_value_pair_sep=key_value_pair_sep
+            start_str=header_start_str,
+            end_str=header_end_str,
+            key_value_sep=key_value_sep
         )
 
     @staticmethod
-    def _extract_section(lines: list[str], header_end_string: str) -> list[str]:
+    def _extract_section(lines: list[str], header_end_str: str) -> list[str]:
         '''
         Returns the list of strings that represent a file.
 
         Params:
             lines: The lines of text to scan through.
-            header_end_char: The charcter that indicates the end of a header.
+            header_end_str: The string that indicates the end of a header.
         '''
         header_lines = []
 
         for line in lines:
-            if line == header_end_string:
+            if header_end_str in line:
                 break
             
             header_lines.append(line)
@@ -45,27 +52,26 @@ class HeaderFactory(FileSectionFactory):
 
 class BodyFactory(FileSectionFactory):
     @staticmethod
-    def get_section(lines: list[str], header_end_string: str) -> Body:
-        return BodyFactory._extract_section(lines=lines, header_end_string=header_end_string)
+    def get_section(lines: list[str], body_start_str: str) -> Body:
+        lines = BodyFactory._extract_section(lines=lines, body_start_str=body_start_str)
+        return Body(lines=lines)
 
     @staticmethod
-    def _extract_section(lines: list[str], header_end_string: str) -> list[str]:
-            '''
-            Returns the list of strings that represent the body of a file.
+    def _extract_section(lines: list[str], body_start_str: str) -> list[str]:
+        '''
+        Returns the list of strings that represent the body of a file.
 
-            Params:
-                lines: The lines of text to scan through.
-                header_end_char: The charcter that indicates the end of a header.
-                min_num_header_end_chars: The minimum number of times the
-                header_end_char appears to indicate the end of a header.
-            '''
-            line_num = 0
+        Params:
+            lines: The lines of text to scan through.
+            body_start_str: The string that indicates the start of a body.
+        '''
+        line_num = 0
 
-            for line in lines:
-                if line == header_end_string:
-                    line_num += 1
-                    break
-                
+        for line in lines:
+            if body_start_str in line:
                 line_num += 1
+                break
             
-            return lines[line_num:]
+            line_num += 1
+        
+        return lines[line_num:]
