@@ -34,7 +34,7 @@ class TestStringProcessing(unittest.TestCase):
             '[[Language]], [[Noun]]'
         )
         self.assertEqual('', '')
-    
+
     def test_str_to_key_value_pair(self) -> None:
         self.assertEqual(
             str_to_key_value_pair('Zettelcasten Index: 20230129211820', ': '),
@@ -56,7 +56,7 @@ class TestStringProcessing(unittest.TestCase):
             str_to_key_value_pair('Zettelcasten Index: 20230129211820', ''),
             None
         )
-    
+
     def test_str_to_list(self) -> None:
         self.assertEqual(
             str_to_list('[[Language]], [[Noun]]', ', '),
@@ -127,7 +127,6 @@ class TestStringProcessing(unittest.TestCase):
             zettle_id_to_datetime('')
         with self.assertRaises(ValueError):
             zettle_id_to_datetime('202300292118201')
-
 
     def test_case_to_camel_case(self) -> None:
         self.assertEqual(
@@ -211,7 +210,6 @@ class TestStringProcessing(unittest.TestCase):
                 '+++'
             )
         )
-
 
     def test_link_text_from_markdown(self) -> None:
         self.assertEqual(

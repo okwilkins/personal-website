@@ -6,11 +6,11 @@ class FileSectionFactory(ABC):
     @abstractmethod
     def get_section() -> FileSection:
         ...
-    
+
     @abstractmethod
     def _extract_section() -> FileSection:
         ...
-    
+
 
 class HeaderFactory(FileSectionFactory):
     @staticmethod
@@ -43,7 +43,7 @@ class HeaderFactory(FileSectionFactory):
         for line in lines:
             if header_end_str in line:
                 break
-            
+
             header_lines.append(line)
 
         return header_lines
@@ -70,7 +70,7 @@ class BodyFactory(FileSectionFactory):
             if body_start_str in line:
                 line_num += 1
                 break
-            
+
             line_num += 1
-        
+
         return lines[line_num:]
