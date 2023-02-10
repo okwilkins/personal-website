@@ -28,7 +28,7 @@ def main(file: HeaderFile) -> HeaderFile:
         for key, value in file_header_data.items()
     }
 
-    if TerminalThemeZettleField.DATE in file_header_data:
+    if TerminalThemeZettleField.ZETTELCASTEN_INDEX in file_header_data:
         file_header_data[TerminalThemeZettleField.DATE] = zettle_id_to_datetime(
             file_header_data[TerminalThemeZettleField.ZETTELCASTEN_INDEX]
         )
