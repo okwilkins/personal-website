@@ -12,7 +12,6 @@ class FileSectionFactory(ABC):
         ...
     
 
-
 class HeaderFactory(FileSectionFactory):
     @staticmethod
     def get_section(
