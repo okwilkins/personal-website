@@ -35,6 +35,7 @@ jobs:
           conda env update --file environment.yml
       
       - name: Format Obsidian Markdown to Hugo Markdown
+        shell: bash -l {0}
         run: |
           conda activate personal-website
           python ./personal_website/personal_website.py
