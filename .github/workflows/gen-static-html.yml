@@ -23,7 +23,8 @@ jobs:
 
       - name: Pull Website HTML
         run: |
-          git submodule update --recursive --remote
+          git pull --recurse-submodules
+          git submodule update --remote --recursive
       
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v2
