@@ -12,6 +12,7 @@ from files import HeaderFile
 from file_section_factories import HeaderFactory, BodyFactory
 from file_sections import Header, Body
 from glob import glob
+from pathlib import Path
 
 
 def main(file: HeaderFile) -> HeaderFile:
@@ -95,6 +96,11 @@ def format_file(path: str) -> None:
 
     if new_file.body.lines == []:
         new_file = HeaderFile(Body(lines=[]), Body(lines=file_lines))
+    
+    new_file.header.update_line(
+        line_string='title = ""',
+        value=f'title = "{Path(path).stem.title()}"'
+    )
 
     with open(path, 'w') as f:
         f.writelines(new_file.sections_to_str())

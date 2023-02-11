@@ -11,6 +11,10 @@ class FileSection(ABC):
     def __str__(self) -> str:
         ...
 
+    @abstractmethod
+    def update_line(self) -> None:
+        ...
+
 
 @dataclass
 class Header(FileSection):
@@ -46,6 +50,21 @@ class Header(FileSection):
                     continue
 
         return output_dict
+    
+    def update_line(self, line_string: str, value: str) -> None:
+        '''
+        Update an a line with a new value. To be replaced, the line_string
+        needs an exact match.
+        '''
+        new_lines = []
+
+        for line in self.lines:
+            if line == line_string:
+                new_lines.append(value)
+            else:
+                new_lines.append(line)
+        
+        self.lines = new_lines
 
 
 @dataclass
@@ -54,3 +73,18 @@ class Body(FileSection):
 
     def __str__(self) -> str:
         return ''.join(self.lines)
+
+    def update_line(self, line_string: str, value: str) -> None:
+        '''
+        Update an a line with a new value. To be replaced, the line_string
+        needs an exact match.
+        '''
+        new_lines = []
+
+        for line in self.lines:
+            if line == line_string:
+                new_lines.append(value)
+            
+            new_lines.append(line)
+        
+        self.lines = new_lines
