@@ -3,4 +3,4 @@
 	url = https://github.com/okwilkins/hugo-theme-terminal.git
 [submodule "public"]
 	path = public
-	url = https://github.com/okwilkins/okwilkins.github.io
+	url = https://github.com/okwilkins/okwilkins.github.io.git
