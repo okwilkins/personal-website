@@ -23,8 +23,7 @@ jobs:
 
       - name: Pull Website HTML
         run: |
-          cd ./public
-          git pull HEAD:main -f
+          git submodule update --recursive --remote
       
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v2
