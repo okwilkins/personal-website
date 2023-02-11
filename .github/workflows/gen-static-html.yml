@@ -20,6 +20,11 @@ jobs:
         with:
           token: ${{ secrets.GENERAL_PAT }}
           submodules: true
+
+      - name: Pull Website HTML
+        run: |
+          cd ./public
+          git pull HEAD:main -f
       
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v2
