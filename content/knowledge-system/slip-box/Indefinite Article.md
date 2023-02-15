@@ -9,7 +9,6 @@ An indefinite article refers to non-specific [nouns](Noun.md). You could say:
 
  > 
  > I need **a** pen.
-
  > 
  > I want **an** orange.
 

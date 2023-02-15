@@ -9,13 +9,10 @@ Adjectives are words that describe the qualities or states of being of [nouns](N
 
  > 
  > Rob wore a **beautiful** hat.
-
  > 
  > **Furry** dogs may overhead in the summertime.
-
  > 
  > My cake should have **sixteen** candles.
-
  > 
  > The **scariest** villain of all time is Darth Vader.
 

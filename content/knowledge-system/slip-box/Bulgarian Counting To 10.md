@@ -1,5 +1,5 @@
 Zettelcasten Index: 20230215182940
-Sequence: *Numeral Plural*
+Sequence: [Numeral Plural](Numeral%20Plural.md)
 Status: #idea
 Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), *Counting*
 

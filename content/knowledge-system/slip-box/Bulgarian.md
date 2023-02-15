@@ -15,4 +15,4 @@ Zettelcasten Tags: [Language](Language.md)
 * [Bulgarian To Have Or Not To Have](Bulgarian%20To%20Have%20Or%20Not%20To%20Have.md)
 * [Bulgarian Verbs](Bulgarian%20Verbs.md)
 * [Citation Form](Citation%20Form.md)
-* *Numeral Plural*
+* [Numeral Plural](Numeral%20Plural.md)
