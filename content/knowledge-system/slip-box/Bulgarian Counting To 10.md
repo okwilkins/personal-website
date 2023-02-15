@@ -1,10 +1,19 @@
-Zettelcasten Index: 20230215182940
-Sequence: [Numeral Plural](Numeral%20Plural.md)
-Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), *Counting*
-
----
-
++++
+title = "Bulgarian Counting To 10"
+date = "2023-02-15T18:29:40"
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = "20230215182940"
+zettelcastenTags = ["Language", "Bulgarian"]
+sequence = []
++++
 ||Bulgarian|
 |--|---------|
 |0|нула|

@@ -1,10 +1,19 @@
-Zettelcasten Index: 20230129213905-a
-Sequence: [Bulgarian Starting Sentences with a Present Form](Bulgarian%20Starting%20Sentences%20with%20a%20Present%20Form.md)
-Status: #idea
-Zettelcasten Tags: [Bulgarian](Bulgarian.md), [Verb](Verb.md), [Conjugation](Conjugation.md), [Citation Form](Citation%20Form.md)
-
----
-
++++
+title = "Bulgarian Verbs"
+date = "2023-01-29T21:39:05"
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = "20230129213905-a"
+zettelcastenTags = ["Bulgarian", "Verb", "Conjugation"]
+sequence = []
++++
 Verbs do not have an [infinitive](Infinitive.md) form. When referring to a [verb](Verb.md), use the first person [conjugation](Conjugation.md) of that [verb](Verb.md). Here are examples Bulgarian the [citation form](Citation%20Form.md) "to be".
 
 Example:

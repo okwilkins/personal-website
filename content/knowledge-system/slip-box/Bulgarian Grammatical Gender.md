@@ -1,10 +1,19 @@
-Zettelcasten Index: 20230215181956
-Sequence:
-Status: #idea
-Zettelcasten Tags:  [Language](Language.md), [Bulgarian](Bulgarian.md), *Grammar*
-
----
-
++++
+title = "Bulgarian Grammatical Gender"
+date = "2023-02-15T18:19:56"
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = "20230215181956"
+zettelcastenTags = ["Language", "Bulgarian"]
+sequence = []
++++
 Masculine - Words ending in a consonant (including й) (e.g. мъж)
 Feminine - Words ending in -а or -я (e.g. жена)
 Neutral - Words ending in -о or -е (e.g. куче)

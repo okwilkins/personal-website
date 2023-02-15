@@ -1,10 +1,19 @@
-Zettelcasten Index: 20230129220508
-Sequence:
-Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Verb](Verb.md), *Tense*
-
----
-
++++
+title = "Conjugation"
+date = "2023-01-29T22:05:08"
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = "20230129220508"
+zettelcastenTags = ["Language", "Verb"]
+sequence = []
++++
 A [verb](Verb.md) can be conjugated with reference to the number, person, mood or tense. Examples:
 
 * I *teach* English

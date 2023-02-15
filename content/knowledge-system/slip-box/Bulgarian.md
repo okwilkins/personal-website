@@ -1,8 +1,19 @@
-Status: #MOC
-Zettelcasten Tags: [Language](Language.md)
-
----
-
++++
+title = "Bulgarian"
+date = ""
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = ""
+zettelcastenTags = ["Language"]
+sequence = []
++++
 * [Bulgarian Articles](Bulgarian%20Articles.md)
 * [Bulgarian Closed Questions](Bulgarian%20Closed%20Questions.md)
 * [Bulgarian Conjugation](Bulgarian%20Conjugation.md)

@@ -1,10 +1,19 @@
-Zettelcasten Index: 20230129214114-a
-Sequence:
-Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Verb](Verb.md)
-
----
-
++++
+title = "Infinitive"
+date = "2023-01-29T21:41:14"
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = "20230129214114-a"
+zettelcastenTags = ["Language", "Verb"]
+sequence = []
++++
 Infinitives are a special form of [verbs](Verb.md) that can be used as a [noun](Noun.md), [adjective](Adjective.md) or [adverb](Adverb.md). They are usually made by adding the word *to* before the base verb. They are useful when discussion actions without actually doing the action:
 
 * I want to go home.

@@ -1,10 +1,19 @@
-Zettelcasten Index: 20230129211820
-Sequence:
-Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), *Article*, [Definite Article](Definite%20Article.md), [Indefinite Article](Indefinite%20Article.md)
-
----
-
++++
+title = "Bulgarian Articles"
+date = "2023-01-29T21:18:20"
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = "20230129211820"
+zettelcastenTags = ["Language", "Bulgarian"]
+sequence = []
++++
 In English there are 2 types of articles:
 
 * [Definite](Definite%20Article.md)

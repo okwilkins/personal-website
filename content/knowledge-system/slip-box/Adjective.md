@@ -1,10 +1,19 @@
-Zettelcasten Index: 20230129210911-b
-Sequence:
-Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Noun](Noun.md)
-
----
-
++++
+title = "Adjective"
+date = "2023-01-29T21:09:11"
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = "20230129210911-b"
+zettelcastenTags = ["Language", "Noun"]
+sequence = []
++++
 Adjectives are words that describe the qualities or states of being of [nouns](Noun.md). Examples:
 
  > 

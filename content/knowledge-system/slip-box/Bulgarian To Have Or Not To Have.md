@@ -1,10 +1,19 @@
-Zettelcasten Index: 20230215182343
-Sequence:
-Status: #idea
-Zettelcasten Tags:  [Language](Language.md), [Bulgarian](Bulgarian.md), *Present Tense*, [Verb](Verb.md), [Bulgarian Conjugation](Bulgarian%20Conjugation.md)
-
----
-
++++
+title = "Bulgarian To Have Or Not To Have"
+date = "2023-02-15T18:23:43"
+author = ""
+authorTwitter = ""
+cover = ""
+tags = []
+keywords = []
+description = ""
+showFullContent = false
+readingTime = false
+hideComments = false
+zettelcastenIndex = "20230215182343"
+zettelcastenTags = ["Language", "Bulgarian", "Verb"]
+sequence = []
++++
 ## To Have Or Not To Have
 
 * Имам is the verb 'to have'
