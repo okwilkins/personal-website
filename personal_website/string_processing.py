@@ -130,7 +130,7 @@ def gen_header_string(header_lines: list[str]) -> str:
 
 def link_text_from_markdown(string: str) -> list[str]:
     '''Find all links in a markdown string and extracts the link text.'''
-    RE_EXPRESSION = r'\[([A-Za-z0-9]+)\]\([^\(\)]*\)'
+    RE_EXPRESSION = r'\[([A-Za-z0-9\s]+)\]\([^\(\)]*\)'
     return re.findall(RE_EXPRESSION, string)
 
 

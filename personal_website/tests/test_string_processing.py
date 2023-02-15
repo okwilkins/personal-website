@@ -22,8 +22,8 @@ class TestStringProcessing(unittest.TestCase):
             '["[[Language]]", "[[Noun]]"]'
         )
         self.assertEqual(
-            str_to_hugo_list('[[Language]](language.md), [[Noun]](noun.md)', ', '),
-            '["[[Language]](language.md)", "[[Noun]](noun.md)"]'
+            str_to_hugo_list('[Language](language.md), [Noun](noun.md)', ', '),
+            '["[Language](language.md)", "[Noun](noun.md)"]'
         )
         self.assertEqual(
             str_to_hugo_list('[[Language]]', ', '),
@@ -63,8 +63,8 @@ class TestStringProcessing(unittest.TestCase):
             ["[[Language]]", "[[Noun]]"]
         )
         self.assertEqual(
-            str_to_list('[[Language]](language.md), [[Noun]](noun.md)', ', '),
-            ["[[Language]](language.md)", "[[Noun]](noun.md)"]
+            str_to_list('[Language](language.md), [Noun](noun.md)', ', '),
+            ["[Language](language.md)", "[Noun](noun.md)"]
         )
         self.assertEqual(
             str_to_list('[[Language]]', ', '),
@@ -78,6 +78,10 @@ class TestStringProcessing(unittest.TestCase):
         self.assertEqual(
             str_to_list('[[Language]], [[Noun]]', ''),
             ["[[Language]], [[Noun]]"]
+        )
+        self.assertEqual(
+            str_to_list('[Numeral Plural](Numeral%20Plural.md)', ', '),
+            ["[Numeral Plural](Numeral%20Plural.md)"]
         )
 
     def test_remove_empty_strs(self) -> None:
@@ -219,6 +223,10 @@ class TestStringProcessing(unittest.TestCase):
         self.assertEqual(
             link_text_from_markdown('[Language](Language.md) [Noun](Noun.md)'),
             ['Language', 'Noun']
+        )
+        self.assertEqual(
+            link_text_from_markdown('[Numeral Plural](Numeral%20Plural.md)'),
+            ['Numeral Plural']
         )
         self.assertEqual(
             link_text_from_markdown('Hello world!'),
