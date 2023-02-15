@@ -15,17 +15,14 @@ jobs:
       matrix:
         python-version: ["3.11"]
     steps:
-      - name: Checkout Submodules
+      - name: Pull Website HTML
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GENERAL_PAT }}
+          repository: okwilkins/okwilkins.github.io
+          path: public
+          persist-credentials: true
 
-      - name: Pull Website HTML
-        run: |
-          git clone https://github.com/okwilkins/okwilkins.github.io.git ./public
-          git pull --recurse-submodules
-          git submodule update --remote --recursive
-      
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v2
         with:
