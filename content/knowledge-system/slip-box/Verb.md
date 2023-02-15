@@ -9,7 +9,11 @@ A verb is a word that describes what the subject of the sentence is doing. They 
 
  > 
  > Jeff **builds** a house.
+
+ > 
  > Anita **is thinking** about horses.
+
+ > 
  > True love **exists**.
 
 # References

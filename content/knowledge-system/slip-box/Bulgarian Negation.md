@@ -1,4 +1,4 @@
-Zettelcasten Index: 2320230215181747
+Zettelcasten Index: 20230215181747
 Sequence:
 Status: #idea
 Zettelcasten Tags:  [Language](Language.md), [Bulgarian](Bulgarian.md), *Negation*

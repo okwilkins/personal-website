@@ -1,4 +1,4 @@
-Zettelcasten Index: 2320230215182940
+Zettelcasten Index: 20230215182940
 Sequence: *Numeral Plural*
 Status: #idea
 Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), *Counting*
