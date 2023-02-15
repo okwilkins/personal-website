@@ -1,4 +1,4 @@
-Zettelcasten Index: 2320230215182940-a
+Zettelcasten Index: 20230215182940-a
 Sequence:
 Status: #idea
 Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), *Counting*
@@ -9,10 +9,12 @@ Some masculine words have specials rules, taking a different plural ending. This
 
  > 
  > "един месец" - one month
+ > 
  > "два месеца" - two months
 
  > 
- > "един ден" - one day  
+ > "един ден" - one day
+ > 
  > "няколко дена\*" - a few days
 
 This is called the *numeral plural* or *counting form* (бройна форма). This only applies to masculine nouns that do not represent people.
