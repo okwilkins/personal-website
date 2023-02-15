@@ -1,19 +1,10 @@
-+++
-title = "Bulgarian Negation"
-date = "2023-02-15T18:17:47"
-author = ""
-authorTwitter = ""
-cover = ""
-tags = []
-keywords = []
-description = ""
-showFullContent = false
-readingTime = false
-hideComments = false
-zettelcastenIndex = "20230215181747"
-zettelcastenTags = ["Language", "Bulgarian"]
-sequence = []
-+++
+Zettelcasten Index: 20230215181747
+Sequence:
+Status: #idea
+Zettelcasten Tags:  [Language](Language.md), [Bulgarian](Bulgarian.md), *Negation*
+
+---
+
 ## Negation
 
 "Не" means no and it can be used to negate a sentence:

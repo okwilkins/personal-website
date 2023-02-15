@@ -1,19 +1,10 @@
-+++
-title = "Verb"
-date = "2023-01-29T21:41:14"
-author = ""
-authorTwitter = ""
-cover = ""
-tags = []
-keywords = []
-description = ""
-showFullContent = false
-readingTime = false
-hideComments = false
-zettelcastenIndex = "20230129214114"
-zettelcastenTags = ["Language"]
-sequence = ["Infinitive"]
-+++
+Zettelcasten Index: 20230129214114
+Sequence: [Infinitive](Infinitive.md)
+Status: #idea
+Zettelcasten Tags: [Language](Language.md)
+
+---
+
 A verb is a word that describes what the subject of the sentence is doing. They can indicate (physical or mental) actions, occurrences and states of being.
 
  > 

@@ -1,19 +1,10 @@
-+++
-title = "Bulgarian To Be"
-date = "2023-02-15T18:22:39"
-author = ""
-authorTwitter = ""
-cover = ""
-tags = []
-keywords = []
-description = ""
-showFullContent = false
-readingTime = false
-hideComments = false
-zettelcastenIndex = "20230215182239"
-zettelcastenTags = ["Language", "Bulgarian", "Verb"]
-sequence = []
-+++
+Zettelcasten Index: 20230215182239
+Sequence:
+Status: #idea
+Zettelcasten Tags:  [Language](Language.md), [Bulgarian](Bulgarian.md), *Present Tense*, [Verb](Verb.md)
+
+---
+
 |I am|аз съм|
 |----|-----------|
 |you are (familliar person)|ти си|

@@ -1,19 +1,10 @@
-+++
-title = "Indefinite Article"
-date = "2023-01-30T21:29:38"
-author = ""
-authorTwitter = ""
-cover = ""
-tags = []
-keywords = []
-description = ""
-showFullContent = false
-readingTime = false
-hideComments = false
-zettelcastenIndex = "20230130212938"
-zettelcastenTags = ["Language"]
-sequence = []
-+++
+Zettelcasten Index: 20230130212938
+Sequence:
+Status: #idea
+Zettelcasten Tags: [Language](Language.md), *Article*
+
+---
+
 An indefinite article refers to non-specific [nouns](Noun.md). You could say:
 
  > 

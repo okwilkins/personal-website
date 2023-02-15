@@ -1,19 +1,10 @@
-+++
-title = "Numeral Plural"
-date = "2023-02-15T18:29:40"
-author = ""
-authorTwitter = ""
-cover = ""
-tags = []
-keywords = []
-description = ""
-showFullContent = false
-readingTime = false
-hideComments = false
-zettelcastenIndex = "20230215182940-a"
-zettelcastenTags = ["Language", "Bulgarian"]
-sequence = []
-+++
+Zettelcasten Index: 20230215182940-a
+Sequence:
+Status: #idea
+Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), *Counting*
+
+---
+
 Some masculine words have specials rules, taking a different plural ending. This happens when these words follow a number or expressions such as колко (how many?) or няколко (a few). In these cases, they will end with -a.
 
  > 

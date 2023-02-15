@@ -1,19 +1,8 @@
-+++
-title = "Language"
-date = ""
-author = ""
-authorTwitter = ""
-cover = ""
-tags = []
-keywords = []
-description = ""
-showFullContent = false
-readingTime = false
-hideComments = false
-zettelcastenIndex = ""
-zettelcastenTags = []
-sequence = []
-+++
+Status: #MOC 
+Zettelcasten Tags:
+
+---
+
 * [Adjective](Adjective.md)
 * [Adverb](Adverb.md)
 * [Bulgarian](Bulgarian.md)
