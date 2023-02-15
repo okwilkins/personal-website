@@ -28,6 +28,7 @@ jobs:
       
       - name: Run Obsidian Export
         run: |
+          rm -rf ./content/knowledge-system
           mkdir -p ./content/knowledge-system
           obsidian-export ./knowledge-system ./content/knowledge-system
           rm -r ./knowledge-system
