@@ -13,7 +13,7 @@ class TerminalThemeField(StrEnum):
     SHOW_FULL_CONTENT = auto()
     READING_TIME = auto()
     HIDE_COMMENTS = auto()
-    MATH_JAX = auto()
+    MATHJAX = auto()
 
     @staticmethod
     def get_str_fields():
@@ -32,7 +32,7 @@ class TerminalThemeField(StrEnum):
             TerminalThemeField.SHOW_FULL_CONTENT,
             TerminalThemeField.READING_TIME,
             TerminalThemeField.HIDE_COMMENTS,
-            TerminalThemeField.MATH_JAX
+            TerminalThemeField.MATHJAX
         ]
 
     @staticmethod
@@ -55,7 +55,7 @@ class TerminalThemeZettleField(StrEnum):
     SHOW_FULL_CONTENT = auto()
     READING_TIME = auto()
     HIDE_COMMENTS = auto()
-    MATH_JAX = auto()
+    MATHJAX = auto()
     ZETTELCASTEN_INDEX = auto()
     ZETTELCASTEN_TAGS = auto()
     SEQUENCE = auto()
@@ -78,7 +78,7 @@ class TerminalThemeZettleField(StrEnum):
             TerminalThemeZettleField.SHOW_FULL_CONTENT,
             TerminalThemeZettleField.READING_TIME,
             TerminalThemeZettleField.HIDE_COMMENTS,
-            TerminalThemeZettleField.MATH_JAX
+            TerminalThemeZettleField.MATHJAX
         ]
 
     @staticmethod
