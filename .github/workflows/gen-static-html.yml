@@ -15,13 +15,10 @@ jobs:
       matrix:
         python-version: ["3.11"]
     steps:
-      - name: Checkout Submodules
+      - name: Pull Website HTML
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GENERAL_PAT }}
-          submodules: true
-
-      - name: Pull Website HTML
         run: |
           git clone https://github.com/okwilkins/okwilkins.github.io.git ./public
           git pull --recurse-submodules
@@ -56,11 +53,14 @@ jobs:
         run: hugo --minify --cleanDestinationDir --noBuildLock
 
       - name: Deploy
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GENERAL_PAT }}
         run: |
           cd ./public
           echo "www.okwilkins.dev" > CNAME
-          git config user.name "Oliver Wilkins"
-          git config user.email okwilkins@googlemail.com
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add --all
           git commit -m "Synced from personal-website: $(date +%Y-%m-%d)"
           git push origin -f HEAD:main
