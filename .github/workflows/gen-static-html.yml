@@ -23,7 +23,7 @@ jobs:
 
       - name: Pull Website HTML
         run: |
-          git clone git@github.com:okwilkins/okwilkins.github.io.git ./public
+          git clone https://github.com/okwilkins/okwilkins.github.io.git ./public
           git pull --recurse-submodules
           git submodule update --remote --recursive
       
