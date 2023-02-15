@@ -59,8 +59,6 @@ jobs:
         run: |
           cd ./public
           echo "www.okwilkins.dev" > CNAME
-          git config user.name github-actions
-          git config user.email github-actions@github.com
           git add --all
           git commit -m "Synced from personal-website: $(date +%Y-%m-%d)"
           git push origin -f HEAD:main
