@@ -55,12 +55,6 @@ jobs:
 
       - name: Build
         run: hugo --minify --cleanDestinationDir --noBuildLock
-      
-      - name: Checkout Public
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GENERAL_PAT }}
-          repository: okwilkins/okwilkins.github.io
 
       - name: Deploy
         run: |
