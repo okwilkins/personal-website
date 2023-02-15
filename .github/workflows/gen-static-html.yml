@@ -23,6 +23,7 @@ jobs:
 
       - name: Pull Website HTML
         run: |
+          git clone https://github.com/okwilkins/okwilkins.github.io.git ./public
           git pull --recurse-submodules
           git submodule update --remote --recursive
       
@@ -52,11 +53,12 @@ jobs:
           # extended: true
 
       - name: Build
-        run: hugo --minify --cleanDestinationDir
+        run: hugo --minify --cleanDestinationDir --noBuildLock
 
       - name: Deploy
         run: |
           cd ./public
+          echo "www.okwilkins.dev" > CNAME
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add --all
