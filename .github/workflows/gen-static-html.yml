@@ -18,6 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GENERAL_PAT }}
           ssh-key: ${{ secrets.SSH_KEY }}
           persist-credentials: true
           submodules: true
@@ -27,6 +28,7 @@ jobs:
         with:
           repository: okwilkins/okwilkins.github.io
           path: public
+          ssh-key: ${{ secrets.SSH_KEY }}
 
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v2
