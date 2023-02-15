@@ -21,6 +21,7 @@ jobs:
           token: ${{ secrets.GENERAL_PAT }}
           ssh-key: ${{ secrets.SSH_KEY }}
           persist-credentials: true
+          submodules: true
 
       - name: Checkout Website HTML
         uses: actions/checkout@v3
