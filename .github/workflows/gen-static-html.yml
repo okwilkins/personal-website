@@ -26,7 +26,7 @@ jobs:
         with:
           token: ${{ secrets.GENERAL_PAT }}
           repository: okwilkins/okwilkins.github.io
-          path: public
+          path: ${{ github.repository }}/public
 
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v2
