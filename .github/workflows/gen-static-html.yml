@@ -15,10 +15,12 @@ jobs:
       matrix:
         python-version: ["3.11"]
     steps:
-      - name: Pull Website HTML
+      - name: Checkout Submodules
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GENERAL_PAT }}
+
+      - name: Pull Website HTML
         run: |
           git clone https://github.com/okwilkins/okwilkins.github.io.git ./public
           git pull --recurse-submodules
@@ -51,11 +53,14 @@ jobs:
 
       - name: Build
         run: hugo --minify --cleanDestinationDir --noBuildLock
-
-      - name: Deploy
+      
+      - name: Checkout Public
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GENERAL_PAT }}
+          repository: okwilkins/okwilkins.github.io
+
+      - name: Deploy
         run: |
           cd ./public
           echo "www.okwilkins.dev" > CNAME
