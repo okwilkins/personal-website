@@ -31,7 +31,7 @@ jobs:
           rm -rf ./content/knowledge-system
           mkdir -p ./content/knowledge-system
           obsidian-export ./knowledge-system ./content/knowledge-system
-          rm -r ./knowledge-system
+          rm -rf ./knowledge-system
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add ./content/knowledge-system/.
