@@ -22,9 +22,12 @@ jobs:
           ssh-key: ${{ secrets.SSH_KEY }}
           persist-credentials: true
 
-      - name: Pull Website HTML
-        run:
-          git clone git@github.com:okwilkins/okwilkins.github.io.git ./public
+      - name: Checkout Website HTML
+        uses: actions/checkout@v3
+        with:
+          repository: okwilkins/okwilkins.github.io
+          path: public
+          ssh-key: ${{ secrets.SSH_KEY }}
 
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v2
