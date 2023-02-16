@@ -2,7 +2,8 @@ Zettelcasten Index: 20230215230508
 Sequence:
 Status: #slip-box
 Zettelcasten Tags: *Data Science*, *Machine Learning*
-MathJax: true
+Mathjax: true
+TOC: true
 
 ---
 
@@ -654,7 +655,7 @@ Like with gradient boost, XGBoost fits a regression tree to the residuals
    1. Make a split based off the avg value
    1. Calc similarity score for both leafs
 1. Now need to quanitify how much better the leaves cluster similar resdiuals than the root, do this by calculating the gain
-   1. $gain = {left}*{similarity} + {right}*{similarity} - {root}\_{similarity}$
+   1. $gain = left\_{similarity} + right\_{similarity} - root\_{similarity}$
 1. Now shift the threshold over so that it is the avg of th next two observation
    1. More gain is good, is better at splitting the residuals into clusters of similar values
 1. Get best tree based of thresholds
