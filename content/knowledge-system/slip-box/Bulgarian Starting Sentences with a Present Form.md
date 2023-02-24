@@ -5,7 +5,7 @@ Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), *Grammar*
 
 ---
 
-It is a rule that you cannot start a sentence with a present form of the verb *съм* ("to be"). When you omit the subject personal [Pronoun](Pronoun.md), the [verb](Verb.md) has to move into the second position:
+It is a rule that you cannot start a sentence with a present form of the verb *съм* ("to be"). When you omit the subject personal [pronoun](Pronoun.md), the [verb](Verb.md) has to move into the second position:
 
 * "Аз съм мъж" or "Мъж съм" – I am a man
 
