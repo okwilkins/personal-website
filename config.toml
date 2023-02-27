@@ -2,7 +2,7 @@ baseURL = 'https://www.okwilkins.dev/'
 languageCode = 'en-uk'
 title = 'Oli Wilkins'
 theme = 'terminal'
-enableGitInfo = true
+enableGitInfo = false
 
 [params]
   # dir name of your main content (default is `content/posts`).
