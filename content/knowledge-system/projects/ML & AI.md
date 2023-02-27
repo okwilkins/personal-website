@@ -7,10 +7,6 @@ TOC: true
 
 ---
 
-Bias and Variance
-
-* [x] https://www.youtube.com/watch?v=EuBBz3bI-aA
-
 General Linear Models
 
 * [x] https://www.youtube.com/watch?v=nk2CQITm_eo
@@ -70,15 +66,7 @@ XGBoost
 * [ ] https://www.youtube.com/watch?v=ZVFeW798-2I
 * [ ] https://www.youtube.com/watch?v=oRrKeUCEb
 
-# Bias
-
-The inability for an ML model to capture the true rel is called bias
-
-# Variance
-
-The difference in how well a model fits differing datasets is called variance
-
-# Decicsion Trees
+# Decision Trees
 
 ## Basic Concepts
 

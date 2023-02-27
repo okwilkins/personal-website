@@ -1,0 +1,36 @@
+Zettelcasten Index: 20230227123735-h
+Sequence:
+Status: #idea
+Zettelcasten Tags: *Learning*, *Diagrams*, [Mermaid](Mermaid.md), *Pie Chart*
+
+---
+
+* Start with `pie` keyword to begin the diagram
+  * `showData` to render the actual data values after the legend text. This is ***OPTIONAL***
+* Followed by `title` keyword and its value in string to give a title to the pie-chart. This is ***OPTIONAL***
+* Followed by dataSet. Pie slices will be ordered clockwise in the same order as the labels.
+  * `label` for a section in the pie diagram within `" "` quotes.
+  * Followed by `:` colon as separator
+  * Followed by `positive numeric value` (supported up to two decimal places)
+
+````
+pie showData
+    title Key elements in Product X
+    "Calcium" : 42.96
+    "Potassium" : 50.05
+    "Magnesium" : 10.01
+    "Iron" :  5
+````
+
+````mermaid
+pie showData
+    title Key elements in Product X
+    "Calcium" : 42.96
+    "Potassium" : 50.05
+    "Magnesium" : 10.01
+    "Iron" :  5
+````
+
+## References
+
+* [Mermaid#Pie Charts](../references/Mermaid.md)
