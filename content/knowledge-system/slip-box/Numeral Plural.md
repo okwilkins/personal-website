@@ -22,4 +22,4 @@ This is called the *numeral plural* or *counting form* (бройна форма)
  > 
  > * Bulgarians often use "дни", the normal plural, instead of "дена", the numeral plural. Therefore we'll consider both "два дена" and "два дни" as correct. "Дни" is much more commonly heard, despite "дена" being the grammatically correct version.
 
-# References
+## References

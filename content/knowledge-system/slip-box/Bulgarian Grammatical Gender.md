@@ -1,6 +1,7 @@
 Zettelcasten Index: 20230215181956
 Sequence:
-Status: #idea
+Status: #idea 
+TOC: true
 Zettelcasten Tags:  [Language](Language.md), [Bulgarian](Bulgarian.md), *Grammar*
 
 ---
@@ -14,7 +15,7 @@ Words ending in -и, -у, -ю are generally loan words (often coming from Englis
 * меню
 * такси
 
-### Plurals
+## Plurals
 
 |Gender|Ending|Plural|
 |------|------|------|
@@ -22,7 +23,7 @@ Words ending in -и, -у, -ю are generally loan words (often coming from Englis
 |Feminine|‑а or ‑я|‑и|
 |Neutral|‑о or ‑е|‑a or +та|
 
-#### Masculine Words
+### Masculine Words
 
 * и is added to words that have one syllable
 * ове is added to words with more than one syllable
@@ -31,14 +32,14 @@ Words ending in -и, -у, -ю are generally loan words (often coming from Englis
 * Град - Градове
 * Мъж - Мъже (an exception)
 
-#### Feminine Words
+### Feminine Words
 
 The final -а or -я is replaced with и
 
 * Жена - Жени
 * Стая - Стаи
 
-#### Neutral Words
+### Neutral Words
 
 * The final о is replaced by а
 * The final e and for loan words, an extra та is added to the end:
@@ -46,4 +47,4 @@ The final -а or -я is replaced with и
   * Кафе - Кафета
   * Такси - Таксита
 
-# References
+## References

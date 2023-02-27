@@ -23,4 +23,4 @@ The article will vary depending on the [gender](Bulgarian%20Grammatical%20Gender
 |Plural nouns ending in -а or -я|-та|кафета ➜ кафетата|
 |All other plural nouns|-те|градове ➜ градовете|
 
-# References
+## References

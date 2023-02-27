@@ -7,4 +7,4 @@ Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), [Verb](Ve
 
 In Bulgarian [verbs](Verb.md) are [conjugated](Conjugation.md) according to the subject (I, you, ...) and the tense (past, present, ...). This conjugation is applied to the ending of the [verb](Verb.md).
 
-# References
+## References
