@@ -20,6 +20,9 @@
   <link rel="stylesheet" href="{{ "style.css" | absURL }}">
 {{- end }}
 
+<!-- Search CSS -->
+<link rel="stylesheet" href="/search.css">
+
 <!-- Icons -->
 <link rel="apple-touch-icon" href="{{ "img/apple-touch-icon-192x192.png" | absURL }}">
 {{ if isset $.Site.Params "favicon" }}
@@ -72,11 +75,14 @@
   <link href="{{ .RelPermalink }}" rel="alternate" type="application/json" title="{{ $.Site.Title }}" />
 {{ end }}
 
-<!-- Extended head section-->
+<!-- Extended head section -->
 {{ partial "extended_head.html" . }}
 
-<!-- Katex support-->
+<!-- Katex support -->
 {{partial "katex.html" .}}
 
-<!-- Mermaid-->
+<!-- Mermaid -->
 {{ partial "mermaid.html" . }}
+
+<!-- Search -->
+<script type="module" src="/js/search.js"></script>

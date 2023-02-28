@@ -3,6 +3,7 @@ languageCode = 'en-uk'
 title = 'Oli Wilkins'
 theme = 'terminal'
 enableGitInfo = false
+googleAnalytics = 'G-QFBNT4WHSV'
 
 [params]
   # dir name of your main content (default is `content/posts`).
