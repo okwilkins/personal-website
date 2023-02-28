@@ -32,13 +32,6 @@ jobs:
           mkdir -p ./content/knowledge-system
           obsidian-export ./knowledge-system ./content/knowledge-system
 
-      - name: Run Hugo Obsidian
-        uses: jackyzha0/hugo-obsidian@v2.1
-        with:
-          input: ./knowledge-system/slip-box
-          output: ./data
-          index: true
-
       - name: Commit Changes
         run: |
           rm -rf ./knowledge-system
