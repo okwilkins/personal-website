@@ -75,10 +75,8 @@
 <!-- Extended head section-->
 {{ partial "extended_head.html" . }}
 
-<!-- MathJax support-->
-{{ if .Params.mathjax }}
-  {{ partial "mathjax_support.html" . }}
-{{ end }}
+<!-- Katex support-->
+{{partial "katex.html" .}}
 
 <!-- Mermaid-->
 {{ partial "mermaid.html" . }}

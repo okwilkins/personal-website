@@ -13,7 +13,7 @@ class TerminalThemeField(StrEnum):
     SHOW_FULL_CONTENT = auto()
     READING_TIME = auto()
     HIDE_COMMENTS = auto()
-    MATHJAX = auto()
+    KATEX = auto()
     TOC = auto()
 
     @staticmethod
@@ -33,7 +33,7 @@ class TerminalThemeField(StrEnum):
             TerminalThemeField.SHOW_FULL_CONTENT,
             TerminalThemeField.READING_TIME,
             TerminalThemeField.HIDE_COMMENTS,
-            TerminalThemeField.MATHJAX,
+            TerminalThemeField.KATEX,
             TerminalThemeField.TOC
         ]
 
@@ -57,7 +57,7 @@ class TerminalThemeZettleField(StrEnum):
     SHOW_FULL_CONTENT = auto()
     READING_TIME = auto()
     HIDE_COMMENTS = auto()
-    MATHJAX = auto()
+    KATEX = auto()
     TOC = auto()
     ZETTELCASTEN_INDEX = auto()
     ZETTELCASTEN_TAGS = auto()
@@ -81,7 +81,7 @@ class TerminalThemeZettleField(StrEnum):
             TerminalThemeZettleField.SHOW_FULL_CONTENT,
             TerminalThemeZettleField.READING_TIME,
             TerminalThemeZettleField.HIDE_COMMENTS,
-            TerminalThemeZettleField.MATHJAX,
+            TerminalThemeZettleField.KATEX,
             TerminalThemeZettleField.TOC
         ]
 
