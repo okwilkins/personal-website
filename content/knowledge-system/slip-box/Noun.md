@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230129210911
 Sequence: [Pronoun](Pronoun.md), [Adjective](Adjective.md)
 Status: #idea
-Zettelcasten Tags: [Language](Language.md)
+Zettelcasten Tags: [Language](../map-of-content/Language.md)
 
 ---
 

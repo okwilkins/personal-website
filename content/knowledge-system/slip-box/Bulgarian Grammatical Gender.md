@@ -2,7 +2,7 @@ Zettelcasten Index: 20230215181956
 Sequence:
 Status: #idea 
 TOC: true
-Zettelcasten Tags:  [Language](Language.md), [Bulgarian](Bulgarian.md), *Grammar*
+Zettelcasten Tags:  [Language](../map-of-content/Language.md), [Bulgarian](../map-of-content/Bulgarian.md), *Grammar*
 
 ---
 

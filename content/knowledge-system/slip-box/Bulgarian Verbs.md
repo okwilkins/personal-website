@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230129213905-a
 Sequence: [Bulgarian Starting Sentences with a Present Form](Bulgarian%20Starting%20Sentences%20with%20a%20Present%20Form.md)
 Status: #idea
-Zettelcasten Tags: [Bulgarian](Bulgarian.md), [Verb](Verb.md), [Conjugation](Conjugation.md), [Citation Form](Citation%20Form.md)
+Zettelcasten Tags: [Bulgarian](../map-of-content/Bulgarian.md), [Verb](Verb.md), [Conjugation](Conjugation.md), [Citation Form](Citation%20Form.md)
 
 ---
 

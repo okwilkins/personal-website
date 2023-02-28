@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230129213905
 Sequence: [Bulgarian Verbs](Bulgarian%20Verbs.md)
 Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), [Verb](Verb.md), [Conjugation](Conjugation.md)
+Zettelcasten Tags: [Language](../map-of-content/Language.md), [Bulgarian](../map-of-content/Bulgarian.md), [Verb](Verb.md), [Conjugation](Conjugation.md)
 
 ---
 

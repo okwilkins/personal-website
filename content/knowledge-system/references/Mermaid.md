@@ -1,3 +1,8 @@
+Status: #reference
+TOC: true
+
+---
+
 ## About Mermaid
 
 * "About Mermaid", *MermaidJS*, 2023-02-27, https://mermaid.js.org/intro/

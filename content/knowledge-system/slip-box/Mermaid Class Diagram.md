@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230227123735-c
 Sequence:
 Status: #idea
-Zettelcasten Tags: *Learning*, *Diagrams*, [Mermaid](Mermaid.md), *Class Diagram*, *Object Oriented Programming*, *Programming*
+Zettelcasten Tags: *Learning*, *Diagrams*, [Mermaid](Mermaid.md), *Class Diagram*, *Object Oriented Programming*, [Programming](../map-of-content/Programming.md)
 
 ---
 

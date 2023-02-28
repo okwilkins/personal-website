@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230227102234
 Sequence: [Bulgarian Masculine Definite Articles](Bulgarian%20Masculine%20Definite%20Articles.md)
 Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), [Definite Article](Definite%20Article.md), [Bulgarian Articles](Bulgarian%20Articles.md)
+Zettelcasten Tags: [Language](../map-of-content/Language.md), [Bulgarian](../map-of-content/Bulgarian.md), [Definite Article](Definite%20Article.md), [Bulgarian Articles](Bulgarian%20Articles.md)
 
 ---
 

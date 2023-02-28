@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230227123735-i
 Sequence:
 Status: #idea
-Zettelcasten Tags: *Learning*, *Diagrams*, [Mermaid](Mermaid.md), *Git*, *Programming*, *Github*
+Zettelcasten Tags: *Learning*, *Diagrams*, [Mermaid](Mermaid.md), *Git*, [Programming](../map-of-content/Programming.md), *Github*
 
 ---
 
