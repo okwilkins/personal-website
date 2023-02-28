@@ -274,7 +274,7 @@ How do the trees make predicition?
    1. Square each term in sum to negatate large obvs vs pred
    1. This is **sum of squared residuals**
 
-$$y = ax + b$$ 
+$y = ax + b$ 
 We want to find the optimal vaues for a and b so that the sum of squared residuals is minimised
 Since we want the line that will give us the smallest sum of squares, this is called ***least squares*** 
 
@@ -286,12 +286,12 @@ Best point is where the derivative is 0
 Main ideas:
 
 1. Use least-squares to fit a line to the data
-1. Calculate $$R^2$$
-1. Calculate a p-value for $$R^2$$
+1. Calculate $R^2$
+1. Calculate a p-value for $R^2$
 
 Look above for notes on least-squares
 
-$$R^2$$:
+$R^2$:
 Example:
 
 * First shift all data to y-axis
@@ -316,21 +316,21 @@ There is less variation around the line that we fit by least-squares
 
 * We can say that some for the variation in mouse size is "explained" by taking mouse weight into account
 
-***So $$R^2$$ tells up how much of the variation in mouse size can be explained by taking mouse weight into account.***
+***So $R^2$ tells up how much of the variation in mouse size can be explained by taking mouse weight into account.***
 
-$$R^2 = \frac{Var(mean) - Var(fit)}{Var(mean)}$$
+$R^2 = \frac{Var(mean) - Var(fit)}{Var(mean)}$
 
-Example: *$$R^2$$ = 0.6 = 60%: "There is a 60% reduction in variance when we take the mouse weight into account"* or *"mouse weight explains 60% of the variation in mouse size"*.
+Example: *$R^2$ = 0.6 = 60%: "There is a 60% reduction in variance when we take the mouse weight into account"* or *"mouse weight explains 60% of the variation in mouse size"*.
 
 You can also use the sums of squares to make the same calc:
-$$R^2 = \frac{SS(mean) - SS(fit)}{SS(mean)}$$
+$R^2 = \frac{SS(mean) - SS(fit)}{SS(mean)}$
 
-Adding terms will never reduce $$R^2$$!
+Adding terms will never reduce $R^2$!
 This is because lesat-sqaures would make the offending term(s) go to 0
 
 * Cause any term that makes SS(fit) worse to be multiplied by 0
-* However, the more stupid paramters added to the equation, the more chance there for random events to result in a better $$R^2$$
-* Because of this, people report an "adjusted" $$R^2$$ value that in essence, scales R^2 by the number of parameters
+* However, the more stupid paramters added to the equation, the more chance there for random events to result in a better $R^2$
+* Because of this, people report an "adjusted" $R^2$ value that in essence, scales R^2 by the number of parameters
 
 What if we had only 2 measurements however?
 
@@ -342,9 +342,9 @@ The p-value for R^2 comes from something called F:
 
 * Tells you how reliable the fit is!
 * F = the variation explained by the extra parameters in the fit / the variation not explained by the extra parameters in the fit
-* $$F = \frac{SS(mean) - SS(fit) / (p\_{fit} - p\_{mean})}{SS(fit) / (n - p\_{fit})}$$
+* $F = \frac{SS(mean) - SS(fit) / (p\_{fit} - p\_{mean})}{SS(fit) / (n - p\_{fit})}$
 * p are the degrees of freedom
-* Why divide SS(fit) by $$n - p\_{fit}$$ instead of just n?
+* Why divide SS(fit) by $n - p\_{fit}$ instead of just n?
   * The more params you have in your equation, the more data you need to estimate them
   * For example, you only need two points to estimate a line, but you need 3 points to estimate a plane
 * If the fit is good F = large num / small num
@@ -352,7 +352,7 @@ The p-value for R^2 comes from something called F:
 To calc p-value:
 
 * You could gen histogram from lots of random datasets and then see where you f-score for the dataset sits
-* What is more common is to generate an F-dstribution based off a line: $$(p\_{mean} - p\_{fit}) = 1$$, $$(n - p\_{fit}) = 10$$
+* What is more common is to generate an F-dstribution based off a line: $(p\_{mean} - p\_{fit}) = 1$, $(n - p\_{fit}) = 10$
   * the number of degrees of freedom determines the shape of the line
 
 # Maximum Likelihood
@@ -385,7 +385,7 @@ odds are not probability
 prob of something / prob of not something is the same as the odds
 
 * odds of team losing go from 0 to 1 (1 : 32 => 0.03125)
-* odds of team winning go from 1 to $$\infty$$ (32 : 3 => 10.67)
+* odds of team winning go from 1 to $\infty$ (32 : 3 => 10.67)
 * this makes it difficult to compare the odds of winning vs losing
 * taking the log of the odds helps with this
 
@@ -401,15 +401,15 @@ log(odds) are very useful for solving certain stats problems
 |Yes|23|117|
 |No|6|210|
 
-Odds ratio: $$\frac{23 / 117}{6 / 210} = \frac{0.2}{0.03} = 6.88$$
+Odds ratio: $\frac{23 / 117}{6 / 210} = \frac{0.2}{0.03} = 6.88$
 This means that the odds are 6.88 times greater that someone with the mutated gene will also have cancer
-Hence log ratio: $$1.93$$
+Hence log ratio: $1.93$
 
 * The odds ratio and log of the odds ratio are like R-squared; they indicate a relationship between two things
 * Larger values mean that the mutated gene is a good predictor of cancer
-* Values close to 0 are bad: $$log(1) = 0$$
-  * $$log(0.001) = -6.91$$ (so do opposite) (for every game I win someone else wins 1,000 times)
-  * $$log(100) = 4.6$$ (for every game I lose, I win 100)
+* Values close to 0 are bad: $log(1) = 0$
+  * $log(0.001) = -6.91$ (so do opposite) (for every game I win someone else wins 1,000 times)
+  * $log(100) = 4.6$ (for every game I lose, I win 100)
   * hence these are good predictors
 
 3 ways to determine if an odds ratio is statistically signficant:
@@ -436,14 +436,14 @@ Hence log ratio: $$1.93$$
 Continuous values:
 Because with logistic regression, the y-axis is confined to probability values between 0 and 1
 
-* solve problem by transforming to the log odds, so like with linear regression the y-axis can go from $$-\infty$$ to  $$+\infty$$
+* solve problem by transforming to the log odds, so like with linear regression the y-axis can go from $-\infty$ to  $+\infty$
 
-So we use the **logit function**: $$\log{\frac{p}{1 - p}}$$
+So we use the **logit function**: $\log{\frac{p}{1 - p}}$
 
-* So all values that are true (1) -> $$\infty$$
-* All values that are false (0) -> $$-\infty$$
+* So all values that are true (1) -> $\infty$
+* All values that are false (0) -> $-\infty$
 
-Take example logisitic regression line: $$y = -3.48 + 1.83\times weight$$
+Take example logisitic regression line: $y = -3.48 + 1.83\times weight$
 So the first coefficient is the y-axis intercept
 
 * when weight (x-axis) = 0, then log(odds of obesity) = -3.476
@@ -461,7 +461,7 @@ Descrete variable:
 # Gradient Descent
 
 Can be used to optimise least squares like in notes above!
-For: $$y = ax + b$$
+For: $y = ax + b$
 start with least squares estimate for the slope a
 we use gradient descent to find optimatal value for b
 
@@ -524,7 +524,7 @@ It will then build tree based of the errors of the previous tree.
 It will then build trees in this fashon till made num of trees asked for or aditional trees fail to improve fit.
 
 1. Calc avg of the target feature as first 'tree'/leaf
-   1. Better way: $$F\_{0}(x) = \arg \max\_{\gamma}\sum\_{i=1}^{n}L(y\_{i}, \gamma)$$, $$L$$ is loss func
+   1. Better way: $F\_{0}(x) = \arg \max\_{\gamma}\sum\_{i=1}^{n}L(y\_{i}, \gamma)$, $L$ is loss func
    1. Either find best value via grad descent or if ez derivative to solve for 0, do that
 1. Build tree on errors of first tree: error = obvs - pred, this is called a **pseudo residual**. The pseudo part is a reminder that we are doing grad boost, not linear reg.
 1. Now use input vars to predict the residuals to build tree. A leaf of this tree may pointwards two residuals. If this happens, get avg of residuals on leaf.
@@ -555,7 +555,7 @@ Use Linear regression aka least squares:
 
 Example: size = intercept + slope * Weight
 Lin reg minises: SSR
-Ridge regression tries to minimises: SSR + $$\lambda \times {slope}^2$$
+Ridge regression tries to minimises: SSR + $\lambda \times {slope}^2$
 
 * The added tern adds a penalty to the traditional least squares method
 
@@ -567,7 +567,7 @@ To find the value for lambda, try typically 10-fold cross validation to determin
 Also works on descrete data:
 size = 1.5 + 0.7 * high fat diet
 
-so ridge regression minimises: SSR + $$\lambda \times {diet difference}^2$$
+so ridge regression minimises: SSR + $\lambda \times {diet difference}^2$
 
 * diet difference refers to the distance in size between normal diet and high far diet
 
@@ -591,7 +591,7 @@ use ridge regression!
 # Regularization: Lasso (L1) Regression
 
 Very similar to ridge regression but has some important differences
-Intead the penalty is: $$\lambda \times |slope|$$
+Intead the penalty is: $\lambda \times |slope|$
 
 * adds a bit of bias but less variarience than leat squares
 
@@ -633,7 +633,7 @@ Like with gradient boost, XGBoost fits a regression tree to the residuals
 
 1. Each tree starts with a single leaf, all residuals go to the leaf
 1. Calculate a quality score or similarity score for the residuals
-   1. Similarity score = SSR / (num residuals + $$\lambda$$)
+   1. Similarity score = SSR / (num residuals + $\lambda$)
    1. This similarity score is a simplification of second order Taylor approximation of the loss function described in grad boost
    1. Also, the lambda here will just be for L2 regularisation
    1. L1 will make the sim score simplify to something different
@@ -643,7 +643,7 @@ Like with gradient boost, XGBoost fits a regression tree to the residuals
    1. Make a split based off the avg value
    1. Calc similarity score for both leafs
 1. Now need to quanitify how much better the leaves cluster similar resdiuals than the root, do this by calculating the gain
-   1. $$gain = left\_{similarity} + right\_{similarity} - root\_{similarity}$$
+   1. $gain = left\_{similarity} + right\_{similarity} - root\_{similarity}$
 1. Now shift the threshold over so that it is the avg of th next two observation
    1. More gain is good, is better at splitting the residuals into clusters of similar values
 1. Get best tree based of thresholds
@@ -654,8 +654,8 @@ How to prune this tree?
 
 * Pruned based on its gain values
 * Start with a number, for example, 130
-  * This is called $$\gamma$$ gamma
-  * Then calc the difference between the gain asscociated with the lowest branch in the tree and gamma: $$gain - \gamma$$
+  * This is called $\gamma$ gamma
+  * Then calc the difference between the gain asscociated with the lowest branch in the tree and gamma: $gain - \gamma$
     * if the difference is positive then the branch is not removed, if it is neg then remove
     * once you find a pos difference, then stop pruning
   * This can also remove the root of the tree, leaving just the original prediction, which is pretty extreme pruning
@@ -664,10 +664,10 @@ The regularization term:
 
 * This will decrease similarity scores
 * This will tend to stop the trees getting so large as it's harder for a branch to have a lower sim score than its parent
-* This also can make the pruning more agressive as $$\gamma$$ is more likely to be larger than the gain
+* This also can make the pruning more agressive as $\gamma$ is more likely to be larger than the gain
 * In the case of gain being less than 0, setting gamma = 0 will not turn off pruning
 
-Output value = sum of residuals / (num of residuals + $$\lambda$$)
+Output value = sum of residuals / (num of residuals + $\lambda$)
 
 * This refers to the output value for each leaf
 * Pretty similar to the similarity score except it's not SSR
@@ -676,7 +676,7 @@ Output value = sum of residuals / (num of residuals + $$\lambda$$)
 
 Like with gradient boost, there is a learning rate that scales the tree
 
-* XGboost calls this learning rate: $$\epsilon$$ (eta but this is epsilon?)
+* XGboost calls this learning rate: $\epsilon$ (eta but this is epsilon?)
   * Default value is 0.3
 
 So output = inital pred + learning rate * output value for the leaf that the point goes down to
