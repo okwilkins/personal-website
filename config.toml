@@ -86,3 +86,6 @@ enableGitInfo = false
         identifier = "knowledge-system"
         name = "Knowledge System"
         url = "/knowledge-system"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
