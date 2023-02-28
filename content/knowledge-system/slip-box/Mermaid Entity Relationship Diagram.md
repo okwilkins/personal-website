@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230227123735-d
 Sequence:
 Status: #idea
-Zettelcasten Tags: *Learning*, *Diagrams*, [Mermaid](Mermaid.md), *Entity Relationship Diagram*, *Programming*, *Databases*, *Data*
+Zettelcasten Tags: *Learning*, *Diagrams*, [Mermaid](Mermaid.md), *Entity Relationship Diagram*, [Programming](../map-of-content/Programming.md), *Databases*, *Data*
 
 ---
 

@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230129211820
 Sequence:
 Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Bulgarian](Bulgarian.md), *Article*, [Definite Article](Definite%20Article.md), [Indefinite Article](Indefinite%20Article.md)
+Zettelcasten Tags: [Language](../map-of-content/Language.md), [Bulgarian](../map-of-content/Bulgarian.md), *Article*, [Definite Article](Definite%20Article.md), [Indefinite Article](Indefinite%20Article.md)
 
 ---
 

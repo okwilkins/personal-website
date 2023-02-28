@@ -1,8 +1,8 @@
 Zettelcasten Index: 20230215230508
 Sequence:
 Status: #slip-box
-Zettelcasten Tags: *Data Science*, *Machine Learning*
-Mathjax: true
+Zettelcasten Tags: [Data Science](../map-of-content/Data%20Science.md), *Machine Learning*
+Katex: true
 TOC: true
 
 ---

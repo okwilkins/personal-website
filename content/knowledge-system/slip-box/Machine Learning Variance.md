@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230227115217
 Sequence:
 Status: #idea
-Zettelcasten Tags:  *Data Science*, *Machine Learning*, *Artificial Intelligence*
+Zettelcasten Tags:  [Data Science](../map-of-content/Data%20Science.md), *Machine Learning*, *Artificial Intelligence*
 
 ---
 

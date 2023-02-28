@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230129220508
 Sequence:
 Status: #idea
-Zettelcasten Tags: [Language](Language.md), [Verb](Verb.md), *Tense*
+Zettelcasten Tags: [Language](../map-of-content/Language.md), [Verb](Verb.md), *Tense*
 
 ---
 
