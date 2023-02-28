@@ -108,5 +108,12 @@ def format_file(path: str) -> None:
 
 if __name__ == '__main__':
     # TODO: Maek a CLI interface for all this and fix cohesion issues with main
-    for file in glob('./content/knowledge-system/slip-box/*.md'):
-        format_file(file)
+    folders = [
+        'map-of-content',
+        'projects',
+        'references',
+        'slip-box',
+    ]
+    for folder in folders:
+        for file in glob(f'./content/knowledge-system/{folder}/*.md'):
+            format_file(file)
