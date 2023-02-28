@@ -1,0 +1,8 @@
+{{ if .Params.sequence }}
+<span class="post-tags">
+  Sequence:
+  {{ range .Params.sequence }}
+  <a href="{{ (urlize (printf "knowledge-system/slip-box/%s/" .)) | absLangURL }}">{{ . }}</a>&nbsp;
+  {{ end }}
+</span>
+{{ end }}

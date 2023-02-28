@@ -1,0 +1,43 @@
+{{ define "main" }}
+<div class="post">
+  <h1 class="post-title">
+    <a href="{{ .Permalink }}">{{ .Title | markdownify }}</a></h1>
+  <div class="post-meta">
+    {{ partial "date.html" .}}
+    
+    {{ partial "author.html" . }}
+    
+    {{ partial "reading-time.html" .}}
+    
+    {{ partial "zettelcasten-index.html" . }}
+  </div>
+
+  {{ partial "zettelcasten-sequence.html" . }}
+
+  {{ partial "zettelcasten-tags.html" . }}
+
+  {{ partial "tags.html" . }}
+
+  {{ partial "cover.html" . }}
+
+  {{ partial "toc.html" . }}
+
+  {{ partial "mermaid.html" . }}
+
+  <div class="post-content">
+    {{- with .Content -}}
+      <div>
+        {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Anchor">&#8983;</a> ${3}` | safeHTML }}
+      </div>
+    {{- end -}}
+  </div>
+
+  {{ if eq .Type $.Site.Params.contentTypeName }}
+  {{ partial "posts_pagination.html" . }}
+  {{ end }}
+
+  {{ if not (.Params.hideComments | default false) }}
+  {{ partial "comments.html" . }}
+  {{ end }}
+</div>
+{{ end }}
