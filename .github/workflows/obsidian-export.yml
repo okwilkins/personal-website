@@ -31,6 +31,16 @@ jobs:
           rm -rf ./content/knowledge-system
           mkdir -p ./content/knowledge-system
           obsidian-export ./knowledge-system ./content/knowledge-system
+
+      - name: Run Hugo Obsidian
+        uses: jackyzha0/hugo-obsidian@v2.1
+        with:
+          input: ./knowledge-system
+          output: ./data
+          index: true
+
+      - name: Commit Changes
+        run: |
           rm -rf ./knowledge-system
           git config user.name github-actions
           git config user.email github-actions@github.com
