@@ -7,6 +7,9 @@
 
 {{ template "_internal/google_analytics.html" . }}
 
+<!-- Search CSS -->
+<link rel="stylesheet" href="/search.css">
+
 <!-- Theme CSS -->
 <link rel="stylesheet" href="{{ "assets/style.css" | absURL }}">
 {{ if (isset .Params "color") }}
@@ -19,9 +22,6 @@
 {{ if (fileExists "static/style.css") -}}
   <link rel="stylesheet" href="{{ "style.css" | absURL }}">
 {{- end }}
-
-<!-- Search CSS -->
-<link rel="stylesheet" href="/search.css">
 
 <!-- Icons -->
 <link rel="apple-touch-icon" href="{{ "img/apple-touch-icon-192x192.png" | absURL }}">
