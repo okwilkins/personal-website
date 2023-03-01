@@ -24,11 +24,25 @@ const loadSearch = (data) => {
   let options = {
     // fuse.js options; check fuse.js website for details
     shouldSort: true,
-    location: 0,
-    distance: 100,
-    threshold: 0.4,
+    // location: 0,
+    // distance: 100,
+    ignoreLocation: true,
+    threshold: 0.1,
     minMatchCharLength: 2,
-    keys: ["contents", "title"],
+    keys: [
+      {
+        name: "contents",
+        weight: 1
+      },
+      {
+        name: "title",
+        weight: 2
+      },
+      {
+        name: "section",
+        weight: 1
+      }
+    ]
   };
 
   // Build the index from the json file
@@ -40,18 +54,14 @@ const executeSearch = (fuse, term) => {
   let searchItems = "";
 
   if (results.length > 0) {
-    // Only show first 5 results
-    for (let i in results.slice(0, 5)) {
+    // Only show first 10 results
+    for (let i in results) {
       searchItems += `
         <li>  
-          <a href="${results[i]["item"].permalink}" tabindex="0">
-            <span class="title">
-              ${results[i]["item"].title}
-            </span>
-            <br />
-            <em>
-              ${results[i]["item"].contents}
-            </em>
+          <a href="${results[i]["item"].permalink}">
+            <span class="title">${results[i]["item"].title}</span>
+            <span class="section"><em>${results[i]["item"].section}</em></span>
+            <span class="content">${results[i]["item"].contents}</span>
           </a>
         </li>
       `;
@@ -72,4 +82,16 @@ document.getElementById("searchInput").addEventListener("keyup", (event) => {
   }
 
   executeSearch(fuse, document.getElementById("searchInput").value);
+});
+
+document.getElementById("searchInput").addEventListener("keydown", (event) => {
+  if (event.isComposing || event.keyCode === 229) {
+    return;
+  }
+
+  if (event.keyCode == 27) {
+    document.getElementById("searchInput").value = "";
+    // document.getElementById("searchInput").style.visibility = "hidden";
+    // document.activeElement.blur();
+  }
 });

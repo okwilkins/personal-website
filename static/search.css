@@ -4,6 +4,7 @@
     top: 0px;
     display: inline-block;
     width: 300px;
+    z-index: 10;
 }      
   
 #search input {
@@ -12,7 +13,15 @@
 
 #searchResults {
     display: inline-block;
-    width: 500px;
+    width: 70vh;
+    height: 70vh;
+    position: absolute;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+#searchResults::-webkit-scrollbar{
+    display: none;
 }
 
 #searchResults li { 
@@ -20,13 +29,31 @@
     margin-left: 0em;
     background-color: #1d212c; 
     border: 0.05em solid #23b0ff;
-    display: inline-block;
+    display: -webkit-box;
 }
 
 #searchResults li .title {
     font-size: 1.1em;
-    margin-bottom: 10px;
-    display: inline-block;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+#searchResults li .section {
+    font-size: 0.8em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+#searchResults li .content {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    padding-top: 10px;
 }
 
 #searchResults a {
@@ -35,8 +62,10 @@
     display: inline-block;
 }
 
-#searchResults a:hover, a:focus {
-    outline: 0;
+#searchResults li:hover, li:focus {
+    /* outline: 0; */
     color: #1d212c;
     background-color: #23b0ff;
+    display: inline-block;
+    flex-direction: row;
 }
