@@ -13,8 +13,8 @@
 
 #searchResults {
     display: inline-block;
-    width: 70vh;
-    height: 70vh;
+    width: 50vh;
+    height: 50vh;
     position: absolute;
     overflow: scroll;
     scrollbar-width: none;
@@ -24,7 +24,7 @@
     display: none;
 }
 
-#searchResults li { 
+#searchResults li {
     list-style: none; 
     margin-left: 0em;
     background-color: #1d212c; 

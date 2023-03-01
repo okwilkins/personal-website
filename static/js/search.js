@@ -91,7 +91,5 @@ document.getElementById("searchInput").addEventListener("keydown", (event) => {
 
   if (event.keyCode == 27) {
     document.getElementById("searchInput").value = "";
-    // document.getElementById("searchInput").style.visibility = "hidden";
-    // document.activeElement.blur();
   }
 });
