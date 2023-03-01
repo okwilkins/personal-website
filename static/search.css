@@ -2,7 +2,7 @@
     position: relative;
     right: 0px;
     top: 0px;
-    display: inline-block;
+    display: block;
     z-index: 10;
 }      
   
@@ -12,13 +12,17 @@
 }
 
 #searchResults {
-    display: inline-block;
+    display: block;
     width: 100%;
     height: 70dvh;
     position: absolute;
     scrollbar-width: none;
     overflow: scroll;
     overflow-x: hidden;
+}
+
+#searchResults a {
+    text-decoration: none !important;
 }
 
 #searchResults::-webkit-scrollbar{
@@ -32,14 +36,14 @@
     border: 0.05em solid #23b0ff;
     width: 100%;
     text-decoration: none !important;
-    display: inline-block;
+    display: block;
     padding: 0.5em;
 }
 
 #searchResults li .title {
     font-size: 1.1em;
     overflow: hidden;
-    display: -webkit-box;
+    display: block;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
@@ -47,14 +51,14 @@
 #searchResults li .section {
     font-size: 0.8em;
     overflow: hidden;
-    display: -webkit-box;
+    display: block;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 
 #searchResults li .content {
     overflow: hidden;
-    display: -webkit-box;
+    display: block;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     padding-top: 10px;
@@ -64,6 +68,6 @@
     width: 100%;
     color: #1d212c;
     background-color: #23b0ff;
-    display: inline-block;
+    display: block;
     flex-direction: row;
 }
