@@ -1,4 +1,5 @@
 #search {
+    float: right;
     position: relative;
     right: 0px;
     top: 0px;
@@ -13,19 +14,11 @@
 
 #searchResults {
     display: inline-block;
-    width: 70vh;
-    height: 70vh;
+    width: 70dvw;
+    height: 70dvh;
     position: absolute;
-    overflow: scroll;
     scrollbar-width: none;
-}
-
-
-@media (--phone) {
-    #searchResults {
-        width: 30vh;
-        height: 50vh;
-    }
+    overflow: scroll;
 }
 
 #searchResults::-webkit-scrollbar{
