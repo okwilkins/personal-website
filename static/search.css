@@ -21,7 +21,7 @@
 }
 
 
-@media (max-width: 1000px) {
+@media (--phone) {
     #searchResults {
         width: 30vh;
         height: 50vh;
