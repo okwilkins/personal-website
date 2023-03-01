@@ -12,9 +12,8 @@
 }
 
 #searchResults {
-    display: block;
     width: 100%;
-    height: 70dvh;
+    max-height: 70dvh;
     position: absolute;
     scrollbar-width: none;
     overflow: scroll;
