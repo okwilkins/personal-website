@@ -57,13 +57,13 @@ const executeSearch = (fuse, term) => {
     // Only show first 10 results
     for (let i in results) {
       searchItems += `
-        <li>  
-          <a href="${results[i]["item"].permalink}">
+        <a href="${results[i]["item"].permalink}">
+          <li>
             <span class="title">${results[i]["item"].title}</span>
             <span class="section"><em>${results[i]["item"].section}</em></span>
             <span class="content">${results[i]["item"].contents}</span>
-          </a>
-        </li>
+          </li>
+        </a>
       `;
     }
   } else {

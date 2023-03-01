@@ -1,19 +1,19 @@
 #search {
-    float: right;
     position: relative;
     right: 0px;
     top: 0px;
     display: inline-block;
-    width: 300px;
+    width: 70vdw;
     z-index: 10;
 }      
   
 #search input {
     color: #23b0ff;
+    width: 70vdw;
 }
 
 #searchResults {
-    display: inline-block;
+    display: -webkit-box;
     width: 70dvw;
     height: 70dvh;
     position: absolute;
@@ -30,7 +30,10 @@
     margin-left: 0em;
     background-color: #1d212c; 
     border: 0.05em solid #23b0ff;
-    display: -webkit-box;
+    width: 70dvw;
+    text-decoration: none !important;
+    display: inline-block;
+    padding: 0.5em;
 }
 
 #searchResults li .title {
@@ -57,14 +60,8 @@
     padding-top: 10px;
 }
 
-#searchResults a {
-    text-decoration: none !important;
-    padding: 10px;
-    display: inline-block;
-}
-
 #searchResults li:hover, li:focus {
-    /* outline: 0; */
+    width: 70vdw;
     color: #1d212c;
     background-color: #23b0ff;
     display: inline-block;
