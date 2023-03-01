@@ -3,13 +3,12 @@
     right: 0px;
     top: 0px;
     display: inline-block;
-    width: 70vdw;
     z-index: 10;
 }      
   
 #search input {
     color: #23b0ff;
-    width: 70vdw;
+    width: 70dvw;
 }
 
 #searchResults {
