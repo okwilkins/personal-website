@@ -13,11 +13,19 @@
 
 #searchResults {
     display: inline-block;
-    width: 50vh;
-    height: 50vh;
+    width: 70vh;
+    height: 70vh;
     position: absolute;
     overflow: scroll;
     scrollbar-width: none;
+}
+
+
+@media (max-width: 1000px) {
+    #searchResults {
+        width: 30vh;
+        height: 50vh;
+    }
 }
 
 #searchResults::-webkit-scrollbar{

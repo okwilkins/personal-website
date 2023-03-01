@@ -99,8 +99,8 @@ document.addEventListener("click", (event) => {
     !(event.target == document.getElementById("searchInput")) &
     !(event.target == document.getElementById("searchResults"))
   ) {
-    document.getElementById("searchResults").style.display = "none";
+    document.getElementById("searchResults").style.visibility = "hidden";
   } else {
-    document.getElementById("searchResults").style.display = "";
+    document.getElementById("searchResults").style.visibility = "visible";
   }
 });
