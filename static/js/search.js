@@ -32,17 +32,17 @@ const loadSearch = (data) => {
     keys: [
       {
         name: "contents",
-        weight: 1
+        weight: 1,
       },
       {
         name: "title",
-        weight: 2
+        weight: 2,
       },
       {
         name: "section",
-        weight: 1
-      }
-    ]
+        weight: 1,
+      },
+    ],
   };
 
   // Build the index from the json file
@@ -66,7 +66,7 @@ const executeSearch = (fuse, term) => {
         </li>
       `;
     }
-  }  else {
+  } else {
     searchItems = "";
   }
 
@@ -91,5 +91,16 @@ document.getElementById("searchInput").addEventListener("keydown", (event) => {
 
   if (event.keyCode == 27) {
     document.getElementById("searchInput").value = "";
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (
+    !(event.target == document.getElementById("searchInput")) &
+    !(event.target == document.getElementById("searchResults"))
+  ) {
+    document.getElementById("searchResults").style.display = "none";
+  } else {
+    document.getElementById("searchResults").style.display = "";
   }
 });
