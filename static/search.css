@@ -23,7 +23,7 @@
 
 #searchResults a {
     text-decoration: none !important;
-    display: -webkit-box;
+    display: -webkit-box !important;
 }
 
 #searchResults::-webkit-scrollbar{
@@ -44,7 +44,7 @@
 #searchResults li .title {
     font-size: 1.1em;
     overflow: hidden;
-    display: -webkit-box;
+    display: -webkit-box !important;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
@@ -52,14 +52,14 @@
 #searchResults li .section {
     font-size: 0.8em;
     overflow: hidden;
-    display: -webkit-box;
+    display: -webkit-box !important;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 
 #searchResults li .content {
     overflow: hidden;
-    display: -webkit-box;
+    display: -webkit-box !important;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     padding-top: 10px;
