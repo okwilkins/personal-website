@@ -23,6 +23,7 @@
 
 #searchResults a {
     text-decoration: none !important;
+    display: -webkit-box;
 }
 
 #searchResults::-webkit-scrollbar{
