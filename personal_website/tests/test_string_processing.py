@@ -3,7 +3,6 @@ from personal_website.string_processing import (
     link_text_from_markdown,
     case_to_camel_case,
     gen_header_line,
-    gen_header_string,
     remove_empty_strs,
     snake_case_str,
     str_to_hugo_list,
