@@ -117,17 +117,6 @@ def gen_header_line(key: str, value: any, sep: str) -> str:
     return output_line
 
 
-def gen_header_string(header_lines: list[str]) -> str:
-    '''Generates the header to Hugo markdown files.'''
-    header = ['+++']
-
-    for line in header_lines:
-        header.append(line)
-
-    header.append('+++')
-    return '\n'.join(header)
-
-
 def link_text_from_markdown(string: str) -> list[str]:
     '''Find all links in a markdown string and extracts the link text.'''
     RE_EXPRESSION = r'\[([^\[\]]+)\]\([^\(\)]*\)'

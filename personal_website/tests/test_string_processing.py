@@ -194,35 +194,6 @@ class TestStringProcessing(unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.assertEqual(gen_header_line('title', (1, 2, 3), ' = '))
 
-    def test_gen_header_string(self) -> None:
-        self.assertEqual(
-            gen_header_string([
-                'showComments = ["Language", "Noun"]',
-                'title = "Noun"'
-            ]),
-            (
-                '+++\n'
-                'showComments = ["Language", "Noun"]\n'
-                'title = "Noun"\n'
-                '+++'
-            )
-        )
-        self.assertEqual(
-            gen_header_string([]),
-            (
-                '+++\n'
-                '+++'
-            )
-        )
-        self.assertEqual(
-            gen_header_string(['']),
-            (
-                '+++\n'
-                '\n'
-                '+++'
-            )
-        )
-
     def test_link_text_from_markdown(self) -> None:
         self.assertEqual(
             link_text_from_markdown('[Language](Language.md)'),
