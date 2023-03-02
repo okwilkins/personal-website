@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from file_sections import FileSection, Header, Body
+from typing import Optional
 
 
 class FileSectionFactory(ABC):
@@ -16,7 +17,7 @@ class HeaderFactory(FileSectionFactory):
     @staticmethod
     def get_section(
         lines: list[str],
-        header_start_str: str,
+        header_start_str: Optional[str],
         header_end_str: str,
         key_value_sep: str
     ) -> Header:

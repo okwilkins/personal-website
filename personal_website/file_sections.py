@@ -27,12 +27,12 @@ class Header(FileSection):
         lines = []
 
         if self.start_str is not None:
-            lines += self.start_str + '\n'
+            lines.append(self.start_str)
 
-        lines += [f'{line}\n' for line in self.lines]
-        lines += self.end_str
+        lines += self.lines
+        lines.append(self.end_str)
 
-        return ''.join(lines)
+        return '\n'.join(lines)
 
     def get_data(self) -> dict[str, Optional[str]]:
         '''
@@ -72,7 +72,7 @@ class Body(FileSection):
     lines: list[str]
 
     def __str__(self) -> str:
-        return ''.join(self.lines)
+        return '\n'.join(self.lines)
 
     def update_line(self, line_string: str, value: str) -> None:
         '''

@@ -95,7 +95,7 @@ def case_to_camel_case(string: str, sep: str = ' ') -> str:
     return ''.join([first.lower(), *map(str.title, others)])
 
 
-def gen_header_line(key: str, value: any) -> str:
+def gen_header_line(key: str, value: any, sep: str) -> str:
     '''
     Takes in a key value pair and generates a line for the header of Hugo
     markdown files.
@@ -105,12 +105,12 @@ def gen_header_line(key: str, value: any) -> str:
     match value:
         # Bool first as bool is a subset of int! It should be first!
         case bool():
-            output_line = f'{key} = {str(value).lower()}'
+            output_line = f'{key}{sep}{str(value).lower()}'
         case str() | int() | float():
-            output_line = f'{key} = "{value}"'
+            output_line = f'{key}{sep}"{value}"'
         case list():
             value = [f'"{v}"' for v in value]
-            output_line = f'{key} = [{", ".join(value)}]'
+            output_line = f'{key}{sep}[{", ".join(value)}]'
         case _:
             raise NotImplementedError
 

@@ -152,39 +152,47 @@ class TestStringProcessing(unittest.TestCase):
 
     def test_gen_header_line(self) -> None:
         self.assertEqual(
-            gen_header_line('title', 'Noun'),
+            gen_header_line('title', 'Noun', ' = '),
             'title = "Noun"'
         )
         self.assertEqual(
-            gen_header_line('title', ''),
+            gen_header_line('title', '', ' = '),
             'title = ""'
         )
         self.assertEqual(
-            gen_header_line('title', 1),
+            gen_header_line('title', 1, ' = '),
             'title = "1"'
         )
         self.assertEqual(
-            gen_header_line('title', 1.2),
+            gen_header_line('title', 1.2, ' = '),
             'title = "1.2"'
         )
         self.assertEqual(
-            gen_header_line('showComments', True),
+            gen_header_line('showComments', True, ' = '),
             'showComments = true'
         )
         self.assertEqual(
-            gen_header_line('showComments', False),
+            gen_header_line('showComments', False, ' = '),
             'showComments = false'
         )
         self.assertEqual(
-            gen_header_line('showComments', ['Language', 'Noun']),
+            gen_header_line('showComments', ['Language', 'Noun'], ' = '),
             'showComments = ["Language", "Noun"]'
         )
         self.assertEqual(
-            gen_header_line('showComments', []),
+            gen_header_line('showComments', [], ' = '),
             'showComments = []'
         )
+        self.assertEqual(
+            gen_header_line('showComments', [], ': '),
+            'showComments: []'
+        )
+        self.assertEqual(
+            gen_header_line('showComments', [], ''),
+            'showComments[]'
+        )
         with self.assertRaises(NotImplementedError):
-            self.assertEqual(gen_header_line('title', (1, 2, 3)))
+            self.assertEqual(gen_header_line('title', (1, 2, 3), ' = '))
 
     def test_gen_header_string(self) -> None:
         self.assertEqual(

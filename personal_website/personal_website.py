@@ -63,13 +63,13 @@ def main(file: HeaderFile) -> HeaderFile:
     new_header_lines = []
 
     for key, value in export_data.items():
-        new_header_lines.append(gen_header_line(key, value))
+        new_header_lines.append(gen_header_line(key, value, ' = '))
 
     new_header = Header(
         lines=new_header_lines,
         start_str='+++',
         end_str='+++',
-        key_value_sep=': '
+        key_value_sep=' = '
     )
 
     new_file = HeaderFile(body=file.body, header=new_header)
@@ -80,6 +80,8 @@ def format_file(path: str) -> None:
     # Read in file
     with open(path, 'r') as f:
         file_lines = f.readlines()
+    
+    file_lines = [line.strip() for line in file_lines]
 
     header = HeaderFactory.get_section(
         lines=file_lines,
@@ -95,7 +97,15 @@ def format_file(path: str) -> None:
     new_file = main(file=HeaderFile(header=header, body=body))
 
     if new_file.body.lines == []:
-        new_file = HeaderFile(Body(lines=[]), Body(lines=file_lines))
+        new_file = HeaderFile(
+            Header(
+                lines=[],
+                start_str='+++',
+                end_str='+++',
+                key_value_sep=' = '
+            ),
+            Body(lines=file_lines)
+        )
     
     new_file.header.update_line(
         line_string='title = ""',
@@ -103,7 +113,7 @@ def format_file(path: str) -> None:
     )
 
     with open(path, 'w') as f:
-        f.writelines(new_file.sections_to_str())
+        f.writelines(str(new_file))
 
 
 if __name__ == '__main__':
