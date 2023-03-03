@@ -12,7 +12,8 @@
 }
 
 #search input::placeholder {
-    color: #23b0ff;
+    color: #23b0ff !important;
+    opacity: 0.5 !important;
 }
 
 #searchResults {
