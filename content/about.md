@@ -7,6 +7,7 @@ Hi 👋, I'm Oli! I am:
 - An enthusiastic data scientist with principled engineering skills.
 - Passionate for solving complex problems with data analytics and modelling.
 - Experienced in end-to-end data product delivery, business intelligence and promoting data culture.
+- Based in London.
 
 ## Contact
 - Email: [okwilkins@gmail.com](mailto:okwilkins@gmail.com)
