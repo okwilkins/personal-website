@@ -30,6 +30,8 @@
     {{- end -}}
   </div>
 
+  {{ partial "graph.html" }}
+
   {{ if eq .Type $.Site.Params.contentTypeName }}
   {{ partial "posts_pagination.html" . }}
   {{ end }}
