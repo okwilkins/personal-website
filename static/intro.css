@@ -1,0 +1,9 @@
+.text-show {
+  opacity: 1;
+  transition: all 1s ease;
+}
+
+.text-fade {
+  opacity: 0;
+  transition: all 1s ease;
+}
