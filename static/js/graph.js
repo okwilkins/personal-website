@@ -46,8 +46,8 @@ const NODE_R = 8;
 const highlightNodes = new Set();
 const highlightLinks = new Set();
 let hoverNode = null;
-const width = document.getElementsByClassName("post")[0].clientWidth;
-const post_title = document.getElementsByClassName("post-title")[0].textContent;
+const width = document.getElementsByClassName("content")[0].clientWidth;
+const post_title = document.getElementsByClassName("post-title")[0];
 
 const Graph = ForceGraph()(elem)
   .graphData(data)
@@ -114,7 +114,7 @@ const Graph = ForceGraph()(elem)
 
   if (post_title) {
     const title_node = data.nodes.filter(function (node) {
-      return node.id == post_title.trim();
+      return node.id == post_title.textContent.trim();
     })[0]
 
     if (title_node) {

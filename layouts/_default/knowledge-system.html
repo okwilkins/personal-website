@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <h1>Knowledge System</h1>
+  
+  {{ with .Site.GetPage "/knowledge-system/map-of-content/Map Of Content.md" }}{{ .Content }}{{ end }}
+
+  {{ partial "graph.html" }}
+
+  {{ if not (.Params.hideComments | default false) }}
+  {{ partial "comments.html" . }}
+  {{ end }}
+{{ end }}
