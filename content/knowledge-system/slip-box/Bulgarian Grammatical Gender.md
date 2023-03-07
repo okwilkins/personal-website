@@ -30,7 +30,7 @@ Words ending in -и, -у, -ю are generally loan words (often coming from Englis
   Examples:
 * Приятел - Приятели
 * Град - Градове
-* Мъж - Мъже (an exception)
+* Мъж - Мъже (an *exception*)
 
 ### Feminine Words
 
