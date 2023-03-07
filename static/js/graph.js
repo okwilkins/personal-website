@@ -30,15 +30,17 @@ data.links.forEach((link) => {
     return node.id == link.target;
   })[0];
 
-  !a.neighbors && (a.neighbors = []);
-  !b.neighbors && (b.neighbors = []);
-  a.neighbors.push(b);
-  b.neighbors.push(a);
+  if (a && b) {
+    !a.neighbors && (a.neighbors = []);
+    !b.neighbors && (b.neighbors = []);
+    a.neighbors.push(b);
+    b.neighbors.push(a);
 
-  !a.links && (a.links = []);
-  !b.links && (b.links = []);
-  a.links.push(link);
-  b.links.push(link);
+    !a.links && (a.links = []);
+    !b.links && (b.links = []);
+    a.links.push(link);
+    b.links.push(link);
+  }
 });
 
 const elem = document.getElementById("graph");
@@ -67,8 +69,14 @@ const Graph = ForceGraph()(elem)
     highlightLinks.clear();
     if (node) {
       highlightNodes.add(node);
-      node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
-      node.links.forEach(link => highlightLinks.add(link));
+
+      if (node.neighbors) {
+        node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+      }
+
+      if (node.links) {
+        node.links.forEach(link => highlightLinks.add(link));
+      }
     }
 
     hoverNode = node || null;
