@@ -1,5 +1,5 @@
 Zettelcasten Index: 20230227115732
-Sequence:
+Sequence: [Decision Trees Branches, Nodes And Leaves](Decision%20Trees%20Branches,%20Nodes%20And%20Leaves.md)
 Status: #idea
 Zettelcasten Tags: [Data Science](../map-of-content/Data%20Science.md), *Machine Learning*, *Artificial Intelligence*
 
@@ -14,7 +14,7 @@ flowchart TD
     A --> |False| C[Go somewhere else then!]
 ````
 
-If the statement is **true** then you go left and *vice versa*.
+If the statement is **true** then you go left and *vice versa*. A question on a feature can be asked multiple times. The same goes for final classifications.
 
 ## References
 

@@ -68,19 +68,6 @@ XGBoost
 
 # Decision Trees
 
-## Basic Concepts
-
-* milti data type ok
-* a question on a feature can be asked multiple times
-* numerica thresholds can be diff for the same feature
-* final classificaitons can be repeated
-* if statement is true, you go left
-* very top of tree is called root node/the root
-* internal nodes/branches are inbetween top and bottom
-  * branches have arrows pointing to them
-  * AND arrows pointing away from them
-* leaves have arrows pointing to them but no pointing away
-
 ## Building a Tree with Gini Impurity
 
 * First need to work out which feature makes the root
