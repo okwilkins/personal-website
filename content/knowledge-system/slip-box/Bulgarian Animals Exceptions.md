@@ -1,7 +1,7 @@
 Zettelcasten Index: 20230302084733
 Sequence:
 Status: #idea
-Zettelcasten Tags: [Language](../map-of-content/Language.md), [Bulgarian](../map-of-content/Bulgarian.md), [Bulgarian Animals](Bulgarian%20Animals.md), [Bulgarian Definite Articles](Bulgarian%20Definite%20Articles.md)
+Zettelcasten Tags: [Language](../map-of-content/Language.md), [Bulgarian](../map-of-content/Bulgarian.md), [Bulgarian Animals](Bulgarian%20Animals.md), [Bulgarian Definite Articles](Bulgarian%20Definite%20Articles.md), *Bulgarian Exceptions*
 
 ---
 
