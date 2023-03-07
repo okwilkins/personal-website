@@ -48,6 +48,12 @@ jobs:
         run: |
           conda activate personal-website
           python ./personal_website/personal_website.py
+      
+      - name: Generate Knowledge Graph JSON
+        shell: bash -l {0}
+        run: |
+          conda activate personal-website
+          python ./personal_website/knowledge_graph.py
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
