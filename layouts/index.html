@@ -3,9 +3,18 @@
     <script src="/js/intro.js" type="module"></script>
     <link rel="stylesheet" href="/intro.css">
     <h1>Hi, I'm Oli Wilkins, a <span class="text-show" id="intro">data scientist</span></h1>
+    <p>I work as a data scientist at Laing O'Rourke. This is a place dedicated to data science, tech and my personal knowledge system.</p>
   </div>
 
+  <hr>
+
+  {{ partial "graph.html" }}
+  <p>To read more about my knowledge system, please <a href="/knowledge-system">read here</a>.</p>
+
+  <hr>
+  
   <div class="posts">
+    <h2>Latest Posts</h2>
     {{ $isntDefault := not (or (eq (trim $.Site.Params.contentTypeName " ") "posts") (eq (trim $.Site.Params.contentTypeName " ") "")) }}
     {{ $contentTypeName := cond $isntDefault (string $.Site.Params.contentTypeName) "posts" }}
 
@@ -15,7 +24,7 @@
     {{ end }}
     {{ $paginator := .Paginate (where $PageContext.RegularPages "Type" $contentTypeName) }}
 
-    {{ range $paginator.Pages }}
+    {{ range first 3 $paginator.Pages }}
       <div class="post on-list">
         <h1 class="post-title">
           <a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
@@ -61,6 +70,5 @@
         {{ end }}
       </div>
     {{ end }}
-    {{ partial "pagination.html" . }}
   </div>
 {{ end }}
