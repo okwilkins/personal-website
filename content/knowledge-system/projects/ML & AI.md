@@ -71,13 +71,6 @@ XGBoost
 ## Building a Tree with Gini Impurity
 
 * First need to work out which feature makes the root
-  * If a **leaf** contains a mixture of correct **AND** incorrect predictions, then they are **IMPURE**
-  * To quantify the impurity of leaves you can use: **Gini Impurity**, **Entropy**, and **Information Gain**
-  * Gini Impurity for a leaf = 1 - (prob("yes") ^ 2 - prob("no") ^ 2)
-    * to work out toal gini impurity fpr the simple tree:
-      * = weigthed avg of gini impurities
-      * weigthed because a leaf may not represent the same number of people
-        * eg "loves popcorn? Yes? No?"
   * For numeric data:
     * sort by low to high
     * calc avg value based of row below and current row
