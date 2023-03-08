@@ -122,7 +122,7 @@ const Graph = ForceGraph()(elem)
 
   if (post_title) {
     const title_node = data.nodes.filter(function (node) {
-      return node.id == post_title.textContent.trim();
+      return node.id == post_title.textContent.trim().toLowerCase();
     })[0]
 
     if (title_node) {

@@ -47,9 +47,10 @@ def main(path: str) -> None:
     )
 
     links = get_links(header)
+    links = [link.lower() for link in links]
 
     return {
-        'id': Path(path).stem,
+        'id': Path(path).stem.lower(),
         'description': Path(path).stem,
         'links': set(links)
     }
@@ -59,7 +60,7 @@ if __name__ == '__main__':
     folders = ['map-of-content', 'slip-box']
     data = {'nodes': [], 'links': []}
     groups = [
-        Path(file).stem
+        Path(file).stem.lower()
         for file in glob(f'./content/knowledge-system/map-of-content/*.md')
     ]
 
