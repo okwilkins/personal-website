@@ -68,23 +68,6 @@ XGBoost
 
 # Decision Trees
 
-## Building a Tree with Gini Impurity
-
-* First need to work out which feature makes the root
-  * For numeric data:
-    * sort by low to high
-    * calc avg value based of row below and current row
-    * then calc gini for each avg value
-      * this can be done e.g. avg val = 9.5
-      * root: "age \< 9.5, loves song?"
-    * You then pick the root that represents num feature by the avg that = lowest gini
-  * You then pick the root by selecting the feature that has lowest gini!
-* So split based off: "loves soda?"
-  * Can we reduce gini of branch by splitting people that loved soda or Age \< ??? ?
-  * Calc gini for each of the two questions
-  * Select lowest gini of the two: "age \< 12.5?"
-* Can stop splitting based off if leaves are completly pure
-
 ## How to Prevent Overfitting
 
 * Let say that leaf only has one person, can be hard to be sure that it does a good job of making preds

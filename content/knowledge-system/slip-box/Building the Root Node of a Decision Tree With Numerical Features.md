@@ -1,0 +1,50 @@
+Zettelcasten Index: 20230227115732-a1a
+Sequence:
+Status: #idea
+Zettelcasten Tags: [Data Science](../map-of-content/Data%20Science.md), *Machine Learning*, *Artificial Intelligence*, [Decision Trees](Decision%20Trees.md), [Gini Impurity of Decision Tree Leaves](Gini%20Impurity%20of%20Decision%20Tree%20Leaves.md), [Decision Tree Gini Impurity](Decision%20Tree%20Gini%20Impurity.md)
+
+---
+
+To generate potential nodes for the root, first each numerical feature is ordered lowest to highest. The average based off the current row and the row below is also calculated.
+
+|Age|Height|Average for Age|Average for Height|
+|---|------|---------------|------------------|
+|5|100|7.5|125|
+|10|150|15|175|
+|20|200|-|-|
+
+Then each root can be generated like so:
+
+````mermaid
+flowchart TD
+    A[Age < 7.5\nGini impurity: 0.32]
+    A --> |True| B[Loves the song]
+    A --> |False| C[Deos not love the song]
+````
+
+````mermaid
+flowchart TD
+    A[Age < 15\nGini impurity: 0.2]
+    A --> |True| B[Loves the song]
+    A --> |False| C[Deos not love the song]
+````
+
+````mermaid
+flowchart TD
+    A[Height < 125\nGini impurity: 0.48]
+    A --> |True| B[Loves the song]
+    A --> |False| C[Deos not love the song]
+````
+
+````mermaid
+flowchart TD
+    A[Height < 175\nGini impurity: 0.41]
+    A --> |True| B[Loves the song]
+    A --> |False| C[Deos not love the song]
+````
+
+The root with the lowest gini impurity can then be selected. In this case, it would be `age < 15`.
+
+## References
+
+* [StatQuest with Josh Starmer > Decision Trees](../references/StatQuest%20with%20Josh%20Starmer.md#decision-trees)

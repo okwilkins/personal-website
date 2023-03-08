@@ -1,0 +1,34 @@
+Zettelcasten Index: 20230227115732-c1
+Sequence:
+Status: #idea
+Zettelcasten Tags:  [Data Science](../map-of-content/Data%20Science.md), *Machine Learning*, *Artificial Intelligence*, *Overfitting*, *Decision Tree Pruning*, [Splitting a Leaf of a Decision Tree](Splitting%20a%20Leaf%20of%20a%20Decision%20Tree.md)
+
+---
+
+When splitting a decision tree, the number of samples that the leaves on a branch can possess can become quite low. This can make it hard to be sure that the leaf will do a good job of making good predictions.
+
+This can be dealt with by:
+
+* *Pruning*
+* Putting limits on how [trees grow](Splitting%20a%20Leaf%20of%20a%20Decision%20Tree.md) by setting a threshold of the number of samples required to split a leaf
+
+Example:
+
+````mermaid
+flowchart TD
+    A[Loves popcorn\nSamples: 100]
+    C[Does not love the song\nSamples: 80]
+    D[Loves cats\nSamples: 20]
+    E[Loves the song\nSamples: 19]
+    F[Does not love the song\nSamples: 1]
+
+    A --> |True| D
+    A --> |False| C
+
+    D --> |True| E
+    D --> |False| F
+````
+
+## References
+
+* [StatQuest with Josh Starmer > Decision Trees](../references/StatQuest%20with%20Josh%20Starmer.md#decision-trees)
