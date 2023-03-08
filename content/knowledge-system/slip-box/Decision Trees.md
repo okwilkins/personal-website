@@ -1,5 +1,5 @@
 Zettelcasten Index: 20230227115732
-Sequence: [Decision Trees Branches, Nodes And Leaves](Decision%20Trees%20Branches,%20Nodes%20And%20Leaves.md)
+Sequence: [Decision Trees Branches And Nodes](Decision%20Trees%20Branches%20And%20Nodes.md)
 Status: #idea
 Zettelcasten Tags: [Data Science](../map-of-content/Data%20Science.md), *Machine Learning*, *Artificial Intelligence*
 
