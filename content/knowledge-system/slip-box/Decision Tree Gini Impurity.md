@@ -1,4 +1,4 @@
-Zettelcasten Index: 20230227115732-c2
+Zettelcasten Index: 20230227115732-b2
 Sequence:
 Status: #idea
 Katex: true

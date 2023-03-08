@@ -1,12 +1,12 @@
-Zettelcasten Index: 20230227115732-c
-Sequence: [Max and Min Gini Impurity of Decision Tree Leaves](Max%20and%20Min%20Gini%20Impurity%20of%20Decision%20Tree%20Leaves.md)
+Zettelcasten Index: 20230227115732-b
+Sequence: [Max and Min Gini Impurity of Decision Tree Leaves](Max%20and%20Min%20Gini%20Impurity%20of%20Decision%20Tree%20Leaves.md), [Decision Tree Gini Impurity](Decision%20Tree%20Gini%20Impurity.md)
 Status: #idea
 Katex: true
 Zettelcasten Tags: [Data Science](../map-of-content/Data%20Science.md), *Machine Learning*, *Artificial Intelligence*, [Decision Trees](Decision%20Trees.md), *Gini Impurity*, [Decision Trees Branches And Nodes](Decision%20Trees%20Branches%20And%20Nodes.md)
 
 ---
 
-$$\text{gini impurity} = 1 - (prob\_{correct}^2 - prob\_{incorrect}^2)$$
+$$\text{gini impurity} = 1 - prob\_{correct}^2 - prob\_{incorrect}^2$$
 The gini impurity indicates the likelihood of new data being misclassified, based off the distribution of labels of the training dataset.
 
 Example:
