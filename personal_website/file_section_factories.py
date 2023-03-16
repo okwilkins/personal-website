@@ -9,7 +9,7 @@ class FileSectionFactory(ABC):
         ...
 
     @abstractmethod
-    def _extract_section() -> FileSection:
+    def _extract_section() -> list[str]:
         ...
 
 
