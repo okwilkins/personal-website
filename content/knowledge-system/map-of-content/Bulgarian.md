@@ -27,5 +27,5 @@ Zettelcasten Tags: [Map Of Content](Map%20Of%20Content.md), [Language](Language.
 [Bulgarian To Have Or Not To Have](../slip-box/Bulgarian%20To%20Have%20Or%20Not%20To%20Have.md)
 [Bulgarian Verbs](../slip-box/Bulgarian%20Verbs.md)
 [Citation Form](../slip-box/Citation%20Form.md)
-[Definate Articles for Words Ending in й](../slip-box/Definate%20Articles%20for%20Words%20Ending%20in%20%D0%B9.md)
+[Definite Articles for Words Ending in й](../slip-box/Definite%20Articles%20for%20Words%20Ending%20in%20%D0%B9.md)
 [Numeral Plural](../slip-box/Numeral%20Plural.md)
