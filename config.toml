@@ -80,6 +80,10 @@ googleAnalytics = 'G-QFBNT4WHSV'
         name = "About"
         url = "/about"
       [[languages.en.menu.main]]
+        identifier = "my-work"
+        name = "My Work"
+        url = "/my-work"
+      [[languages.en.menu.main]]
         identifier = "posts"
         name = "Posts"
         url = "/posts"
