@@ -42,6 +42,10 @@ const loadSearch = (data) => {
         name: "section",
         weight: 1,
       },
+      {
+        name: "zettelcastenIndex",
+        weight: 2
+      }
     ],
   };
 
@@ -52,10 +56,16 @@ const loadSearch = (data) => {
 const executeSearch = (fuse, term) => {
   let results = fuse.search(term);
   let searchItems = "";
+  let existingLinks = [];
 
   if (results.length > 0) {
     // Only show first 10 results
     for (let i in results) {
+      // Only include a search item if the link isn't already included
+      if (existingLinks.includes(results[i]["item"].permalink)) {
+        continue;
+      }
+
       searchItems += `
         <a href="${results[i]["item"].permalink}">
           <li>
@@ -64,7 +74,8 @@ const executeSearch = (fuse, term) => {
             <span class="content">${results[i]["item"].contents}</span>
           </li>
         </a>
-      `;
+        `;
+        existingLinks.push(results[i]["item"].permalink);
     }
   } else {
     searchItems = "";

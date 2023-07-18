@@ -1,5 +1,5 @@
 Zettelcasten Index: 20230303105542
-Sequence: *Bulgarian Food Exceptions*
+Sequence: [Bulgarian Food Exceptions](Bulgarian%20Food%20Exceptions.md), [Bulgarian Counting Fruit](Bulgarian%20Counting%20Fruit.md), [Bulgarian Meat Names](Bulgarian%20Meat%20Names.md)
 Status: #idea
 Zettelcasten Tags: [Language](../map-of-content/Language.md), [Bulgarian](../map-of-content/Bulgarian.md), *Vocabulary*
 

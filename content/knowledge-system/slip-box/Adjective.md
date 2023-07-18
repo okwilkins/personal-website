@@ -1,5 +1,5 @@
 Zettelcasten Index: 20230129210911-b
-Sequence:
+Sequence: [Fact Adjective](Fact%20Adjective.md)
 Status: #idea
 Zettelcasten Tags: [Language](../map-of-content/Language.md), [Noun](Noun.md)
 

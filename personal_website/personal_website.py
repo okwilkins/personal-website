@@ -1,6 +1,6 @@
 from string_processing import (
     snake_case_str,
-    zettle_id_to_datetime,
+    zettle_id_to_date,
     link_text_from_markdown,
     str_to_list,
     remove_empty_strs,
@@ -30,7 +30,7 @@ def main(file: HeaderFile) -> HeaderFile:
     }
 
     if TerminalThemeZettleField.ZETTELCASTEN_INDEX in file_header_data:
-        file_header_data[TerminalThemeZettleField.DATE] = zettle_id_to_datetime(
+        file_header_data[TerminalThemeZettleField.DATE] = zettle_id_to_date(
             file_header_data[TerminalThemeZettleField.ZETTELCASTEN_INDEX]
         )
 

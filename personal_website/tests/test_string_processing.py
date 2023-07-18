@@ -8,7 +8,8 @@ from personal_website.string_processing import (
     str_to_hugo_list,
     str_to_list,
     str_to_key_value_pair,
-    zettle_id_to_datetime
+    zettle_id_to_datetime,
+    zettle_id_to_date
 )
 
 
@@ -130,6 +131,36 @@ class TestStringProcessing(unittest.TestCase):
             zettle_id_to_datetime('')
         with self.assertRaises(ValueError):
             zettle_id_to_datetime('202300292118201')
+
+    def test_zettle_id_to_date(self) -> None:
+        self.assertEqual(
+            zettle_id_to_date('20230129211820'),
+            '2023-01-29'
+        )
+        self.assertEqual(
+            zettle_id_to_date('19970201211820'),
+            '1997-02-01'
+        )
+        self.assertEqual(
+            zettle_id_to_date('19600201211820'),
+            '1960-02-01'
+        )
+        self.assertEqual(
+            zettle_id_to_date('2023012921182'),
+            '2023-01-29'
+        )
+        self.assertEqual(
+            zettle_id_to_date('20230129213905-a1'),
+            '2023-01-29'
+        )
+        self.assertEqual(
+            zettle_id_to_date('202301292118201'),
+            '2023-01-29'
+        )
+        with self.assertRaises(ValueError):
+            zettle_id_to_date('')
+        with self.assertRaises(ValueError):
+            zettle_id_to_date('202300292118201')
 
     def test_case_to_camel_case(self) -> None:
         self.assertEqual(

@@ -66,16 +66,6 @@ XGBoost
 * [ ] https://www.youtube.com/watch?v=ZVFeW798-2I
 * [ ] https://www.youtube.com/watch?v=oRrKeUCEb
 
-# Decision Trees
-
-## How to Prevent Overfitting
-
-* Let say that leaf only has one person, can be hard to be sure that it does a good job of making preds
-  * could overfit the data
-* Can deal with this by:
-  * pruning
-  * can put limits on hwo trees grow by requiring 3 or more people per leaf
-
 # Regression Trees
 
 * use when you cant fit straight line to data
