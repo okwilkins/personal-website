@@ -5,6 +5,6 @@ Zettelcasten Tags: [Philosophy](../map-of-content/Philosophy.md), [Goodhart's La
 
 ---
 
-When a measure becomes a target , it ceases to be a good measure.
+When a measure becomes a target, it ceases to be a good measure.
 
 ## References
