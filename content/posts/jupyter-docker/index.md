@@ -1,7 +1,7 @@
 +++
 title = "Mastering Dockerized Jupyter: A Secure, Reproducible, and Efficient Data Science Workflow"
 date = 2024-03-19
-tags = ["Docker", "Jupyter", "Data Science"]
+tags = ["Docker", "Jupyter", "Data Science", "DevOps", "Python"]
 +++
 
 ![Stable Diffusion XL's attempt to containerise Jupiter](./img/jupyter-shipping-container.png)
