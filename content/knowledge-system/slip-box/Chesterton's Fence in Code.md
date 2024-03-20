@@ -1,7 +1,7 @@
 Zettelcasten Index: 20240320131426-a
 Sequence:
 Status: #idea
-Zettelcasten Tags: [Chesterton's Fence](Chesterton's%20Fence.md), *Software Engineering*, *Legacy Code*, *Code Refactoring*, *System Complexity*, *Understanding Codebase*, *Development Practices*, *Code Maintenance*, *Technical Debt*, *Risk Management*, *Knowledge Transfer*, *Best Practices*, [Programming](../map-of-content/Programming.md)\]
+Zettelcasten Tags: [Chesterton's Fence](Chesterton's%20Fence.md), *Software Engineering*, *Legacy Code*, *Code Refactoring*, *System Complexity*, *Understanding Codebase*, *Development Practices*, *Code Maintenance*, *Technical Debt*, *Risk Management*, *Knowledge Transfer*, *Best Practices*, [Programming](../map-of-content/Programming.md)
 
 ---
 

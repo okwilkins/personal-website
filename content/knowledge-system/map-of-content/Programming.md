@@ -4,6 +4,7 @@ TOC: true
 
 ---
 
-[Mermaid Class Diagram](../slip-box/Mermaid%20Class%20Diagram.md)
-[Mermaid Entity Relationship Diagram](../slip-box/Mermaid%20Entity%20Relationship%20Diagram.md)
-[Mermaid Gitgraph Diagram](../slip-box/Mermaid%20Gitgraph%20Diagram.md)
+* [Mermaid Class Diagram](../slip-box/Mermaid%20Class%20Diagram.md)
+* [Mermaid Entity Relationship Diagram](../slip-box/Mermaid%20Entity%20Relationship%20Diagram.md)
+* [Mermaid Gitgraph Diagram](../slip-box/Mermaid%20Gitgraph%20Diagram.md)
+* [Chesterton's Fence in Code](../slip-box/Chesterton's%20Fence%20in%20Code.md)
