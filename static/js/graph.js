@@ -22,24 +22,21 @@ let data = fetchJSONFile("/graph-data.json");
 
 // cross-link node objects
 data.links.forEach((link) => {
-  const a = data.nodes.filter(function (node) {
-    return node.id == link.source;
-  })[0];
-
-  const b = data.nodes.filter(function (node) {
-    return node.id == link.target;
-  })[0];
+  const a = data.nodes.find(node => node.id == link.source);
+  const b = data.nodes.find(node => node.id == link.target);
 
   if (a && b) {
-    !a.neighbors && (a.neighbors = []);
-    !b.neighbors && (b.neighbors = []);
+    a.neighbors = a.neighbors || [];
+    b.neighbors = b.neighbors || [];
     a.neighbors.push(b);
     b.neighbors.push(a);
 
-    !a.links && (a.links = []);
-    !b.links && (b.links = []);
+    a.links = a.links || [];
+    b.links = b.links || [];
     a.links.push(link);
     b.links.push(link);
+  } else {
+    console.error(`Link with source ${link.source} and target ${link.target} has a node that does not exist in the nodes array.`);
   }
 });
 
@@ -111,7 +108,7 @@ const Graph = ForceGraph()(elem)
     // range dictated by forcegraph
     let node_size =
       ((node.node_size - min_node_size) / (max_node_size - min_node_size)) *
-        (max_graph_size - min_graph_size) +
+      (max_graph_size - min_graph_size) +
       min_graph_size;
 
     ctx.beginPath();
@@ -120,18 +117,18 @@ const Graph = ForceGraph()(elem)
     ctx.fill();
   });
 
-  if (post_title) {
-    const title_node = data.nodes.filter(function (node) {
-      return node.id == post_title.textContent.trim().toLowerCase();
-    })[0]
+if (post_title) {
+  const title_node = data.nodes.filter(function (node) {
+    return node.id == post_title.textContent.trim().toLowerCase();
+  })[0]
 
-    if (title_node) {
-      highlightNodes.clear();
-      highlightLinks.clear();
-      highlightNodes.add(title_node);
-      title_node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
-      title_node.links.forEach(link => highlightLinks.add(link));
-  
-      hoverNode = title_node || null;
-    }
+  if (title_node) {
+    highlightNodes.clear();
+    highlightLinks.clear();
+    highlightNodes.add(title_node);
+    title_node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+    title_node.links.forEach(link => highlightLinks.add(link));
+
+    hoverNode = title_node || null;
   }
+}
