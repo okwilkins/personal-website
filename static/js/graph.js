@@ -36,6 +36,8 @@ data.links.forEach((link) => {
     a.links.push(link);
     b.links.push(link);
   } else {
+    // Remove link from data
+    data.links = data.links.filter(l => l !== link);
     console.error(`Link with source ${link.source} and target ${link.target} has a node that does not exist in the nodes array.`);
   }
 });
