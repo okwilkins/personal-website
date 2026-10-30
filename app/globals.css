@@ -122,8 +122,8 @@
   .surface {
     --muted-foreground: #b0b0b0;
     background: rgb(11 11 11 / 84%);
-    -webkit-backdrop-filter: blur(1px) brightness(1.2);
-    backdrop-filter: blur(1px) brightness(1.2);
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
   }
   #site-header {
     -webkit-backdrop-filter: none;
