@@ -79,7 +79,9 @@ void main() {
     vec2 displacement=mix(mix(texelFetch(uMaterial,a,0).xy,texelFetch(uMaterial,a+X,0).xy,f.x),
       mix(texelFetch(uMaterial,a+Y,0).xy,texelFetch(uMaterial,a+X+Y,0).xy,f.x),f.y);
     vec2 velocity=mix(mix(state(a).xy,state(a+X).xy,f.x),mix(state(a+Y).xy,state(a+X+Y).xy,f.x),f.y);
-    s=vec4(displacement+velocity*uDt,0,0);
+    // Relax the warp continuously and bound how far it can stretch the field.
+    displacement=(displacement+velocity*uDt)*exp(-2.4*uDt);
+    s=vec4(clamp(displacement,-uGrid*.08,uGrid*.08),0,0);
   }
   color=s;
 }`;
@@ -145,8 +147,10 @@ void main() {
   }
   vec4 s=vec4(0);
   if (uActive==1) s=sampleGrid(uState,uv*uGrid);
-  // Advect between cached noise updates without recalculating the noise every frame.
-  vec2 drift=s.xy*uBaseAhead*uSize/(uGrid*uCell);
+  // Predict the same bounded, relaxing warp between cached noise updates.
+  vec2 displacement=sampleGrid(uMaterial,uv*uGrid).xy;
+  vec2 ahead=clamp((displacement+s.xy*uBaseAhead)*exp(-2.4*uBaseAhead),-uGrid*.08,uGrid*.08);
+  vec2 drift=(ahead-displacement)*uSize/(uGrid*uCell);
   vec3 ambient=sampleBase(vec2(cell)-drift);
   float base=ambient.r, motion=0., trail=0., splash=ambient.b;
   if (uActive == 1) {
