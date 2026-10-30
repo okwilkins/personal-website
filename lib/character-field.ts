@@ -105,7 +105,8 @@ float noise(vec2 p) {
 float cloud(vec2 p) { return noise(p)*.57+noise(p*2.03+vec2(7,3))*.28+noise(p*4.01)*.15; }
 float field(vec2 p, float t) {
   vec2 warp=vec2(cloud(p+vec2(0,t)),cloud(p+vec2(5.2,1.3-t)));
-  return smoothstep(.3,.7,cloud(p+warp*2.+vec2(t*.3,-t*.2)));
+  p+=warp*2.+vec2(t*.3,-t*.2);
+  return smoothstep(.3,.7,noise(p)*.30+noise(p*2.37+vec2(7,3))*.44+noise(p*4.79)*.26);
 }
 vec4 sampleGrid(sampler2D source, vec2 p) {
   p=clamp(p,vec2(.5),uGrid-1.5);
@@ -125,7 +126,8 @@ void main() {
   if (uBuildBase == 1) {
     vec2 material=uv;
     material-=sampleGrid(uMaterial,uv*uGrid).xy/uGrid;
-    vec2 p=material*vec2(uSize.x/uSize.y,1.)*2.5+vec2(12,8);
+    // Scale to the shorter edge so narrow screens retain several separate waves.
+    vec2 p=material*uSize/min(uSize.x,uSize.y)*4.0+vec2(12,8);
     float t=uTime*.05;
     float base=field(p,t);
     // Light moving edges as the field advances or recedes.
