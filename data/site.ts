@@ -177,6 +177,10 @@ export const serviceDetails: Record<string, { name: string; description: string;
     name: "Mazanoke",
     description: "Image optimisation in the browser.",
   },
+  "personal-website": {
+    name: "Personal Website",
+    description: "My experience, projects and homelab services.",
+  },
   searxng: {
     name: "SearXNG",
     description: "Private metasearch without tracking or profiling.",
