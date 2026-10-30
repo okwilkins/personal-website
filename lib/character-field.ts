@@ -160,11 +160,12 @@ void main() {
     motion=smoothstep(0.,.85,1.-exp(-length(s.xy)*.055));
     trail=smoothstep(0.,.65,s.z);
   }
-  trail=max(trail,splash);
-  // Scroll motion lights existing waves; only pointer dye and clicks add new ones.
-  float wake=max(trail,motion*smoothstep(.4,.65,base));
+  // Scrolling moves existing waves; cursor and click masks briefly reveal letters.
+  float wave=smoothstep(.4,.65,base);
+  float wake=max(max(motion*wave,trail),splash);
   float edge=smoothstep(0.,.1,uv.y)*smoothstep(0.,.1,1.-uv.y);
-  float tone=(base+(1.-base)*trail)*edge;
+  float reveal=max(trail,splash);
+  float tone=mix(base,1.,reveal)*edge;
   float dither=motion*(1.-smoothstep(.3,.5,tone));
   float level=tone*7.+dither*.6;
   float tier=level>=3.5?4.:clamp(floor(level+(BAYER[(cell.x%4)+(cell.y%4)*4]+.5)/16.),0.,3.);
@@ -173,7 +174,8 @@ void main() {
   if (tier>=4. && hash(vec2(cell)+vec2(3.1,8.7))<wake*.9-.2) {
     letter=4+int(floor(hash(vec2(cell)+floor(uTime*10.)*vec2(.71,.37))*float(${GLYPHS.length - 4})));
   }
-  float opacity=tier<4.?.1+tier*.035+dither*.035:.2+tone*.13+wake*.3;
+  // Keep the glow visible as the temporary letters fade back into punctuation.
+  float opacity=tier<4.?.1+tier*.035+dither*.035+trail*.3:.2+tone*.13+wake*.3;
   opacity+=ambient.g*.32*edge+splash*.75;
   color=vec4(opacity,float(letter)/255.,max(wake,ambient.g*.9),1);
 }`;
