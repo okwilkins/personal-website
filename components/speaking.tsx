@@ -14,7 +14,7 @@ export function Speaking() {
             <h3 className="text-[15px] font-semibold transition-colors group-hover:text-white group-active:text-white">
               {talk.title}
             </h3>
-            <p className="mt-2 font-mono text-[11px] text-muted-foreground/75 transition-colors group-hover:text-muted-foreground group-active:text-muted-foreground">{talk.event}</p>
+            <p className="mt-2 font-mono text-[11px] text-muted-foreground transition-colors group-hover:text-foreground group-active:text-foreground">{talk.event}</p>
             <p className="mt-2 text-sm leading-[1.75] text-muted-foreground transition-colors group-hover:text-foreground group-active:text-foreground">
               {talk.description}
             </p>

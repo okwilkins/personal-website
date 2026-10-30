@@ -99,7 +99,7 @@ export default async function Home() {
                   <h3 className="text-[15px] font-semibold tracking-[-0.015em] sm:text-base">
                     {item.company}
                   </h3>
-                  <span className="font-mono text-[11px] text-muted-foreground/75 sm:ml-auto">
+                  <span className="font-mono text-[11px] text-muted-foreground sm:ml-auto">
                     {item.period}
                   </span>
                 </div>

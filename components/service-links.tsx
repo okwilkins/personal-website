@@ -19,7 +19,7 @@ export function ServiceLinks({ services, preview = false }: {
                   {service.description && (
                     <p className="mt-2 max-w-[36rem] text-sm leading-[1.75] text-muted-foreground transition-colors group-hover:text-foreground group-active:text-foreground">{service.description}</p>
                   )}
-                  <p className="mt-2 truncate font-mono text-[11px] text-muted-foreground/75 transition-colors group-hover:text-muted-foreground group-active:text-muted-foreground">{new URL(service.href).hostname}</p>
+                  <p className="mt-2 truncate font-mono text-[11px] text-muted-foreground transition-colors group-hover:text-foreground group-active:text-foreground">{new URL(service.href).hostname}</p>
                 </div>
                 <ArrowUpRight aria-hidden="true" className="mt-0.5 size-3.5 shrink-0 text-muted-foreground transition-colors group-hover:text-white group-active:text-white" />
               </ResourceLink>

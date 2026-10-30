@@ -27,7 +27,7 @@ export default function Experience() {
             <li key={skill}>
               <Badge
                 variant="outline"
-                className="rounded-sm px-1.5 py-0.5 font-mono text-[11px] font-normal text-muted-foreground/75"
+                className="rounded-sm px-1.5 py-0.5 font-mono text-[11px] font-normal text-muted-foreground"
               >
                 {skill}
               </Badge>
@@ -43,7 +43,7 @@ export default function Experience() {
               <h2 className="text-base font-semibold tracking-tight sm:text-[17px]">
                 {item.company}
               </h2>
-              <span className="font-mono text-[11px] text-muted-foreground/75">
+              <span className="font-mono text-[11px] text-muted-foreground">
                 {item.period}
               </span>
             </div>
@@ -65,7 +65,7 @@ export default function Experience() {
         </div>
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h3 className="text-sm font-medium">{education.institution}</h3>
-          <span className="font-mono text-[11px] text-muted-foreground/75">
+          <span className="font-mono text-[11px] text-muted-foreground">
             {education.period}
           </span>
         </div>

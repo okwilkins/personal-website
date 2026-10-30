@@ -24,7 +24,7 @@ export function ProjectLinks({ projects, preview = false }: {
                       {project.name}
                     </h3>
                     {project.stars !== null && (
-                      <span className="ml-auto inline-flex shrink-0 items-center gap-1 font-mono text-[11px] text-muted-foreground/75 transition-colors group-hover:text-muted-foreground group-active:text-muted-foreground">
+                      <span className="ml-auto inline-flex shrink-0 items-center gap-1 font-mono text-[11px] text-muted-foreground transition-colors group-hover:text-foreground group-active:text-foreground">
                         <Star aria-hidden="true" className="size-3" />
                         {project.stars.toLocaleString("en-GB")}
                         <span className="sr-only"> GitHub stars</span>
@@ -39,7 +39,7 @@ export function ProjectLinks({ projects, preview = false }: {
                   {project.tags.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {project.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="rounded-sm border-border px-1.5 py-0.5 font-mono text-[11px] font-normal text-muted-foreground/75 transition-colors group-hover:text-muted-foreground group-active:text-muted-foreground">
+                        <Badge key={tag} variant="outline" className="rounded-sm border-border px-1.5 py-0.5 font-mono text-[11px] font-normal text-muted-foreground transition-colors group-hover:text-foreground group-active:text-foreground">
                           {tag}
                         </Badge>
                       ))}

@@ -121,7 +121,7 @@
   }
   .surface {
     --muted-foreground: #b0b0b0;
-    background: rgb(11 11 11 / 84%);
+    background: rgb(11 11 11 / 92%);
     -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);
   }
