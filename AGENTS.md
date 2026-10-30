@@ -9,9 +9,7 @@
 Use the Nix environment:
 
 ```sh
-nix develop --command $SHELL
-pnpm install
-pnpm dev
+nix develop --command run-site
 ```
 
 Do not add `.envrc` or use `path:.` in the documented Nix command. Keep Playwright and its browsers matched to the flake.
