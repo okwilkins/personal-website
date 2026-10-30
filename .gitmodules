@@ -1,3 +1,0 @@
-[submodule "themes/terminal"]
-	path = themes/terminal
-	url = https://github.com/okwilkins/hugo-theme-terminal.git

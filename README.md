@@ -1,46 +1,32 @@
-[![Generate Static HTML](https://github.com/okwilkins/personal-website/actions/workflows/gen-static-html.yml/badge.svg)](https://github.com/okwilkins/personal-website/actions/workflows/gen-static-html.yml)
-[![Obsidian Export](https://github.com/okwilkins/personal-website/actions/workflows/obsidian-export.yml/badge.svg)](https://github.com/okwilkins/personal-website/actions/workflows/obsidian-export.yml)
-[![Python Tests](https://github.com/okwilkins/personal-website/actions/workflows/python-tests.yml/badge.svg)](https://github.com/okwilkins/personal-website/actions/workflows/python-tests.yml)
-[![Website shields.io](https://img.shields.io/website-up-down-brightgreen-red/http/shields.io.svg)](http://okwilkins.dev/)
+# okwilkins.dev
 
+My personal website, built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.
 
-# Personal Website
+## Run the website
 
-[![made-with-Hugo](https://img.shields.io/badge/Made%20with-Hugo-yellow.svg)](https://gohugo.io/)
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-blue.svg)](https://www.python.org/)
-[![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-purple.svg)](http://commonmark.org)
-[![PyPI pyversions](https://img.shields.io/badge/python-v3.11-blue)](https://www.python.org/)
+With [Nix](https://nixos.org/download/) installed:
 
-Welcome to my personal website repo that houses the [content](./content/), [processing](./personal_website/) and [workflows](./.github/workflows/) for [okwilkins.dev](https://www.okwilkins.dev/). All content is written in [Markdown](http://commonmark.org) and using [Hugo](https://gohugo.io/), the Markdown is converted into static HTML. The static HTML for my website can be [found here](https://github.com/okwilkins/okwilkins.github.io).
-
-On a daily schedule, the Markdown files found in my [Zettelcasten](https://zettelkasten.de/posts/overview/) based notes system are processed via [Obsidan Export](https://github.com/zoni/obsidian-export) and brought into this repo. Please take a look at this [repository for more information](https://github.com/okwilkins/knowledge-system).
-
-Python is also used to process the headers of my notes, so that they will work with Hugo. I went a bit overboard with the over engineering, see [here](./personal_website/tests/) and [here](./personal_website/file_section_factories.py)!
-
-## Running the Website
-
-1. [Install Hugo](https://gohugo.io/overview/installing/)
-2. Clone this repository
-
-```bash
-git clone https://github.com/okwilkins/personal-website.git
-cd personal-webite
+```sh
+nix develop --command $SHELL
+pnpm install
+pnpm dev
 ```
 
-3. Run Hugo
+Open [localhost:3000](http://localhost:3000). Edit `data/site.ts` for my profile and experience. Projects follow my [GitHub pins](https://github.com/okwilkins); public services come from [h8s](https://github.com/okwilkins/h8s). Both refresh hourly.
 
-```bash
-hugo server --destination public
+## Check
+
+```sh
+pnpm check
+pnpm test
+pnpm build
 ```
 
-## Exporting Obsidian Notes to Hugo
+## Deploy
 
-This project uses [Obsdian Export](https://github.com/zoni/obsidian-export) to export the notes that can be seen in the `content/knowledge-system/` directory. The `.export-ignore` file controls which files will be ignored during the export, for more, please [read here](https://github.com/zoni/obsidian-export#ignoring-files).
-
-## Python Installation
-
-This project uses Conda to manage Python dependencies. For the fastest way of obtaining conda, install [Miniconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). After installation, to install the dependencies, run this command in the root directory of the project:
-
+```sh
+docker build -t personal-website .
+docker run --rm -p 3000:3000 personal-website
 ```
-conda env update environment.yml --prune
-```
+
+Prometheus: `/metrics`. Health check: `/healthz`. JSON logs go to stdout; set `LOG_LEVEL` to adjust verbosity.
