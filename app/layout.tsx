@@ -45,17 +45,19 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <div className="relative z-10 pt-[var(--page-gap)] pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:pb-[var(--page-gap)]">
+        <div data-site-content className="relative z-10 pt-[var(--page-gap)] pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:pb-[var(--page-gap)]">
           <ViewportGlass />
-          <ViewTransition
-            default="none"
-            update={{ "page-reveal": "page-reveal", default: "none" }}
-          >
-            <main id="main" className="shell" tabIndex={-1}>
-              {children}
-            </main>
-          </ViewTransition>
-          <SiteFooter />
+          <div className="site-card shell">
+            <ViewTransition
+              default="none"
+              update={{ "page-reveal": "page-reveal", default: "none" }}
+            >
+              <main id="main" tabIndex={-1}>
+                {children}
+              </main>
+            </ViewTransition>
+            <SiteFooter />
+          </div>
         </div>
       </body>
     </html>

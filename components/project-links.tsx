@@ -9,7 +9,7 @@ export function ProjectLinks({ projects, preview = false }: {
 }) {
   return (
     <div className={`resource-list${preview ? " section-preview" : ""}`}>
-      <ul className="divide-y">
+      <ul>
         {(preview ? projects.slice(0, 3) : projects).map((project, index) => {
           const faded = preview && index === 2;
           return (

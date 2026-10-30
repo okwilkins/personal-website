@@ -8,7 +8,7 @@ export function ServiceLinks({ services, preview = false }: {
 }) {
   return (
     <div className={`resource-list${preview ? " section-preview" : ""}`}>
-      <ul className="divide-y">
+      <ul>
         {(preview ? services.slice(0, 3) : services).map((service, index) => {
           const faded = preview && index === 2;
           return (

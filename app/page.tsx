@@ -18,7 +18,7 @@ export default async function Home() {
   ]);
   return (
     <>
-      <header id="site-header" className="surface guide sticky top-0 z-30 border-b bg-background px-6 sm:px-8">
+      <header id="site-header" className="surface guide sticky top-0 z-30 px-6 sm:px-8">
         <div className="flex flex-wrap items-center gap-x-3 font-mono text-[11px] text-muted-foreground sm:gap-x-6">
           <Link href="/" aria-label="Oli Wilkins — home" className="order-1 inline-flex min-h-11 min-w-11 items-center">
             <span aria-hidden="true" className="font-mono text-lg font-semibold tracking-[-0.12em]">

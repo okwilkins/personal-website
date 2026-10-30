@@ -245,7 +245,7 @@ test("home renders the character field and keyboard navigation works", async ({
   // Compare the canvas independently of foreground hover states and glass fades.
   const foreground = hardware
     ? await page.addStyleTag({
-        content: "body > :not(canvas) { visibility: hidden !important; }",
+        content: "[data-site-content] { visibility: hidden !important; }",
       })
     : null;
   if (hardware) {

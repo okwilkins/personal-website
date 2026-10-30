@@ -2,6 +2,17 @@
 
 import { useEffect, useRef } from "react";
 
+export function updateViewportGlass(element = document.querySelector<HTMLElement>(".viewport-glass")) {
+  if (!element) return;
+  const root = document.documentElement;
+  const remaining = root.scrollHeight - root.clientHeight - scrollY;
+  const menu = document.getElementById("site-header")?.getBoundingClientRect();
+  const opacity = (distance: number) => String(distance <= 1 ? 0 : Math.min(1, distance / 64));
+  element.style.setProperty("--menu-bottom", `${Math.max(0, menu?.bottom ?? 0)}px`);
+  element.style.setProperty("--top-fade", opacity(scrollY));
+  element.style.setProperty("--bottom-fade", opacity(remaining));
+}
+
 export function ViewportGlass() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -10,14 +21,7 @@ export function ViewportGlass() {
     if (!element) return;
 
     function update() {
-      const root = document.documentElement;
-      const remaining = root.scrollHeight - root.clientHeight - scrollY;
-      const menu = document.getElementById("site-header")?.getBoundingClientRect();
-      const opacity = (distance: number) =>
-        String(distance <= 1 ? 0 : Math.min(1, distance / 64));
-      element!.style.setProperty("--sticky-menu-height", `${menu && menu.top <= 0.5 ? menu.height : 0}px`);
-      element!.style.setProperty("--top-fade", opacity(scrollY));
-      element!.style.setProperty("--bottom-fade", opacity(remaining));
+      updateViewportGlass(element);
     }
 
     const observer = new ResizeObserver(update);
