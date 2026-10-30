@@ -47,11 +47,24 @@
             '';
           };
 
+          runSite = pkgs.writeShellApplication {
+            name = "run-site";
+            runtimeInputs = [
+              nodejs
+              pkgs.pnpm
+            ];
+            text = ''
+              pnpm install --frozen-lockfile
+              exec pnpm dev
+            '';
+          };
+
           tools = [
             nodejs
             pkgs.pnpm
             pkgs.playwright-test
             playwrightNode
+            runSite
             pkgs.git
             pkgs.curl
             pkgs.jq
