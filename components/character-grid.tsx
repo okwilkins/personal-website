@@ -9,7 +9,8 @@ export function CharacterGrid() {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    let field = createCharacterField(canvas);
+    const seed = Math.random() * 1000;
+    let field = createCharacterField(canvas, seed);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const coarse = window.matchMedia("(pointer: coarse)");
     let frame = 0;
@@ -168,7 +169,7 @@ export function CharacterGrid() {
     function contextRestored() {
       lost = false;
       field.dispose();
-      field = createCharacterField(canvas!);
+      field = createCharacterField(canvas!, seed);
       resize();
     }
 

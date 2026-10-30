@@ -185,7 +185,7 @@ void main() {
 
 type Target = { texture: WebGLTexture; buffer: WebGLFramebuffer };
 
-export function createCharacterField(canvas: HTMLCanvasElement) {
+export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
   const gl = canvas.getContext("webgl2", {
     alpha: true,
     antialias: false,
@@ -193,7 +193,7 @@ export function createCharacterField(canvas: HTMLCanvasElement) {
     stencil: false,
     powerPreference: "low-power",
   });
-  if (!gl) return staticField(canvas);
+  if (!gl) return staticField(canvas, seed);
 
   const debug = gl.getExtension("WEBGL_debug_renderer_info");
   const renderer = String(
@@ -315,7 +315,7 @@ export function createCharacterField(canvas: HTMLCanvasElement) {
   let cssWidth = 0,
     cssHeight = 0,
     accumulator = 0,
-    clock = 0,
+    clock = seed,
     count = 0;
   let lastBase = -Infinity,
     fluidUntil = 0,
@@ -544,7 +544,7 @@ export function createCharacterField(canvas: HTMLCanvasElement) {
 }
 
 // Software renderers get a one-off texture, with no animation loop.
-function staticField(canvas: HTMLCanvasElement) {
+function staticField(canvas: HTMLCanvasElement, seed: number) {
   return {
     accelerated: false,
     resize(width: number, height: number) {
@@ -559,8 +559,8 @@ function staticField(canvas: HTMLCanvasElement) {
         for (let x = 0; x < width; x += 7) {
           const tone =
             0.5 +
-            Math.sin(x / 190 + Math.sin(y / 210)) *
-              Math.cos(y / 160 + Math.sin(x / 240)) *
+            Math.sin(x / 190 + Math.sin(y / 210) + seed) *
+              Math.cos(y / 160 + Math.sin(x / 240) + seed * 0.7) *
               0.45;
           const level = tone * 7,
             row = Math.floor(y / 12),
