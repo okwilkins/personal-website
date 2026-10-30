@@ -7,7 +7,6 @@ export function BackHomeHeader({ href }: { href: string }) {
     <header id="site-header" className="surface guide sticky top-0 z-30 px-6 sm:px-8">
       <Link
         href={href}
-        transitionTypes={["page-reveal"]}
         className="text-link inline-flex min-h-11 min-w-11 items-center gap-1.5 text-xs"
       >
         <ArrowLeft aria-hidden="true" className="size-3" />

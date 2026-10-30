@@ -115,7 +115,6 @@ export default async function Home() {
         </div>
         <Link
           href="/experience/"
-          transitionTypes={["page-reveal"]}
           className="group relative mx-auto mt-2 flex min-h-11 w-fit items-center justify-center gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground active:text-foreground"
         >
           Full experience
@@ -134,7 +133,6 @@ export default async function Home() {
         <ProjectLinks projects={selectedProjects} preview />
         <Link
           href="/projects/"
-          transitionTypes={["page-reveal"]}
           className="group relative mx-auto mt-2 flex min-h-11 w-fit items-center justify-center gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground active:text-foreground"
         >
           All projects
@@ -152,7 +150,6 @@ export default async function Home() {
           <ServiceLinks services={services} preview />
           <Link
             href="/services/"
-            transitionTypes={["page-reveal"]}
             className="group relative mx-auto mt-2 flex min-h-11 w-fit items-center justify-center gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground active:text-foreground"
           >
             All services

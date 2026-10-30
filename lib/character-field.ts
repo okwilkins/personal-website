@@ -20,9 +20,9 @@ void main() {
 // All fluid passes run on a tiny grid, independent of display resolution.
 const flowShader = `#version 300 es
 precision highp float;
-uniform sampler2D uState, uPressure;
-uniform vec2 uGrid, uPanel;
-uniform float uScroll, uDt;
+uniform sampler2D uState, uPressure, uMaterial;
+uniform vec2 uGrid, uPanel, uScroll;
+uniform float uDt;
 uniform int uPass, uCount, uFirst;
 uniform vec4 uStroke[8];
 out vec4 color;
@@ -48,21 +48,19 @@ void main() {
       s.z = min(1.,s.z+weight*.4*min(1.,length_/radius));
     }
     // Full scroll force beneath the panel, falling off smoothly beyond its sides.
-    if (abs(uScroll)>.001) {
+    if (length(uScroll)>.001) {
       float x=(float(p.x)+.5)/uGrid.x;
       float distance_=max(0.,max(uPanel.x-x,x-uPanel.y));
       float reach=max(.05,(uPanel.y-uPanel.x)*.5);
       float proximity=1.-smoothstep(0.,reach,distance_);
       float ends=smoothstep(0.,.12,float(p.y)/uGrid.y)*smoothstep(0.,.12,1.-float(p.y)/uGrid.y);
-      s.y+=2.4*proximity*ends*uScroll;
+      s.xy+=2.4*proximity*ends*uScroll;
     }
     s.xy=clamp(s.xy,vec2(-80),vec2(80));
   } else if (uPass == 1) {
     vec2 from=clamp(vec2(p)-s.xy*uDt,vec2(.5),uGrid-1.5);
     ivec2 a=ivec2(from); vec2 f=fract(from);
     s=mix(mix(state(a),state(a+X),f.x),mix(state(a+Y),state(a+X+Y),f.x),f.y);
-    // Carry the material's vertical position with the velocity, even as it settles.
-    s.w+=s.y*uDt;
     s.xy*=exp(-1.8*uDt); s.z*=exp(-2.4*uDt);
   } else if (uPass == 2) {
     vec2 gradient=vec2(abs(curl(p+X))-abs(curl(p-X)),abs(curl(p+Y))-abs(curl(p-Y)));
@@ -72,8 +70,16 @@ void main() {
   } else if (uPass == 3) {
     float divergence=-.5*(state(p+X).x-state(p-X).x+state(p+Y).y-state(p-Y).y);
     s=vec4(.25*(divergence+pressure(p-X)+pressure(p+X)+pressure(p-Y)+pressure(p+Y)),0,0,0);
-  } else {
+  } else if (uPass == 4) {
     s.xy-=.5*vec2(pressure(p+X)-pressure(p-X),pressure(p+Y)-pressure(p-Y));
+  } else {
+    // Carry the wave material with exactly the same advection on both axes.
+    vec2 from=clamp(vec2(p)-s.xy*uDt,vec2(.5),uGrid-1.5);
+    ivec2 a=ivec2(from); vec2 f=fract(from);
+    vec2 displacement=mix(mix(texelFetch(uMaterial,a,0).xy,texelFetch(uMaterial,a+X,0).xy,f.x),
+      mix(texelFetch(uMaterial,a+Y,0).xy,texelFetch(uMaterial,a+X+Y,0).xy,f.x),f.y);
+    vec2 velocity=mix(mix(state(a).xy,state(a+X).xy,f.x),mix(state(a+Y).xy,state(a+X+Y).xy,f.x),f.y);
+    s=vec4(displacement+velocity*uDt,0,0);
   }
   color=s;
 }`;
@@ -81,7 +87,7 @@ void main() {
 // Compute noise and character choices per cell, never per screen pixel.
 const cellsShader = `#version 300 es
 precision highp float;
-uniform sampler2D uState, uBase;
+uniform sampler2D uState, uBase, uMaterial;
 uniform vec2 uSize, uCell, uGrid;
 uniform vec3 uSplash[${SPLASH_LIMIT}];
 uniform float uTime, uAhead, uBaseAhead;
@@ -99,11 +105,11 @@ float field(vec2 p, float t) {
   vec2 warp=vec2(cloud(p+vec2(0,t)),cloud(p+vec2(5.2,1.3-t)));
   return smoothstep(.3,.7,cloud(p+warp*2.+vec2(t*.3,-t*.2)));
 }
-vec4 sampleFlow(vec2 p) {
+vec4 sampleGrid(sampler2D source, vec2 p) {
   p=clamp(p,vec2(.5),uGrid-1.5);
   ivec2 i=ivec2(p); vec2 f=fract(p);
-  return mix(mix(texelFetch(uState,i,0),texelFetch(uState,i+ivec2(1,0),0),f.x),
-    mix(texelFetch(uState,i+ivec2(0,1),0),texelFetch(uState,i+ivec2(1),0),f.x),f.y);
+  return mix(mix(texelFetch(source,i,0),texelFetch(source,i+ivec2(1,0),0),f.x),
+    mix(texelFetch(source,i+ivec2(0,1),0),texelFetch(source,i+ivec2(1),0),f.x),f.y);
 }
 vec3 sampleBase(vec2 p) {
   p=clamp(p,vec2(0),vec2(textureSize(uBase,0))-1.001);
@@ -116,7 +122,7 @@ void main() {
   vec2 uv=(vec2(cell)+.5)*uCell/uSize;
   if (uBuildBase == 1) {
     vec2 material=uv;
-    material.y-=sampleFlow(uv*uGrid).w/uGrid.y;
+    material-=sampleGrid(uMaterial,uv*uGrid).xy/uGrid;
     vec2 p=material*vec2(uSize.x/uSize.y,1.)*2.5+vec2(12,8);
     float t=uTime*.05;
     float base=field(p,t);
@@ -138,15 +144,15 @@ void main() {
     color=vec4(base,front,splash,1); return;
   }
   vec4 s=vec4(0);
-  if (uActive==1) s=sampleFlow(uv*uGrid);
+  if (uActive==1) s=sampleGrid(uState,uv*uGrid);
   // Advect between cached noise updates without recalculating the noise every frame.
-  vec2 drift=vec2(0,s.y*uBaseAhead*uSize.y/(uGrid.y*uCell.y));
+  vec2 drift=s.xy*uBaseAhead*uSize/(uGrid*uCell);
   vec3 ambient=sampleBase(vec2(cell)-drift);
   float base=ambient.r, motion=0., trail=0., splash=ambient.b;
   if (uActive == 1) {
     vec2 position=uv*uGrid;
     // Predict between fixed simulation steps for smooth high-refresh rendering.
-    s=sampleFlow(position-s.xy*uAhead);
+    s=sampleGrid(uState,position-s.xy*uAhead);
     motion=smoothstep(0.,.85,1.-exp(-length(s.xy)*.055));
     trail=smoothstep(0.,.65,s.z);
   }
@@ -293,8 +299,8 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     cells = program(cellsShader),
     glyphs = program(glyphShader);
   for (const [item, samplers] of [
-    [flow, { uState: 0, uPressure: 1 }],
-    [cells, { uState: 0, uBase: 4 }],
+    [flow, { uState: 0, uPressure: 1, uMaterial: 5 }],
+    [cells, { uState: 0, uBase: 4, uMaterial: 5 }],
     [glyphs, { uAtlas: 2, uCells: 3 }],
   ] as const) {
     gl.useProgram(item.program);
@@ -305,6 +311,7 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
   textures.push(atlas);
   let state: [Target, Target],
     pressure: [Target, Target],
+    material: [Target, Target],
     base: Target,
     letters: Target;
   let gridWidth = 0,
@@ -319,8 +326,8 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     clock = seed,
     count = 0;
   let lastBase = -Infinity,
-    fluidUntil = 0,
-    scrollImpulse = 0;
+    fluidUntil = 0;
+  const scrollImpulse = new Float32Array(2);
   const strokes = new Float32Array(32);
   const splashes = new Float32Array(SPLASH_LIMIT * 3);
   let nextSplash = 0;
@@ -332,6 +339,7 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     gl!.useProgram(flow.program);
     bind(0, state[0].texture);
     bind(1, pressure[0].texture);
+    bind(5, material[0].texture);
     gl!.uniform1i(flow.uniform("uPass"), mode);
     gl!.drawArrays(gl!.TRIANGLES, 0, 3);
   }
@@ -341,12 +349,12 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     count = 0;
     accumulator = 0;
     fluidUntil = 0;
-    scrollImpulse = 0;
+    scrollImpulse.fill(0);
     lastBase = -Infinity;
     splashes.fill(-100);
     nextSplash = 0;
     gl!.clearColor(0, 0, 0, 0);
-    for (const target of [...state, ...pressure]) {
+    for (const target of [...state, ...pressure, ...material]) {
       gl!.bindFramebuffer(gl!.FRAMEBUFFER, target.buffer);
       gl!.clear(gl!.COLOR_BUFFER_BIT);
     }
@@ -358,6 +366,7 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     gl!.useProgram(cells.program);
     bind(0, state[0].texture);
     bind(4, buildBase ? atlas : base.texture);
+    bind(5, material[0].texture);
     gl!.uniform1i(cells.uniform("uBuildBase"), +buildBase);
     gl!.uniform1i(cells.uniform("uActive"), +active);
     gl!.uniform1f(cells.uniform("uTime"), clock);
@@ -397,6 +406,10 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
         target(gridWidth, gridHeight, true),
       ];
       pressure = [
+        target(gridWidth, gridHeight, true),
+        target(gridWidth, gridHeight, true),
+      ];
+      material = [
         target(gridWidth, gridHeight, true),
         target(gridWidth, gridHeight, true),
       ];
@@ -474,9 +487,10 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
       nextSplash = (nextSplash + 1) % SPLASH_LIMIT;
       lastBase = -Infinity;
     },
-    scroll(delta: number) {
+    scroll(delta: number, horizontal = false) {
       // Push the field in the scroll direction. Accumulate distance, not events.
-      scrollImpulse += (delta / cssHeight) * gridHeight * 0.45;
+      const axis = horizontal ? 0 : 1;
+      scrollImpulse[axis] += delta / (horizontal ? cssWidth : cssHeight) * (horizontal ? gridWidth : gridHeight) * 0.45;
     },
     releasePointer() {
       previous = null;
@@ -484,7 +498,7 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     reset,
     draw(dt: number, animated: boolean) {
       if (animated) clock += dt;
-      const stirring = Math.abs(scrollImpulse) > 0.001;
+      const stirring = Math.hypot(...scrollImpulse) > 0.001;
       const active = animated && (count > 0 || stirring || clock < fluidUntil);
       if (active) {
         accumulator += dt;
@@ -493,18 +507,21 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
           fluidUntil = clock + 4;
           gl.uniform1i(flow.uniform("uCount"), count);
           gl.uniform4fv(flow.uniform("uStroke[0]"), strokes);
-          gl.uniform1f(
+          gl.uniform2f(
             flow.uniform("uScroll"),
-            Math.max(-12, Math.min(12, scrollImpulse)),
+            Math.max(-12, Math.min(12, scrollImpulse[0])),
+            Math.max(-12, Math.min(12, scrollImpulse[1])),
           );
           pass(0, state[1]);
           state.reverse();
           count = 0;
-          scrollImpulse = 0;
+          scrollImpulse.fill(0);
         }
         // The solver stays at 60 Hz; rendering follows requestAnimationFrame.
         while (accumulator >= STEP) {
           pass(1, state[1]);
+          pass(5, material[1]);
+          material.reverse();
           state.reverse();
           pass(2, state[1]);
           state.reverse();

@@ -80,6 +80,45 @@ test("footer stays fully visible with padding at the end of every page", async (
   }
 });
 
+test("the space below the footer stays clear when a transition finishes", async ({ page }) => {
+  await page.setViewportSize({ width: page.viewportSize()!.width, height: 2000 });
+  await page.addInitScript(() => {
+    const original = document.startViewTransition.bind(document);
+    document.startViewTransition = (update) => {
+      const transition = original(update);
+      void transition.ready.then(() => {
+        for (const animation of document.getAnimations() as CSSAnimation[]) {
+          if (/page-(in|out)/.test(animation.animationName)) {
+            animation.pause();
+            animation.currentTime = 380;
+          }
+        }
+      }).catch(() => {});
+      return transition;
+    };
+  });
+  for (const path of ["projects", "services"]) {
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    // Make any extra dark backing beneath the footer easy to spot.
+    await page.addStyleTag({ content: "body { background: #999; } canvas[data-character-grid] { opacity: 0 !important; }" });
+    await page.locator(`a[href="/${path}/"]`).click();
+    await page.waitForFunction(() => document.getAnimations().some((animation) =>
+      (animation as CSSAnimation).animationName === "page-in" && animation.playState === "paused",
+    ));
+    const footer = (await page.getByRole("contentinfo").boundingBox())!;
+    const clip = { x: Math.round(footer.x + footer.width / 2), y: Math.ceil(footer.y + footer.height) + 4, width: 8, height: 8 };
+    expect(clip.y + clip.height).toBeLessThan(2000);
+    const during = await page.screenshot({ clip });
+    await page.evaluate(() => {
+      document.activeViewTransition?.skipTransition();
+      return document.activeViewTransition?.finished;
+    });
+    expect((await page.screenshot({ clip })).equals(during)).toBe(true);
+    expect((await page.getByRole("contentinfo").boundingBox())!).toEqual(footer);
+  }
+});
+
 test("Back home stays pinned above the content fade on detail pages", async ({ page }) => {
   for (const path of ["/experience/", "/projects/", "/services/"]) {
     await page.goto(path);
@@ -182,6 +221,311 @@ test("experience link opens the full page and browser Back restores the preview"
   await page.getByRole("link", { name: "Full experience", exact: true }).click();
   await expect(page).toHaveURL(/\/experience\/$/);
   await expect(page.getByRole("heading", { name: "Experience", exact: true })).toBeVisible();
+});
+
+test("card slides respect link and browser history directions", async ({ page }) => {
+  const slides: { incoming: number; outgoing: number; target: string; previousTop: number; outgoingTop: number }[] = [];
+  await page.exposeFunction("recordSlide", (slide: typeof slides[number]) => slides.push(slide));
+  await page.addInitScript(() => {
+    const original = document.startViewTransition.bind(document);
+    document.startViewTransition = (update) => {
+      const previousTop = document.querySelector("[data-site-content]")!.getBoundingClientRect().top;
+      const transition = original(update);
+      void transition.ready.then(() => {
+        const animations = document.getAnimations() as CSSAnimation[];
+        const incoming = animations.find((animation) => animation.animationName === "page-in")?.effect as KeyframeEffect;
+        const outgoing = animations.find((animation) => animation.animationName === "page-out")?.effect as KeyframeEffect;
+        const report = (window as unknown as { recordSlide: (slide: object) => void }).recordSlide;
+        const probe = document.createElement("div");
+        probe.style.cssText = `position: fixed; visibility: hidden; width: ${document.documentElement.clientWidth}px`;
+        document.body.append(probe);
+        const offset = (transform: unknown) => {
+          probe.style.transform = String(transform);
+          return new DOMMatrixReadOnly(getComputedStyle(probe).transform).m41;
+        };
+        report({
+          incoming: offset(incoming.getKeyframes()[0].transform),
+          outgoing: offset(outgoing.getKeyframes().at(-1)!.transform),
+          target: incoming.pseudoElement,
+          previousTop,
+          outgoingTop:
+            new DOMMatrixReadOnly(getComputedStyle(document.documentElement, "::view-transition-group(site-content)").transform).m42 +
+            new DOMMatrixReadOnly(getComputedStyle(document.documentElement, "::view-transition-old(site-content)").transform).m42,
+        });
+        probe.remove();
+      });
+      return transition;
+    };
+  });
+  await page.goto("/");
+  const distance = await page.locator(".site-card").evaluate((card) =>
+    innerWidth < 640 ? document.documentElement.clientWidth : card.getBoundingClientRect().width,
+  );
+  const expectSlide = async (back: boolean, action: () => Promise<unknown>) => {
+    const count = slides.length;
+    await action();
+    await expect.poll(() => slides.length).toBe(count + 1);
+    expect(slides.at(-1)).toMatchObject({
+      incoming: back ? -distance : distance,
+      outgoing: back ? distance : -distance,
+      target: "::view-transition-new(site-content)",
+    });
+    expect(slides.at(-1)!.outgoingTop).toBeCloseTo(slides.at(-1)!.previousTop, 2);
+    await page.evaluate(() => document.activeViewTransition?.finished);
+    expect(await page.evaluate(() => history.scrollRestoration)).toBe("auto");
+  };
+  for (const [label, path] of [["Full experience", "experience"], ["All projects", "projects"], ["All services", "services"]]) {
+    const link = page.getByRole("link", { name: label, exact: true });
+    await link.scrollIntoViewIfNeeded();
+    const before = await page.evaluate(() => scrollY);
+    await expectSlide(false, () => link.click());
+    await expect(page).toHaveURL(new RegExp(`/${path}/$`));
+    await expectSlide(true, () => page.goBack());
+    await expect.poll(() => page.evaluate(() => scrollY)).toBe(before);
+    await expectSlide(false, () => page.goForward());
+    await expectSlide(true, () => page.getByRole("link", { name: "Back home", exact: true }).click());
+    await expect(page).toHaveURL(new RegExp(`/#${path}$`));
+  }
+
+  const count = slides.length;
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.getByRole("link", { name: "All projects", exact: true }).click();
+  await expect(page).toHaveURL(/\/projects\/$/);
+  await page.goBack();
+  await expect(page.locator("#projects")).toBeVisible();
+  expect(slides).toHaveLength(count);
+});
+
+test("navigation keeps the background fixed and sends a sideways scroll impulse", async ({ page }) => {
+  const impulses: number[] = [];
+  await page.exposeFunction("recordImpulse", (delta: number) => impulses.push(delta));
+  // A static renderer lets this check catch accidental canvas/page translations.
+  await page.addInitScript(() => {
+    window.addEventListener("character-scroll", (event) => {
+      const report = (window as unknown as { recordImpulse: (delta: number) => void }).recordImpulse;
+      report((event as CustomEvent<number>).detail);
+    });
+    if (typeof WebGL2RenderingContext === "undefined") return;
+    const original = WebGL2RenderingContext.prototype.getExtension;
+    WebGL2RenderingContext.prototype.getExtension = function (name) {
+      return name === "EXT_color_buffer_float" ? null : Reflect.apply(original, this, [name]);
+    };
+  });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  const canvas = page.locator("canvas[data-character-grid]");
+  await expect(canvas).toHaveCSS("view-transition-name", "none");
+  await expect(page.locator("[data-site-content]")).toHaveCSS("view-transition-name", "site-content");
+  await expect.poll(() => canvas.evaluate((element) => (element as HTMLCanvasElement).width)).toBeGreaterThan(0);
+  const background = async () => {
+    await page.evaluate(() => document.activeViewTransition?.finished);
+    const hidden = await page.addStyleTag({ content: "[data-site-content], nextjs-portal { opacity: 0 !important; }" });
+    const pixels = await canvas.screenshot();
+    await hidden.evaluate((element) => element.parentNode?.removeChild(element));
+    return pixels;
+  };
+  const home = await background();
+  await page.getByRole("link", { name: "All projects", exact: true }).click();
+  await expect(page).toHaveURL(/\/projects\/$/);
+  expect((await background()).equals(home)).toBe(true);
+  await page.goBack();
+  await expect(page.getByRole("heading", { name: "Oli Wilkins", exact: true })).toBeVisible();
+  expect((await background()).equals(home)).toBe(true);
+  await page.goForward();
+  await expect(page).toHaveURL(/\/projects\/$/);
+  expect((await background()).equals(home)).toBe(true);
+  await page.getByRole("link", { name: "Back home", exact: true }).click();
+  await expect(page).toHaveURL(/\/#projects$/);
+  expect((await background()).equals(home)).toBe(true);
+  const width = await page.evaluate(() => innerWidth);
+  expect(impulses).toEqual([-width, width, -width, width]);
+});
+
+test("sliding pages stay inside the card with a solid seam", async ({ page }, testInfo) => {
+  if (testInfo.project.name === "desktop")
+    await page.setViewportSize({ width: 2560, height: 900 });
+  await page.addInitScript(() => {
+    if (typeof WebGL2RenderingContext !== "undefined") {
+      const getExtension = WebGL2RenderingContext.prototype.getExtension;
+      WebGL2RenderingContext.prototype.getExtension = function (name) {
+        return name === "EXT_color_buffer_float" ? null : Reflect.apply(getExtension, this, [name]);
+      };
+    }
+    const original = document.startViewTransition.bind(document);
+    document.startViewTransition = (update) => {
+      const transition = original(update);
+      void transition.ready.then(() => {
+        for (const animation of document.getAnimations() as CSSAnimation[]) {
+          if (/page-(in|out)/.test(animation.animationName)) animation.pause();
+        }
+      }).catch(() => {});
+      return transition;
+    };
+  });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  await page.locator('a[href="/projects/"]').scrollIntoViewIfNeeded();
+  const card = (await page.locator(".site-card").boundingBox())!;
+  const width = await page.evaluate(() => document.documentElement.clientWidth);
+  // Leave a CSS pixel for antialiasing at fractional device-pixel boundaries.
+  const sides = [
+    { x: 0, y: 150, width: Math.floor(card.x) - 1, height: 500 },
+    { x: Math.ceil(card.x + card.width) + 1, y: 150, width: width - Math.ceil(card.x + card.width) - 1, height: 500 },
+  ];
+  const background = await Promise.all(sides.map((clip) => page.screenshot({ clip })));
+  for (const navigate of [
+    () => page.locator('a[href="/projects/"]').evaluate((link) => (link as HTMLAnchorElement).click()),
+    () => page.goBack(),
+  ]) {
+    await navigate();
+    await page.waitForFunction(() => document.getAnimations().some((animation) =>
+      (animation as CSSAnimation).animationName === "page-in" && animation.playState === "paused",
+    ));
+    for (const time of [0, 60, 85, 200, 379]) {
+      await page.evaluate((time) => {
+        for (const animation of document.getAnimations() as CSSAnimation[]) {
+          if (/page-(in|out)/.test(animation.animationName)) animation.currentTime = time;
+        }
+      }, time);
+      for (const [index, clip] of sides.entries()) {
+        expect((await page.screenshot({ clip })).equals(background[index])).toBe(true);
+      }
+      if (time === 60) {
+        const seam = await page.evaluate(() => {
+          const root = document.documentElement;
+          const card = document.querySelector(".site-card")!.getBoundingClientRect();
+          const offset = new DOMMatrixReadOnly(getComputedStyle(root, "::view-transition-new(site-content)").transform).m41;
+          return (root.dataset.pageDirection === "back" ? card.right : card.left) + offset;
+        });
+        const pixels = await page.screenshot({ clip: { x: Math.round(seam) - 1, y: 150, width: 3, height: 500 } });
+        const peak = await page.evaluate(async (png) => {
+          const image = new Image();
+          image.src = `data:image/png;base64,${png}`;
+          await image.decode();
+          const canvas = document.createElement("canvas");
+          canvas.width = image.width;
+          canvas.height = image.height;
+          const context = canvas.getContext("2d")!;
+          context.drawImage(image, 0, 0);
+          const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+          let peak = 0;
+          for (let i = 0; i < data.length; i += 4) peak = Math.max(peak, data[i], data[i + 1], data[i + 2]);
+          return peak;
+        }, pixels.toString("base64"));
+        expect(peak).toBeLessThanOrEqual(13);
+      }
+    }
+    await page.evaluate(() => {
+      for (const animation of document.getAnimations() as CSSAnimation[]) {
+        if (/page-(in|out)/.test(animation.animationName)) animation.play();
+      }
+      return document.activeViewTransition?.finished;
+    });
+  }
+});
+
+test("side fades stay visible throughout page transitions", async ({ page }) => {
+  await page.addInitScript(() => {
+    const original = document.startViewTransition.bind(document);
+    document.startViewTransition = (update) => {
+      if (typeof update !== "function") return original(update);
+      const positionStripe = () => {
+        const content = document.querySelector<HTMLElement>("[data-site-content]")!;
+        content.style.setProperty("--stripe-top", `${666 - content.getBoundingClientRect().top}px`);
+      };
+      positionStripe();
+      const transition = original(async () => {
+        await update();
+        positionStripe();
+      });
+      void transition.ready.then(() => {
+        for (const animation of document.getAnimations() as CSSAnimation[]) {
+          if (/page-(in|out)/.test(animation.animationName)) {
+            animation.pause();
+            animation.currentTime = 0;
+          }
+        }
+      }).catch(() => {});
+      return transition;
+    };
+  });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  // A flat bright backdrop makes disappearing or moving edge masks measurable.
+  await page.addStyleTag({ content: `
+    body { background: #999; }
+    canvas[data-character-grid] { opacity: 0 !important; }
+    [data-site-content]::after {
+      content: ""; position: absolute; top: var(--stripe-top, 666px); inset-inline: 0; height: 4px;
+      z-index: 50; background: white; pointer-events: none;
+    }
+  ` });
+  await page.locator('a[href="/projects/"]').scrollIntoViewIfNeeded();
+  const edges = await page.locator(".site-card").evaluate((card) => {
+    const probe = document.createElement("div");
+    probe.style.cssText = "position: absolute; visibility: hidden; width: var(--surface-edge)";
+    card.append(probe);
+    const width = probe.getBoundingClientRect().width;
+    probe.remove();
+    const bounds = card.getBoundingClientRect();
+    return [bounds.left, bounds.right - width].map((x) => ({ x, y: 200, width, height: 400 }));
+  });
+  const profile = async (y = 200, height = 400) => {
+    const values: number[] = [];
+    for (const clip of edges) {
+      const png = await page.screenshot({ clip: { ...clip, y, height }, scale: "css" });
+      values.push(...await page.evaluate(async (png) => {
+        const image = new Image();
+        image.src = `data:image/png;base64,${png}`;
+        await image.decode();
+        const canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const context = canvas.getContext("2d")!;
+        context.drawImage(image, 0, 0);
+        const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+        return Array.from({ length: canvas.width }, (_, x) => {
+          let total = 0;
+          for (let y = 0; y < canvas.height; y++) total += data[(y * canvas.width + x) * 4];
+          return total / canvas.height;
+        });
+      }, png.toString("base64")));
+    }
+    return values;
+  };
+  const before = await profile();
+  const expectFade = async () => {
+    const current = await profile();
+    const difference = current.reduce((total, value, index) => total + Math.abs(value - before[index]), 0) / current.length;
+    expect(difference).toBeLessThan(8);
+  };
+  for (const navigate of [
+    () => page.locator('a[href="/projects/"]').evaluate((link) => (link as HTMLAnchorElement).click()),
+    () => page.goBack(),
+  ]) {
+    await navigate();
+    await page.waitForFunction(() => document.getAnimations().some((animation) =>
+      (animation as CSSAnimation).animationName === "page-in" && animation.playState === "paused",
+    ));
+    for (const time of [0, 60, 85, 200, 379]) {
+      await page.evaluate((time) => {
+        for (const animation of document.getAnimations() as CSSAnimation[]) {
+          if (/page-(in|out)/.test(animation.animationName)) animation.currentTime = time;
+        }
+      }, time);
+      await expectFade();
+      // The same mask must fade foreground pixels, rather than only the glass.
+      const foreground = await profile(668, 1);
+      expect(foreground[Math.floor(foreground.length / 8)]).toBeLessThan(200);
+      expect(foreground[Math.floor(foreground.length * 7 / 8)]).toBeLessThan(200);
+      expect(foreground[Math.floor(foreground.length / 2) - 1]).toBeGreaterThan(240);
+    }
+    await page.evaluate(() => {
+      document.activeViewTransition?.skipTransition();
+      return document.activeViewTransition?.finished;
+    });
+    await expectFade();
+  }
 });
 
 test("projects preview opens the pinned directory and returns to its section", async ({ page }) => {

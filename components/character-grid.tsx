@@ -94,8 +94,14 @@ export function CharacterGrid() {
       const next = scrollPosition();
       const delta = next - scrollTop;
       scrollTop = next;
-      if (!animated() || lost || document.hidden || !delta) return;
+      if (!animated() || lost || document.hidden || !delta || document.documentElement.hasAttribute("data-page-transition")) return;
       field.scroll(delta);
+      run();
+    }
+
+    function horizontalScroll(event: Event) {
+      if (!animated() || lost || document.hidden) return;
+      field.scroll((event as CustomEvent<number>).detail, true);
       run();
     }
 
@@ -178,6 +184,7 @@ export function CharacterGrid() {
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("character-scroll", horizontalScroll);
     window.addEventListener("wheel", wheel, { passive: true });
     window.addEventListener("touchstart", touchStart, { passive: true });
     window.addEventListener("touchmove", touchMove, { passive: true });
@@ -200,6 +207,7 @@ export function CharacterGrid() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("scroll", scroll);
+      window.removeEventListener("character-scroll", horizontalScroll);
       window.removeEventListener("wheel", wheel);
       window.removeEventListener("touchstart", touchStart);
       window.removeEventListener("touchmove", touchMove);

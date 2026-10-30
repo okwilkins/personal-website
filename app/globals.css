@@ -51,6 +51,7 @@
   );
   --viewport-fade-height: clamp(3rem, 8vh, 6rem);
   --viewport-top-fade-height: clamp(5rem, 11vh, 7.5rem);
+  --page-travel: min(100%, 60rem);
   --page-inset: 0.125rem;
 }
 
@@ -261,31 +262,53 @@
   }
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
+:root {
+  view-transition-name: none;
+}
+[data-site-content] {
+  view-transition-name: site-content;
+}
+::view-transition-image-pair(site-content) {
+  background: var(--background);
+}
+::view-transition-old(site-content),
+::view-transition-new(site-content) {
   mix-blend-mode: normal;
+  animation: page-out 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-::view-transition-group(.page-reveal) {
-  animation-duration: 380ms;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+::view-transition-group(site-content) {
+  animation: none;
+  z-index: 1;
+  clip-path: inset(-100vh var(--page-inset));
+  /* Keep the glass edges stationary while the content slides. */
+  mask-image: var(--surface-mask);
+  mask-size: calc(100% - var(--page-inset) * 2) calc(100% + 200vh);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-clip: no-clip;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
 }
-::view-transition-old(.page-reveal) {
-  animation: page-out 180ms ease-in both;
+::view-transition-old(site-content) {
+  transform: translateY(var(--page-out-offset, 0px));
 }
-::view-transition-new(.page-reveal) {
-  animation: page-in 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+::view-transition-new(site-content) {
+  animation-name: page-in;
+}
+:root[data-page-direction="back"] {
+  --page-travel: max(-100%, -60rem);
+}
+:root[data-page-transition] {
+  scroll-behavior: auto;
 }
 @keyframes page-out {
   to {
-    opacity: 0;
-    transform: translateY(-12px) scale(0.99);
+    transform: translate(calc(-1 * var(--page-travel)), var(--page-out-offset, 0px));
   }
 }
 @keyframes page-in {
   from {
-    opacity: 0;
-    transform: translateY(32px) scale(0.985);
+    transform: translateX(var(--page-travel));
   }
 }
 

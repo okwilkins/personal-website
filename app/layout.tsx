@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { ViewTransition } from "react";
 import { CharacterGrid } from "@/components/character-grid";
 import { ViewportGlass } from "@/components/viewport-glass";
 import { SiteFooter } from "@/components/site-chrome";
+import { NavigationMotion } from "@/components/navigation-motion";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -37,7 +37,8 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-GB" className="dark" data-scroll-behavior="smooth">
-      <body>
+      <body className="pt-[var(--page-gap)] pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:pb-[var(--page-gap)]">
+        <NavigationMotion />
         <CharacterGrid />
         <a
           href="#main"
@@ -45,17 +46,12 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <div data-site-content className="relative z-10 pt-[var(--page-gap)] pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:pb-[var(--page-gap)]">
+        <div data-site-content className="relative z-10">
           <ViewportGlass />
           <div className="site-card shell">
-            <ViewTransition
-              default="none"
-              update={{ "page-reveal": "page-reveal", default: "none" }}
-            >
-              <main id="main" tabIndex={-1}>
-                {children}
-              </main>
-            </ViewTransition>
+            <main id="main" tabIndex={-1}>
+              {children}
+            </main>
             <SiteFooter />
           </div>
         </div>
