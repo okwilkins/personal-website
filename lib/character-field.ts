@@ -217,6 +217,7 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     floating && !/swiftshader|llvmpipe|softpipe|software/i.test(renderer);
   const programs: WebGLProgram[] = [];
   const textures: WebGLTexture[] = [];
+  const bindings: (WebGLTexture | undefined)[] = [];
   let targets: Target[] = [];
 
   function program(fragment: string) {
@@ -257,6 +258,8 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
   function texture() {
     const texture = gl!.createTexture()!;
     gl!.bindTexture(gl!.TEXTURE_2D, texture);
+    // Allocation binds the active unit directly, invalidating cached bindings.
+    bindings.length = 0;
     gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MIN_FILTER, gl!.NEAREST);
     gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MAG_FILTER, gl!.NEAREST);
     gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_S, gl!.CLAMP_TO_EDGE);
@@ -290,8 +293,10 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
   }
 
   function bind(unit: number, texture: WebGLTexture) {
+    if (bindings[unit] === texture) return;
     gl!.activeTexture(gl!.TEXTURE0 + unit);
     gl!.bindTexture(gl!.TEXTURE_2D, texture);
+    bindings[unit] = texture;
   }
   function releaseTargets() {
     for (const target of targets) {
@@ -341,8 +346,6 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
 
   function pass(mode: number, destination: Target) {
     gl!.bindFramebuffer(gl!.FRAMEBUFFER, destination.buffer);
-    gl!.viewport(0, 0, gridWidth, gridHeight);
-    gl!.useProgram(flow.program);
     bind(0, state[0].texture);
     bind(1, pressure[0].texture);
     bind(5, material[0].texture);
@@ -378,7 +381,7 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     gl!.uniform1f(cells.uniform("uTime"), clock);
     gl!.uniform1f(cells.uniform("uAhead"), accumulator);
     gl!.uniform1f(cells.uniform("uBaseAhead"), Math.min(BASE_INTERVAL, clock - lastBase));
-    gl!.uniform3fv(cells.uniform("uSplash[0]"), splashes);
+    if (buildBase) gl!.uniform3fv(cells.uniform("uSplash[0]"), splashes);
     gl!.drawArrays(gl!.TRIANGLES, 0, 3);
   }
 
@@ -504,15 +507,16 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
     reset,
     draw(dt: number, animated: boolean) {
       if (animated) clock += dt;
-      const stirring = Math.hypot(...scrollImpulse) > 0.001;
+      const stirring = Math.hypot(scrollImpulse[0], scrollImpulse[1]) > 0.001;
       const active = animated && (count > 0 || stirring || clock < fluidUntil);
       if (active) {
         accumulator += dt;
         gl.useProgram(flow.program);
+        gl.viewport(0, 0, gridWidth, gridHeight);
         if (count || stirring) {
           fluidUntil = clock + 4;
           gl.uniform1i(flow.uniform("uCount"), count);
-          gl.uniform4fv(flow.uniform("uStroke[0]"), strokes);
+          if (count) gl.uniform4fv(flow.uniform("uStroke[0]"), strokes);
           gl.uniform2f(
             flow.uniform("uScroll"),
             Math.max(-12, Math.min(12, scrollImpulse[0])),
@@ -532,11 +536,10 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
           pass(2, state[1]);
           state.reverse();
           for (let i = 0; i < 4; i++) {
-            gl.uniform1i(flow.uniform("uFirst"), +(i === 0));
+            if (i < 2) gl.uniform1i(flow.uniform("uFirst"), +(i === 0));
             pass(3, pressure[1]);
             pressure.reverse();
           }
-          gl.uniform1i(flow.uniform("uFirst"), 0);
           pass(4, state[1]);
           state.reverse();
           accumulator -= STEP;
