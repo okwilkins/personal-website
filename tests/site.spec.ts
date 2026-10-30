@@ -126,18 +126,27 @@ test("full experience page contains the CV and returns home", async ({
   await expect(
     page.getByRole("heading", { name: "Experience", exact: true }),
   ).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2 })).toHaveText([
+    "Professional Experience", "Education", "Talks",
+  ]);
+  await expect(page.getByRole("list", { name: "Skills" }).getByRole("listitem")).toHaveText([
+    "Python", "Dynamo/vLLM", "LLM Inference", "Kubernetes", "Platform Engineering", "AWS", "Nix", "Linux",
+  ]);
   await expect(
     page.getByRole("list", { name: "Professional experience" }).getByRole("heading"),
   ).toHaveText([
     "Likezero",
     "Applied Data Science Partners",
     "Liveminds and Maeving",
-    "Laing O’Rourke",
-    "FACEIT",
-    "Various companies",
+    "Laing O'Rourke",
+    "Faceit",
+    "Various Companies",
   ]);
+  await expect(page.getByRole("list", { name: "Professional experience" }).locator(":scope > li > ul > li")).toHaveCount(18);
+  await expect(page.getByText("Cut LLM cold-starts by 80%, raised KV cache hit rates and 2-4x increased tokens decode throughput.", { exact: false })).toBeVisible();
   await expect(page.getByText("BSc (Hons) Physics and Mathematics")).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Speaking/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Talks", exact: true })).toBeVisible();
+  await expect(page.getByText("Accelerating GPU workloads on AWS: from GenAI to HPC", { exact: true })).toBeVisible();
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     "href",
     "https://okwilkins.dev/experience/",
