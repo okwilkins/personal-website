@@ -82,7 +82,7 @@ void main() {
 const cellsShader = `#version 300 es
 precision highp float;
 uniform sampler2D uState, uBase;
-uniform vec2 uSize, uCell, uGrid, uPanel;
+uniform vec2 uSize, uCell, uGrid;
 uniform vec3 uSplash[${SPLASH_LIMIT}];
 uniform float uTime, uAhead, uBaseAhead;
 uniform int uBuildBase, uActive;
@@ -163,11 +163,9 @@ void main() {
   if (tier>=4. && hash(vec2(cell)+vec2(3.1,8.7))<wake*.9-.2) {
     letter=4+int(floor(hash(vec2(cell)+floor(uTime*10.)*vec2(.71,.37))*float(${GLYPHS.length - 4})));
   }
-  // Keep the moving field beneath the glass, without its bright highlights.
-  float highlight=1.-step(uPanel.x,uv.x)*step(uv.x,uPanel.y);
-  float opacity=tier<4.?.1+tier*.035+dither*.035:.2+tone*.13+wake*.3*highlight;
-  opacity+=(ambient.g*.32*edge+splash*.75)*highlight;
-  color=vec4(opacity,float(letter)/255.,max(wake,ambient.g*.9)*highlight,1);
+  float opacity=tier<4.?.1+tier*.035+dither*.035:.2+tone*.13+wake*.3;
+  opacity+=ambient.g*.32*edge+splash*.75;
+  color=vec4(opacity,float(letter)/255.,max(wake,ambient.g*.9),1);
 }`;
 
 const glyphShader = `#version 300 es
@@ -433,11 +431,6 @@ export function createCharacterField(canvas: HTMLCanvasElement, seed: number) {
       gl.uniform1f(flow.uniform("uDt"), STEP);
       gl.useProgram(cells.program);
       gl.uniform2f(cells.uniform("uGrid"), gridWidth, gridHeight);
-      gl.uniform2f(
-        cells.uniform("uPanel"),
-        (panel?.left ?? 0) / width,
-        (panel?.right ?? width) / width,
-      );
       gl.uniform2f(cells.uniform("uSize"), canvas.width, canvas.height);
       gl.uniform2f(cells.uniform("uCell"), cellWidth, cellHeight);
       gl.useProgram(glyphs.program);
