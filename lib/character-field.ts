@@ -1,4 +1,7 @@
-const TEXT = "OKWILKINS / ";
+const TEXT = [
+  "OKWILKINS", "NEOVIM", "CUDA", "GPU", "K8S", "LINUX", "NIX",
+  "PYTHON", "LLMS", "AI", "INFERENCE", "SCALE", "RICING",
+].join(" / ") + " / ";
 const GLYPHS = " ·:+ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#%&*=<>?$@";
 const WORD = Array.from(TEXT, (letter) => GLYPHS.indexOf(letter));
 const DITHER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
