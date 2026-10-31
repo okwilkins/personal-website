@@ -80,6 +80,42 @@ test("footer stays fully visible with padding at the end of every page", async (
   }
 });
 
+test("viewport fades follow browser controls without a window resize", async ({ page }) => {
+  for (const path of ["/", "/experience/", "/projects/", "/services/"]) {
+    await page.goto(path);
+    const glass = page.locator(".viewport-glass");
+    await expect.poll(() => glass.evaluate((element) => element.style.getPropertyValue("--menu-bottom"))).not.toBe("");
+    const height = await page.evaluate(() => {
+      const viewport = window.visualViewport!;
+      const bounds = { height: viewport.height, offsetTop: viewport.offsetTop };
+      Object.defineProperties(viewport, {
+        height: { get: () => bounds.height },
+        offsetTop: { get: () => bounds.offsetTop },
+      });
+      Object.assign(window, { testViewport: bounds });
+      return innerHeight;
+    });
+    await page.evaluate(() => scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" }));
+    // The toolbar changes the visible area while CSS viewport units stay fixed.
+    for (const bounds of [
+      { height: height - 96, offsetTop: 0, event: "resize", fade: "1" },
+      { height: height + 64, offsetTop: 0, event: "resize", fade: "0" },
+      { height: height - 96, offsetTop: 24, event: "scroll", fade: "1" },
+      { height, offsetTop: 0, event: "resize", fade: "0" },
+    ]) {
+      await page.evaluate((bounds) => {
+        const state = (window as Window & { testViewport?: { height: number; offsetTop: number } }).testViewport!;
+        Object.assign(state, { height: bounds.height, offsetTop: bounds.offsetTop });
+        window.visualViewport!.dispatchEvent(new Event(bounds.event));
+      }, bounds);
+      await expect.poll(() => glass.evaluate((element) => element.getBoundingClientRect().bottom)).toBe(bounds.offsetTop + bounds.height);
+      expect(await page.evaluate(() => innerHeight)).toBe(height);
+      await expect(glass).toHaveCSS("pointer-events", "none");
+      await expect.poll(() => glass.evaluate((element) => getComputedStyle(element, "::after").opacity)).toBe(bounds.fade);
+    }
+  }
+});
+
 test("the space below the footer stays clear when a transition finishes", async ({ page }) => {
   await page.setViewportSize({ width: page.viewportSize()!.width, height: 2000 });
   await page.addInitScript(() => {

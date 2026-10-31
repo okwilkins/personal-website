@@ -100,7 +100,7 @@
   .viewport-glass {
     position: fixed;
     inset: 0 0 auto;
-    height: 100dvh;
+    height: var(--viewport-bottom, 100dvh);
     z-index: 20;
     pointer-events: none;
   }
