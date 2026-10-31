@@ -132,9 +132,11 @@
     ), var(--surface-mask);
   }
   .viewport-glass::after {
-    bottom: 0;
+    /* Cover space Firefox exposes below its reported viewport as controls collapse. */
+    bottom: -100vh;
+    height: calc(var(--viewport-fade-height) + 100vh);
     opacity: var(--bottom-fade, 0);
-    mask-image: linear-gradient(to top, #000, transparent), var(--surface-mask);
+    mask-image: linear-gradient(transparent, #000 var(--viewport-fade-height)), var(--surface-mask);
   }
   .surface {
     --muted-foreground: #b0b0b0;

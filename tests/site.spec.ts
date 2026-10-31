@@ -116,6 +116,48 @@ test("viewport fades follow browser controls without a window resize", async ({ 
   }
 });
 
+test("the bottom fade covers space exposed below a stale viewport edge", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const path of ["/", "/experience/", "/projects/", "/services/"]) {
+    await page.goto(path);
+    // A flat bright backdrop makes content reappearing below the fade measurable.
+    await page.addStyleTag({ content: `
+      [data-site-content]::after {
+        content: ""; position: fixed; inset: 0; z-index: 19;
+        background: #ff00ff; pointer-events: none;
+      }
+    ` });
+    await page.evaluate(() => scrollTo({ top: 200, behavior: "instant" }));
+    const glass = page.locator(".viewport-glass");
+    await expect.poll(() => glass.evaluate((element) => getComputedStyle(element, "::after").opacity)).toBe("1");
+    const { width, height } = page.viewportSize()!;
+    for (const offset of [24, 96, 64]) {
+      // Firefox can expose more screen space while the overlay stays at its old edge.
+      await glass.evaluate((element, height) => { element.style.height = `${height}px`; }, height - offset);
+      const png = await page.screenshot({ clip: { x: Math.floor(width / 2), y: height - offset - 48, width: 4, height: offset + 48 }, scale: "css" });
+      const pixels = await page.evaluate(async (png) => {
+        const image = new Image();
+        image.src = `data:image/png;base64,${png}`;
+        await image.decode();
+        const canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const context = canvas.getContext("2d")!;
+        context.drawImage(image, 0, 0);
+        const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+        let peak = 0;
+        for (let i = 48 * canvas.width * 4; i < data.length; i += 4) peak = Math.max(peak, data[i], data[i + 1], data[i + 2]);
+        return { fadeStart: data[0], belowEdge: peak };
+      }, png.toString("base64"));
+      expect(pixels.fadeStart).toBeGreaterThan(120);
+      // Faint dividers (#242424) sit above the glass; bright content must stay covered.
+      expect(pixels.belowEdge).toBeLessThanOrEqual(40);
+    }
+    await page.evaluate(() => scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" }));
+    await expect.poll(() => glass.evaluate((element) => getComputedStyle(element, "::after").opacity)).toBe("0");
+  }
+});
+
 test("the space below the footer stays clear when a transition finishes", async ({ page }) => {
   await page.setViewportSize({ width: page.viewportSize()!.width, height: 2000 });
   await page.addInitScript(() => {
