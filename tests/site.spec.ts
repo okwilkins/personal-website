@@ -133,6 +133,41 @@ test("Back home stays pinned above the content fade on detail pages", async ({ p
   }
 });
 
+test("content stays covered above the sticky menu when browser controls offset it", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const path of ["/", "/experience/", "/projects/", "/services/"]) {
+    await page.goto(path);
+    // Bright content makes any gap behind a floating browser toolbar visible.
+    await page.addStyleTag({ content: `
+      main > section { background: #ff00ff; }
+    ` });
+    await page.evaluate(() => scrollTo({ top: 500, behavior: "instant" }));
+    const header = page.locator("#site-header");
+    for (const offset of [64, 24, 88]) {
+      await header.evaluate((element, offset) => { element.style.top = `${offset}px`; }, offset);
+      await expect.poll(() => header.evaluate((element) => element.getBoundingClientRect().top)).toBe(offset);
+      const width = page.viewportSize()!.width;
+      const png = await page.screenshot({ clip: { x: Math.floor(width / 2), y: 0, width: 4, height: offset }, scale: "css" });
+      const brightest = await page.evaluate(async (png) => {
+        const image = new Image();
+        image.src = `data:image/png;base64,${png}`;
+        await image.decode();
+        const canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const context = canvas.getContext("2d")!;
+        context.drawImage(image, 0, 0);
+        const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+        let peak = 0;
+        for (let i = 0; i < pixels.length; i += 4) peak = Math.max(peak, pixels[i], pixels[i + 1], pixels[i + 2]);
+        return peak;
+      }, png.toString("base64"));
+      expect(brightest).toBe(11);
+      await expect(header.getByRole("link").first()).toBeInViewport({ ratio: 1 });
+    }
+  }
+});
+
 test("email copies to the clipboard and confirms quietly", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/");

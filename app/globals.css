@@ -156,6 +156,10 @@
   #site-header {
     --surface-opacity: 100%;
   }
+  #site-header::after {
+    /* Cover content above the menu when iOS offsets it below floating controls. */
+    top: -100vh;
+  }
   .section {
     padding: 2rem;
     scroll-margin-top: 5.5rem;
