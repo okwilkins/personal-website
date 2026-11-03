@@ -25,7 +25,7 @@ export default async function Home() {
               ow<span className="text-primary">_</span>
             </span>
           </Link>
-          <SectionNav hasServices={services.length > 0} />
+          <SectionNav />
           <div
             className="order-2 -mr-3 ml-auto flex shrink-0 items-center sm:order-3"
             aria-label="Social links"
@@ -139,24 +139,27 @@ export default async function Home() {
           <ArrowRight aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transform-none" />
         </Link>
       </section>
-      {services.length > 0 && (
-        <section id="services" className="section surface" aria-labelledby="services-heading">
-          <div className="section-title mb-3">
-            <h2 id="services-heading">Services</h2>
-          </div>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            A few things I host on my Kubernetes homelab.
+      <section id="services" className="section surface" aria-labelledby="services-heading">
+        <div className="section-title mb-3">
+          <h2 id="services-heading">Services</h2>
+        </div>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          A few things I host on my Kubernetes homelab.
+        </p>
+        {services.length > 0 ? <ServiceLinks services={services} preview /> : (
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            The service list is unavailable right now.{" "}
+            <a href="https://github.com/okwilkins/h8s" className="text-link underline underline-offset-4">View h8s on GitHub.</a>
           </p>
-          <ServiceLinks services={services} preview />
-          <Link
-            href="/services/"
-            className="group relative mx-auto mt-2 flex min-h-11 w-fit items-center justify-center gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground active:text-foreground"
-          >
-            All services
-            <ArrowRight aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transform-none" />
-          </Link>
-        </section>
-      )}
+        )}
+        <Link
+          href="/services/"
+          className="group relative mx-auto mt-2 flex min-h-11 w-fit items-center justify-center gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground active:text-foreground"
+        >
+          All services
+          <ArrowRight aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transform-none" />
+        </Link>
+      </section>
     </>
   );
 }

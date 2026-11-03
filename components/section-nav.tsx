@@ -8,9 +8,8 @@ const sections = [
   { id: "services", label: "Services" },
 ];
 
-export function SectionNav({ hasServices }: { hasServices: boolean }) {
+export function SectionNav() {
   const [active, setActive] = useState("");
-  const items = hasServices ? sections : sections.slice(0, 2);
 
   useEffect(() => {
     const targets = sections
@@ -44,11 +43,11 @@ export function SectionNav({ hasServices }: { hasServices: boolean }) {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
     };
-  }, [hasServices]);
+  }, []);
 
   return (
     <nav aria-label="On this page" className="order-3 flex w-full gap-5 sm:order-2 sm:w-auto sm:gap-6">
-      {items.map(({ id, label }) => (
+      {sections.map(({ id, label }) => (
         <a
           key={id}
           href={`#${id}`}
