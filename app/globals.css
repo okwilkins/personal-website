@@ -306,6 +306,7 @@
 }
 :root[data-page-transition] {
   scroll-behavior: auto;
+  overflow-anchor: none;
 }
 @keyframes page-out {
   to {

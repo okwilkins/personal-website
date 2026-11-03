@@ -250,7 +250,7 @@ test("email copies to the clipboard and confirms quietly", async ({ page, contex
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/");
   const copy = page.getByRole("button", { name: "Copy email", exact: true });
-  const feedback = page.getByRole("status");
+  const feedback = copy.locator("..").getByRole("status");
 
   await copy.click();
   await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe("okwilkins@gmail.com");
@@ -541,15 +541,19 @@ test("side fades stay visible throughout page transitions", async ({ page }) => 
   await page.addInitScript(() => {
     const original = document.startViewTransition.bind(document);
     document.startViewTransition = (update) => {
-      if (typeof update !== "function") return original(update);
+      const callback = typeof update === "function" ? update : update?.update;
+      if (!callback) return original(update);
       const positionStripe = () => {
         const content = document.querySelector<HTMLElement>("[data-site-content]")!;
         content.style.setProperty("--stripe-top", `${666 - content.getBoundingClientRect().top}px`);
       };
       positionStripe();
-      const transition = original(async () => {
-        await update();
-        positionStripe();
+      const transition = original({
+        ...(typeof update === "object" ? update : {}),
+        update: async () => {
+          await callback();
+          positionStripe();
+        },
       });
       void transition.ready.then(() => {
         for (const animation of document.getAnimations() as CSSAnimation[]) {

@@ -38,7 +38,6 @@ export default function RootLayout({
   return (
     <html lang="en-GB" className="dark" data-scroll-behavior="smooth">
       <body className="pt-[var(--page-gap)] pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:pb-[var(--page-gap)]">
-        <NavigationMotion />
         <CharacterGrid />
         <a
           href="#main"
@@ -46,15 +45,17 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <div data-site-content className="relative z-10">
-          <ViewportGlass />
-          <div className="site-card shell">
-            <main id="main" tabIndex={-1}>
-              {children}
-            </main>
-            <SiteFooter />
+        <NavigationMotion>
+          <div data-site-content className="relative z-10">
+            <ViewportGlass />
+            <div className="site-card shell">
+              <main id="main" tabIndex={-1}>
+                {children}
+              </main>
+              <SiteFooter />
+            </div>
           </div>
-        </div>
+        </NavigationMotion>
       </body>
     </html>
   );
