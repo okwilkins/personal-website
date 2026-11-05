@@ -22,7 +22,7 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          nodejs = pkgs.nodejs_24;
+          nodejs = pkgs.nodejs_26;
 
           browserEnvironment = {
             PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
