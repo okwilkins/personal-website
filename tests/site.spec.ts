@@ -525,7 +525,8 @@ test("sliding pages stay inside the card with a solid seam", async ({ page }, te
           for (let i = 0; i < data.length; i += 4) peak = Math.max(peak, data[i], data[i + 1], data[i + 2]);
           return peak;
         }, pixels.toString("base64"));
-        expect(peak).toBeLessThanOrEqual(13);
+        // A side border can cross the seam while the bright backdrop stays covered.
+        expect(peak).toBeLessThanOrEqual(36);
       }
     }
     await page.evaluate(() => {
@@ -537,7 +538,7 @@ test("sliding pages stay inside the card with a solid seam", async ({ page }, te
   }
 });
 
-test("side fades stay visible throughout page transitions", async ({ page }) => {
+test("card edges stay sharp throughout page transitions", async ({ page }) => {
   await page.addInitScript(() => {
     const original = document.startViewTransition.bind(document);
     document.startViewTransition = (update) => {
@@ -568,24 +569,22 @@ test("side fades stay visible throughout page transitions", async ({ page }) => 
   });
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
-  // A flat bright backdrop makes disappearing or moving edge masks measurable.
+  // A flat bright backdrop exposes fading at the card's sides.
   await page.addStyleTag({ content: `
     body { background: #999; }
     canvas[data-character-grid] { opacity: 0 !important; }
     [data-site-content]::after {
-      content: ""; position: absolute; top: var(--stripe-top, 666px); inset-inline: 0; height: 4px;
+      content: ""; position: absolute; top: var(--stripe-top, 666px); inset-inline: 0; height: 8px;
       z-index: 50; background: white; pointer-events: none;
     }
   ` });
   await page.locator('a[href="/projects/"]').scrollIntoViewIfNeeded();
   const edges = await page.locator(".site-card").evaluate((card) => {
-    const probe = document.createElement("div");
-    probe.style.cssText = "position: absolute; visibility: hidden; width: var(--surface-edge)";
-    card.append(probe);
-    const width = probe.getBoundingClientRect().width;
-    probe.remove();
+    const width = 16;
     const bounds = card.getBoundingClientRect();
-    return [bounds.left, bounds.right - width].map((x) => ({ x, y: 200, width, height: 400 }));
+    // Leave a CSS pixel for antialiasing at fractional device-pixel boundaries.
+    return [Math.ceil(bounds.left) + 1, Math.floor(bounds.right) - width - 1]
+      .map((x) => ({ x, y: 200, width, height: 400 }));
   });
   const profile = async (y = 200, height = 400) => {
     const values: number[] = [];
@@ -610,12 +609,11 @@ test("side fades stay visible throughout page transitions", async ({ page }) => 
     }
     return values;
   };
-  const before = await profile();
-  const expectFade = async () => {
+  const expectHardEdges = async () => {
     const current = await profile();
-    const difference = current.reduce((total, value, index) => total + Math.abs(value - before[index]), 0) / current.length;
-    expect(difference).toBeLessThan(8);
+    expect(Math.max(...current)).toBeLessThan(40);
   };
+  await expectHardEdges();
   for (const navigate of [
     () => page.locator('a[href="/projects/"]').evaluate((link) => (link as HTMLAnchorElement).click()),
     () => page.goBack(),
@@ -630,18 +628,17 @@ test("side fades stay visible throughout page transitions", async ({ page }) => 
           if (/page-(in|out)/.test(animation.animationName)) animation.currentTime = time;
         }
       }, time);
-      await expectFade();
-      // The same mask must fade foreground pixels, rather than only the glass.
+      await expectHardEdges();
+      // Foreground pixels must remain fully visible right up to both edges.
       const foreground = await profile(668, 1);
-      expect(foreground[Math.floor(foreground.length / 8)]).toBeLessThan(200);
-      expect(foreground[Math.floor(foreground.length * 7 / 8)]).toBeLessThan(200);
-      expect(foreground[Math.floor(foreground.length / 2) - 1]).toBeGreaterThan(240);
+      const brightness = foreground.reduce((total, value) => total + value, 0) / foreground.length;
+      expect(brightness).toBeGreaterThan(240);
     }
     await page.evaluate(() => {
       document.activeViewTransition?.skipTransition();
       return document.activeViewTransition?.finished;
     });
-    await expectFade();
+    await expectHardEdges();
   }
 });
 

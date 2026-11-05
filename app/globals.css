@@ -33,26 +33,12 @@
   --muted-foreground: #a3a3a3;
   --border: #242424;
   --page-gap: 1rem;
-  --surface-edge: 1.25rem;
-  --surface-padding: 2rem;
+  --surface-padding: 1rem;
   --resource-padding: var(--surface-padding);
-  --surface-mask: linear-gradient(
-    to right,
-    transparent,
-    rgb(0 0 0 / 16%) calc(var(--surface-edge) * 0.25),
-    rgb(0 0 0 / 50%) calc(var(--surface-edge) * 0.5),
-    rgb(0 0 0 / 84%) calc(var(--surface-edge) * 0.75),
-    #000 var(--surface-edge),
-    #000 calc(100% - var(--surface-edge)),
-    rgb(0 0 0 / 84%) calc(100% - var(--surface-edge) * 0.75),
-    rgb(0 0 0 / 50%) calc(100% - var(--surface-edge) * 0.5),
-    rgb(0 0 0 / 16%) calc(100% - var(--surface-edge) * 0.25),
-    transparent
-  );
   --viewport-fade-height: clamp(3rem, 8vh, 6rem);
   --viewport-top-fade-height: clamp(5rem, 11vh, 7.5rem);
-  --page-travel: min(100%, 60rem);
-  --page-inset: 0.125rem;
+  --page-travel: min(100%, 49.5rem);
+  --page-inset: 0.5rem;
 }
 
 @layer base {
@@ -95,12 +81,14 @@
   }
   .site-card {
     position: relative;
+    border-inline: 1px solid var(--border);
     --surface-opacity: 92%;
   }
   .viewport-glass {
     position: fixed;
     inset: 0 0 auto;
     height: var(--viewport-bottom, 100dvh);
+    border-inline: 1px solid transparent;
     z-index: 20;
     pointer-events: none;
   }
@@ -114,7 +102,6 @@
     background: rgb(11 11 11 / 94%);
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
-    mask-composite: intersect;
   }
   .viewport-glass::before {
     top: var(--menu-bottom, 0px);
@@ -129,14 +116,14 @@
       rgb(0 0 0 / 80%) 25%,
       rgb(0 0 0 / 35%) 60%,
       transparent
-    ), var(--surface-mask);
+    );
   }
   .viewport-glass::after {
     /* Cover space Firefox exposes below its reported viewport as controls collapse. */
     bottom: -100vh;
     height: calc(var(--viewport-fade-height) + 100vh);
     opacity: var(--bottom-fade, 0);
-    mask-image: linear-gradient(transparent, #000 var(--viewport-fade-height)), var(--surface-mask);
+    mask-image: linear-gradient(transparent, #000 var(--viewport-fade-height));
   }
   .surface {
     --muted-foreground: #b0b0b0;
@@ -152,11 +139,15 @@
     background: rgb(11 11 11 / var(--surface-opacity));
     -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);
-    mask-image: var(--surface-mask);
     pointer-events: none;
   }
   #site-header {
     --surface-opacity: 100%;
+  }
+  #site-header,
+  footer.guide,
+  .section {
+    --divider-inset: -1px;
   }
   #site-header::after {
     /* Cover content above the menu when iOS offsets it below floating controls. */
@@ -180,13 +171,6 @@
     z-index: 21;
     height: 0;
     border-top: 1px solid var(--border);
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      #000 0.75rem,
-      #000 calc(100% - 0.75rem),
-      transparent
-    );
     pointer-events: none;
   }
   .section::before,
@@ -286,12 +270,6 @@
   animation: none;
   z-index: 1;
   clip-path: inset(-100vh var(--page-inset));
-  /* Keep the glass edges stationary while the content slides. */
-  mask-image: var(--surface-mask);
-  mask-size: calc(100% - var(--page-inset) * 2) calc(100% + 200vh);
-  mask-position: center;
-  mask-repeat: no-repeat;
-  mask-clip: no-clip;
   -webkit-backdrop-filter: blur(1px);
   backdrop-filter: blur(1px);
 }
@@ -302,7 +280,7 @@
   animation-name: page-in;
 }
 :root[data-page-direction="back"] {
-  --page-travel: max(-100%, -60rem);
+  --page-travel: max(-100%, -49.5rem);
 }
 :root[data-page-transition] {
   scroll-behavior: auto;
@@ -336,15 +314,13 @@
 @media (min-width: 640px) {
   :root {
     --page-gap: 2.5rem;
-    --page-inset: max(1rem, calc((100% - 60rem) / 2));
-    --card-extension: clamp(0rem, calc((100vw - 54rem) / 2), 4rem);
-    --surface-edge: calc(1.25rem + var(--card-extension));
-    --surface-padding: calc(2.5rem + var(--card-extension));
+    --page-inset: max(1rem, calc((100% - 49.5rem) / 2));
+    --surface-padding: 2rem;
     --resource-padding: 1rem;
   }
   .shell,
   .viewport-glass {
-    width: min(100% - 2rem, 60rem);
+    width: min(100% - 2rem, 49.5rem);
   }
   .section {
     scroll-margin-top: 2.75rem;

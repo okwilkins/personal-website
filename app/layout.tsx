@@ -37,7 +37,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-GB" className="dark" data-scroll-behavior="smooth">
-      <body className="pt-[var(--page-gap)] pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:pb-[var(--page-gap)]">
+      <body className="pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:pt-[var(--page-gap)] sm:pb-[var(--page-gap)]">
         <CharacterGrid />
         <a
           href="#main"
