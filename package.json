@@ -38,7 +38,7 @@
         "@typescript/native": "npm:typescript@~7.0.2",
         "eslint": "^10.14.0",
         "eslint-config-next": "16.4.5",
-        "tailwindcss": "4.3.4",
+        "tailwindcss": "4.3.5",
         "typescript": "npm:@typescript/typescript6@^6.0.2"
     }
 }
