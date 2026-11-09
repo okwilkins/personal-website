@@ -32,6 +32,8 @@ nix develop --command pnpm test
 nix develop --command pnpm build
 ```
 
+The flake pins pnpm and Playwright. Run `nix develop --command sync-nix-tools` after updating the flake manually. Renovate syncs these versions and the npm lockfile in the same PR.
+
 ## Build an image
 
 ```sh
