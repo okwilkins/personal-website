@@ -1,5 +1,35 @@
 import { test, expect } from "@playwright/test";
 
+test("background view hides the foreground and restores the current place", async ({ page }) => {
+  for (const path of ["/", "/experience/"]) {
+    await page.goto(path);
+    await page.evaluate(() => scrollTo({ top: 300, behavior: "instant" }));
+    const position = await page.evaluate(() => scrollY);
+    const toggle = page.getByRole("button", { name: "Hide content", exact: true });
+    await toggle.focus();
+    await toggle.press("Enter");
+
+    const restore = page.getByRole("button", { name: "Show content", exact: true });
+    await expect(restore).toBeFocused();
+    await expect(restore).toHaveAttribute("aria-expanded", "false");
+    await expect(page.locator("#site-header")).toBeHidden();
+    await expect(page.locator(".site-card")).toBeHidden();
+    await expect(page.locator(".viewport-glass")).toBeHidden();
+    await expect(page.locator("canvas[data-character-grid]")).toBeVisible();
+    await expect(page.locator("#site-foreground")).toHaveAttribute("inert", "");
+    await page.keyboard.press("Space");
+
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await expect(page.locator("#site-header")).toBeVisible();
+    await expect(page.locator(".site-card")).toBeVisible();
+    expect(await page.evaluate(() => scrollY)).toBe(position);
+    const bounds = await toggle.boundingBox();
+    expect(bounds!.width).toBeGreaterThanOrEqual(44);
+    expect(bounds!.height).toBeGreaterThanOrEqual(44);
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(page.viewportSize()!.width);
+  }
+});
+
 test("profile, project preview, and navigation work without overflow", async ({
   page,
 }) => {

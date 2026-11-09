@@ -3,6 +3,7 @@ import { CharacterGrid } from "@/components/character-grid";
 import { ViewportGlass } from "@/components/viewport-glass";
 import { SiteFooter } from "@/components/site-chrome";
 import { NavigationMotion } from "@/components/navigation-motion";
+import { BackgroundView } from "@/components/background-view";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -39,23 +40,25 @@ export default function RootLayout({
     <html lang="en-GB" className="dark" data-scroll-behavior="smooth">
       <body className="pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:pt-[var(--page-gap)] sm:pb-[var(--page-gap)]">
         <CharacterGrid />
-        <a
-          href="#main"
-          className="fixed top-3 left-3 z-50 inline-flex min-h-11 -translate-y-24 items-center rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground focus:translate-y-0"
-        >
-          Skip to content
-        </a>
-        <NavigationMotion>
-          <div data-site-content className="relative z-10">
-            <ViewportGlass />
-            <div className="site-card shell">
-              <main id="main" tabIndex={-1}>
-                {children}
-              </main>
-              <SiteFooter />
+        <BackgroundView>
+          <a
+            href="#main"
+            className="fixed top-3 left-3 z-50 inline-flex min-h-11 -translate-y-24 items-center rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground focus:translate-y-0"
+          >
+            Skip to content
+          </a>
+          <NavigationMotion>
+            <div data-site-content className="relative z-10">
+              <ViewportGlass />
+              <div className="site-card shell">
+                <main id="main" tabIndex={-1}>
+                  {children}
+                </main>
+                <SiteFooter />
+              </div>
             </div>
-          </div>
-        </NavigationMotion>
+          </NavigationMotion>
+        </BackgroundView>
       </body>
     </html>
   );

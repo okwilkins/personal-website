@@ -109,7 +109,8 @@ export function CharacterGrid() {
       if (!animated() || lost || document.hidden || !delta) return;
       const root = document.documentElement;
       const bottom = Math.max(0, root.scrollHeight - root.clientHeight);
-      if ((delta < 0 && scrollY <= 1) || (delta > 0 && scrollY >= bottom - 1)) {
+      const backgroundOnly = document.getElementById("site-foreground")?.inert;
+      if (backgroundOnly || (delta < 0 && scrollY <= 1) || (delta > 0 && scrollY >= bottom - 1)) {
         field.scroll(delta);
         run();
       }
