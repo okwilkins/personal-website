@@ -24,6 +24,48 @@
           pkgs = nixpkgs.legacyPackages.${system};
           nodejs = pkgs.nodejs_26;
 
+          syncNixToolsScript =
+            assert pkgs.playwright-test.version == pkgs.playwright-driver.version;
+            ''
+              import json
+              import os
+              from pathlib import Path
+              import subprocess
+              import sys
+
+              if "--install-tools" in sys.argv[1:]:
+                  # INFO: install-tool is Containerbase's installer in the Renovate container
+                  # Only the bot uses it
+                  subprocess.run(["install-tool", "node", "${nodejs.version}"], check=True)
+                  subprocess.run(["install-tool", "pnpm", "${pkgs.pnpm.version}"], check=True)
+
+              manifest = json.loads(Path("package.json").read_text())
+              manifest["packageManager"] = "pnpm@${pkgs.pnpm.version}"
+              manifest["devDependencies"]["@playwright/test"] = "${pkgs.playwright-test.version}"
+              Path("package.json").write_text(json.dumps(manifest, indent=4) + "\n")
+
+              subprocess.run(
+                  [
+                      "pnpm", "install", "--lockfile-only",
+                      "--ignore-scripts", "--no-frozen-lockfile",
+                  ],
+                  check=True,
+                  env={**os.environ, "pnpm_config_pm_on_fail": "error"},
+              )
+            '';
+
+          syncNixTools = pkgs.writers.writePython3Bin "sync-nix-tools" {
+            makeWrapperArgs = [
+              "--prefix"
+              "PATH"
+              ":"
+              (pkgs.lib.makeBinPath [
+                nodejs
+                pkgs.pnpm
+              ])
+            ];
+          } syncNixToolsScript;
+
           browserEnvironment = {
             PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
             PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
@@ -53,6 +95,7 @@
               nodejs
               pkgs.pnpm
             ];
+            runtimeEnv.pnpm_config_pm_on_fail = "error";
             text = ''
               pnpm install --frozen-lockfile
               exec pnpm dev
@@ -65,6 +108,7 @@
             pkgs.playwright-test
             playwrightNode
             runSite
+            syncNixTools
             pkgs.git
             pkgs.curl
             pkgs.jq
@@ -73,7 +117,15 @@
           ];
         in
         {
-          devShells.default = pkgs.mkShell (browserEnvironment // { packages = tools; });
+          lib.syncNixTools = syncNixToolsScript;
+
+          devShells.default = pkgs.mkShell (
+            browserEnvironment
+            // {
+              packages = tools;
+              pnpm_config_pm_on_fail = "error";
+            }
+          );
 
           formatter = pkgs.nixfmt;
         }
