@@ -70,9 +70,9 @@ export default async function Home() {
           {site.role}
         </p>
         <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-          {site.intro}
-          <br />
-          {site.tagline}
+          {[site.intro, site.tagline, ...site.interests].map((sentence) => (
+            <span key={sentence} className="block">{sentence}</span>
+          ))}
         </p>
       </section>
 

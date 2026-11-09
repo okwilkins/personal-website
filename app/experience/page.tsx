@@ -18,9 +18,9 @@ export default function Experience() {
           Experience
         </h1>
         <p className="mt-5 max-w-lg text-sm leading-[1.75] text-muted-foreground">
-          {experienceIntro[0]}
-          <br />
-          {experienceIntro[1]}
+          {experienceIntro.map((sentence) => (
+            <span key={sentence} className="block">{sentence}</span>
+          ))}
         </p>
       </section>
 

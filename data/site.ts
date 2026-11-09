@@ -5,7 +5,11 @@ export const site = {
   location: "London, UK",
   intro: "I build LLM inference platforms on Kubernetes.",
   tagline:
-    "vLLM, NVIDIA Dynamo, and GPUs that should be working harder than they are.",
+    "Using vLLM and NVIDIA Dynamo to make GPUs earn their keep.",
+  interests: [
+    "CUDA enjoyer in the evenings.",
+    "Nix, Neovim and a terminal person always.",
+  ],
   email: "okwilkins@gmail.com",
   url: "https://okwilkins.dev",
   description:
@@ -23,8 +27,10 @@ export const socials = [
 ] as const;
 
 export const experienceIntro = [
-  "LLM inference on Kubernetes. vLLM, NVIDIA Dynamo, GPUs that should be working harder than they are.",
-  "CUDA enjoyer in the evenings. Nix, Neovim and a terminal person always. Sometimes I give talks about standing this stuff up on EKS.",
+  site.intro,
+  site.tagline,
+  ...site.interests,
+  "Sometimes I give talks about standing this stuff up on EKS.",
 ] as const;
 
 export const experience = [
