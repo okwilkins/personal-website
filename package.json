@@ -26,7 +26,7 @@
         "pino": "10.4.0",
         "react": "19.3.1",
         "react-dom": "19.3.1",
-        "tailwind-merge": "3.7.0",
+        "tailwind-merge": "3.7.1",
         "yaml": "^2.9.1"
     },
     "devDependencies": {
